@@ -44,7 +44,8 @@
 			"LalithK90.thymeleaf-html5-snippets",
 			"vscjava.vscode-lombok",
 			"juhahinkula.thymeleaf",
-			"vmware.vscode-spring-boot"
+			"vmware.vscode-spring-boot",
+			"PsykoSoldi3r.vscode-git-flow"
 		]
 		}
 	}

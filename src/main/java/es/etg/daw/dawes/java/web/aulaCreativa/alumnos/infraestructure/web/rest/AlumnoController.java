@@ -5,15 +5,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import es.etg.daw.dawes.java.web.aulaCreativa.alumnos.application.command.CreateAlumnoCommand;
 import es.etg.daw.dawes.java.web.aulaCreativa.alumnos.application.command.EditAlumnoCommand;
-import es.etg.daw.dawes.java.web.aulaCreativa.alumnos.application.service.alumnoService.CreateAlumnoService;
-import es.etg.daw.dawes.java.web.aulaCreativa.alumnos.application.service.alumnoService.DeleteAlumnoService;
-import es.etg.daw.dawes.java.web.aulaCreativa.alumnos.application.service.alumnoService.EditAlumnoService;
-import es.etg.daw.dawes.java.web.aulaCreativa.alumnos.application.service.alumnoService.FindAlumnoService;
+import es.etg.daw.dawes.java.web.aulaCreativa.alumnos.application.service.CreateAlumnoService;
+import es.etg.daw.dawes.java.web.aulaCreativa.alumnos.application.service.DeleteAlumnoService;
+import es.etg.daw.dawes.java.web.aulaCreativa.alumnos.application.service.EditAlumnoService;
+import es.etg.daw.dawes.java.web.aulaCreativa.alumnos.application.service.FindAlumnoService;
 import es.etg.daw.dawes.java.web.aulaCreativa.alumnos.domain.model.Alumno;
 import es.etg.daw.dawes.java.web.aulaCreativa.alumnos.infraestructure.mapper.AlumnoMapper;
 import es.etg.daw.dawes.java.web.aulaCreativa.alumnos.infraestructure.web.dto.AlumnoRequest;
 import es.etg.daw.dawes.java.web.aulaCreativa.alumnos.infraestructure.web.dto.AlumnoResponse;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;

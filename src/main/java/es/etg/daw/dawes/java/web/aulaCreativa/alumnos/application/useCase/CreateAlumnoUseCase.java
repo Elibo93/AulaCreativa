@@ -1,4 +1,4 @@
-package es.etg.daw.dawes.java.web.aulaCreativa.alumnos.application.useCase.alumnoUseCase;
+package es.etg.daw.dawes.java.web.aulaCreativa.alumnos.application.useCase;
 
 import java.time.LocalDateTime;
 
