@@ -1,21 +1,20 @@
-// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+
+	// For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/debian
 {
-	"name": "Debian",
+	"name": "alpine",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "mcr.microsoft.com/devcontainers/base:bookworm",
-	"features": {
-		"ghcr.io/devcontainers/features/java:1": {},
-		"ghcr.io/devcontainers-extra/features/maven-sdkman:2": {}
-	},
+	"image": "julparper/alpine_node_mvn_git_jdk:v2",
+	/*"features": { //repositorio de features: https://containers.dev/features
+		"ghcr.io/davzucky/devcontainers-features-wolfi/bash:1": {}
+		//,"ghcr.io/devcontainers/features/java:1": {} //java
+		//,"ghcr.io/roul/devcontainer-features/mise-java:1": {} //maven
+		//,"ghcr.io/devcontainers/features/git:1": {} //git
+	},*/
 
-	// Montaje SSH desactivado por defecto en Windows: la variable ${localEnv:HOME}
-	// no siempre existe en PowerShell y puede provocar errores al crear el contenedor.
-	// Si necesitas montar tu carpeta .ssh en Windows, reemplaza ${localEnv:HOME}
-	// por ${localEnv:USERPROFILE} y convierte la ruta a formato Windows (ej.:
-	// source=C:/Users/ely_p/.ssh). Ejemplo (activar solo si entiendes el riesgo):
+	//Montamos las claves ssh para que estén disponibles en el contenedor
 	"mounts": [
-	"source=${localEnv:USERPROFILE}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached"
+    "source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached"
 	],
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
