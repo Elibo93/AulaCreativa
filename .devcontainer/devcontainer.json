@@ -12,9 +12,10 @@
 	},*/
 
 	//Montamos las claves ssh para que estén disponibles en el contenedor
-	"mounts": [
-    "source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached"
-	],
+    "mounts": [
+    // En Windows el env HOME puede no estar definido; usar USERPROFILE para obtener C:\Users\<user>
+    "source=${localEnv:USERPROFILE}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached"
+    ],
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
