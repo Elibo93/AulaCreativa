@@ -4,11 +4,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.command.CreateAlumnoCommand;
-import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.command.EditAlumnoCommand;
-import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.service.CreateAlumnoService;
-import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.service.DeleteAlumnoService;
-import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.service.EditAlumnoService;
-import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.service.FindAlumnoService;
+
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.command.alumnos.EditAlumnoCommand;
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.service.alumnos.CreateAlumnoService;
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.service.alumnos.DeleteAlumnoService;
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.service.alumnos.EditAlumnoService;
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.service.alumnos.FindAlumnoService;
+
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.Alumno;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.mapper.AlumnoMapper;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.web.dto.AlumnoRequest;
