@@ -1,4 +1,4 @@
-package es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.repository;
+package es.etg.daw.dawes.java.web.aulaCreativa.common.domain.repository;
 
 import java.util.List;
 import java.util.Optional;

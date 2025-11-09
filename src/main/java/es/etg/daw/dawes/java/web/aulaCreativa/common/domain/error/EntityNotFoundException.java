@@ -1,4 +1,4 @@
-package es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.error;
+package es.etg.daw.dawes.java.web.aulaCreativa.common.domain.error;
 
 public class EntityNotFoundException extends RuntimeException{
 
