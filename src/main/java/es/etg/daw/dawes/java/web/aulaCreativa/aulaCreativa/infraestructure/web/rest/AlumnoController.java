@@ -3,7 +3,7 @@ package es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.web.
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.command.CreateAlumnoCommand;
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.command.alumnos.CreateAlumnoCommand;
 
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.command.alumnos.EditAlumnoCommand;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.service.alumnos.CreateAlumnoService;

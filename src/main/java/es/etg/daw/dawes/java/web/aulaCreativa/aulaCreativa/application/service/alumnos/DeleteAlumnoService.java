@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class DeleteAlumnoService {
     
-     private final DeleteAlumnoUseCase deleteAlumnoUseCase;
+    private final DeleteAlumnoUseCase deleteAlumnoUseCase;
 
     public void delete(AlumnoId id) {
         DeleteAlumnoUseCase.delete(id);

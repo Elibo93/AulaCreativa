@@ -1,11 +1,7 @@
 package es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.mapper;
 
-import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.command.CreateAlumnoCommand;
-<<<<<<< HEAD
-import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.command.EditAlumnoCommand;
-=======
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.command.alumnos.CreateAlumnoCommand;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.command.alumnos.EditAlumnoCommand;
->>>>>>> 10a31632194653131cc64149c35db9e45d4ec4f2
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.Alumno;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.web.dto.AlumnoRequest;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.web.dto.AlumnoResponse;

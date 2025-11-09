@@ -4,9 +4,11 @@ import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.command.a
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.error.AlumnoNotFoundException;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.Alumno;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.repository.AlumnoRepository;
+import lombok.AllArgsConstructor;
 
+@AllArgsConstructor
 public class EditAlumnoUseCase {
-    private final AlumnoProductoRepository alumnoRepository;
+    private final AlumnoRepository alumnoRepository;
 
     public Alumno update(EditAlumnoCommand command) {
         return AlumnoRepository.getById(command.id())

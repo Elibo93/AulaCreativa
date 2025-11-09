@@ -1,5 +1,6 @@
 package es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.useCase.alumnos;
 
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.repository.AlumnoRepository;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

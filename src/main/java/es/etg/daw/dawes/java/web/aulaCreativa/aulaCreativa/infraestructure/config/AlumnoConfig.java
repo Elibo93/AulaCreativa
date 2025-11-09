@@ -1,10 +1,5 @@
 package es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.config;
 
-<<<<<<< HEAD
-public class AlumnoConfig {
-
-}
-=======
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -69,7 +64,3 @@ public class AlumnoConfig {
         return new EditAlumnoService(editAlumnoUseCase());
     }
 }
-
-
-
->>>>>>> 10a31632194653131cc64149c35db9e45d4ec4f2
