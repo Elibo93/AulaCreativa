@@ -1,5 +1,6 @@
 package es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.command.alumnos;
 
+import es.etg.daw.dawes.java.web.aulaCreativa.common.domain.model.AlumnoId;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.experimental.Accessors;
@@ -9,7 +10,7 @@ import lombok.experimental.Accessors;
 @Accessors(fluent = true)
 public class EditAlumnoCommand {
 
-    private int id;
+    private AlumnoId id;
     private String email;
     private String telefono;
     private String direccion;

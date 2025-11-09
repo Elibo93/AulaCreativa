@@ -1,5 +1,7 @@
 package es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.error;
 
+import es.etg.daw.dawes.java.web.aulaCreativa.common.domain.error.EntityNotFoundException;
+
 public class AlumnoNotFoundException extends EntityNotFoundException{
 
     //Atributos

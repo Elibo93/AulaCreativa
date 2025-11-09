@@ -11,7 +11,7 @@ public class EditAlumnoUseCase {
     private final AlumnoRepository alumnoRepository;
 
     public Alumno update(EditAlumnoCommand command) {
-        return AlumnoRepository.getById(command.id())
+        return alumnoRepository.getById(command.id())
                 .map(p -> { // Actualizamos los atributos del objeto
                     p.setNombre(command.nombre());
                     p.setApellido(command.apellido());

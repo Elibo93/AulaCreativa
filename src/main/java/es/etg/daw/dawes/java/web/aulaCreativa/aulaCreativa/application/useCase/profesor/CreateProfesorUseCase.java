@@ -1,12 +1,17 @@
 package es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.useCase.profesor;
 
+import java.time.LocalDateTime;
+
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.command.profesor.CreateProfesorCommand;
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.Profesor;
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.repository.ProfesorRepository;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class CreateProfesorUseCase {
 
     //Atributos
-    private final ProfesorRepository profesorRespository;
+    private final ProfesorRepository profesorRepository;
 
     //Metodo para crear un profesor
     public Profesor create(CreateProfesorCommand comando) {
