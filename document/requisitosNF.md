@@ -1,0 +1,5 @@
+- ### Requisitos no Funcionales
+  - La aplicación debe ser **responsive** y accesible.  
+  - Base de datos persistente en **MySQL / Oracle / PostgreSQL**.  
+  - Tiempo de respuesta inferior a 2 segundos por acción.  
+  - Seguridad mediante cifrado de contraseñas y sesiones.  

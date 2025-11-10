@@ -1,0 +1,5 @@
+- ### Requisitos Funcionales
+    - El usuario **debe autenticarse** para acceder a su panel.  
+    - El administrador **puede crear, editar o eliminar talleres, profesores y alumnos**.  
+    - El profesor **marca la asistencia** de los alumnos inscritos.  
+    - El sistema **calcula los pagos mensuales automáticamente**.

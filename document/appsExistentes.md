@@ -1,0 +1,4 @@
+- ### Que apps existen actualmente
+  - **Google Classroom:** centrada en tareas y comunicación, no en gestión administrativa.  
+  - **Additio App:** gestión docente, pero no está enfocada a talleres artísticos.  
+  - **ClassDojo:** orientada a primaria y motivación, sin gestión de pagos ni inscripciones.
