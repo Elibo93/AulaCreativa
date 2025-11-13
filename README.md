@@ -21,49 +21,44 @@
   - [**Qué apps existen actualmente**](documnet/appsExistentes.md)  
   - [**Por qué mi aplicación es mejor**](document/miAppEsMejor.md) 
     - **Casos de uso - F**
-        - [**Actores externos:**](document/actoresExternos.md)  
+        - [Actores externos:](document/actoresExternos.md)  
     - **Requisitos F y NF:**
 
-      - [**Requisitos funcionales (F)**](document/requisitosF.md)
-      - [**Requisitos no funcionales (NF)**](document/requisitosNF.md)
+      - [Requisitos funcionales (F)](document/requisitosF.md)
+      - [Requisitos no funcionales (NF)](document/requisitosNF.md)
 
 ---
 
 - **Diseño**
   - **GUI (Interfaz Gráfica)**
-
-    - UI (Vistas)
-
-    - UX (Usabilidad)
-
-    - IxD (Interacción)
-
-    - Diagrama de navegación
-
-    - Reutilización
+    - [UI (Vistas)](document/UI.md)
+    - [UX (Usabilidad)](document/UX.md)
+    - [IxD (Interacción)](document/IxD.md)
+    - [Diagrama de navegación](document/diagramaNavegacion.md)
+    - [Reutilización](document/reutilizacion.md)
 
   - **Arquitectura**
-    - Despliegue
-    - Componentes
-  - **Diseño de los servicios REST**
-  - **Base de datos**
-  - **Paquetes, Interfaces y Clases**
-  - **Plan de pruebas**
+    - [Despliegue](document/despliegue.md)
+    - [Componentes](document/componenentes.md)
+  - [**Diseño de los servicios REST**](document/diseñoServiciosREST.md)
+  - [**Base de datos**](document/db.md)
+  - [**Paquetes, Interfaces y Clases**](document/packIntClass.md)
+  - [**Plan de pruebas**](document/planPruebas.md)
   
 ---
 
 - **Implementación**
   - **Entorno de Desarrollo:**
-    - Implantación/Puesta en producción
+    - [Implantación/Puesta en producción](document/implantacion.md)
 
 ---
 
 - **Capturas de la ejecución de la funcionalidad**
-  - **Ejecución de las pruebas**
+  - [**Ejecución de las pruebas**](document/ejecucionPruebas.md)
 
 ---
 
-- **Información sobre la versión de las herramientas utilizadas**
+- [**Información sobre la versión de las herramientas utilizadas**](document/infoVersion.md)
 
 ---
 
