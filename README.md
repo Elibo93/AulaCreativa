@@ -16,9 +16,9 @@
 
 ---
 
-- [**Contexto de la aplicación**](document/contexto.md)
+- **Contexto de la aplicación**
   - [**Mundo real del problema**](document/mundoReal.md)
-  - [**Qué apps existen actualmente**](documnet/appsExistentes.md)  
+  - [**Qué apps existen actualmente**](document/appsExistentes.md)  
   - [**Por qué mi aplicación es mejor**](document/miAppEsMejor.md) 
     - **Casos de uso - F**
         - [Actores externos:](document/actoresExternos.md)  
