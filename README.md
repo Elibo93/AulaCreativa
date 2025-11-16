@@ -1,9 +1,8 @@
-## **Documentación**
-#### Proyecto Entorno Servidor — Aplicación Web Aula Creativa
-
+### **Documentación**
 ---
+#### Aplicación Web **Aula Creativa**
 
-- **Nombre de la aplicación: Artia**
+##### Nombre de la aplicación: Artia
   - **Versión:** 1.0  
     **Autor:** Diego y Ely
     **Fecha:** 10/11/2025
@@ -14,9 +13,8 @@
     | Diego | Romero Vera | Desarrollador colaborativo |
     | Elisabeth | Bargalló Ortiz | Desarrolladora colaborativa |
 
----
 
-- **Contexto de la aplicación**
+##### Contexto de la aplicación**
   - [**Mundo real del problema**](document/mundoReal.md)
   - [**Qué apps existen actualmente**](document/appsExistentes.md)  
   - [**Por qué mi aplicación es mejor**](document/miAppEsMejor.md) 
@@ -27,9 +25,7 @@
       - [Requisitos funcionales (F)](document/requisitosF.md)
       - [Requisitos no funcionales (NF)](document/requisitosNF.md)
 
----
-
-- **Diseño**
+##### Diseño
   - **GUI (Interfaz Gráfica)**
     - [UI (Vistas)](document/UI.md)
     - [UX (Usabilidad)](document/UX.md)
@@ -44,40 +40,24 @@
   - [**Base de datos**](document/db.md)
   - [**Paquetes, Interfaces y Clases**](document/packIntClass.md)
   - [**Plan de pruebas**](document/planPruebas.md)
-  
----
 
-- **Implementación**
-  - **Entorno de Desarrollo:**
+##### Implementación
+  - [**Entorno de Desarrollo**](document/entornoDesarrollo.md)
     - [Implantación/Puesta en producción](document/implantacion.md)
 
----
-
-- **Capturas de la ejecución de la funcionalidad**
+##### Capturas de la ejecución de la funcionalidad
   - [**Ejecución de las pruebas**](document/ejecucionPruebas.md)
 
----
+##### [Información sobre la versión de las herramientas utilizadas](document/infoVersion.md)
 
-- [**Información sobre la versión de las herramientas utilizadas**](document/infoVersion.md)
+##### [Elementos destacables del desarrollo](document/elementosDestacables.md)
 
----
+##### [Manual de usuario](document/manual.md) 
 
-- **Elemenetos destacables del desarrollo**
+##### Conclusiones - sobre la marcha
+  - [**Realizar de manera individual**](document/conclusiones.md)
 
----
+##### [Bibliografía](document/bibliografia.md)
 
-- **Manual de usuario**
-
----
-
-- **Conclusiones - sobre la marcha**
-  - **Realizar de manera individual**
-
----
-
-- **Bibliografía**
-  
----
-
-- **Anexos**
+##### [Anexos](document/anexos.md)
 

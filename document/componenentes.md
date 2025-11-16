@@ -1,6 +1,6 @@
 
 ### Componentes
-
+---
 En este subapartado describimos los **componentes principales** que forman parte de la aplicación, entendidos como las partes lógicas que se encargan de funciones específicas dentro del sistema. Como todavía estamos en una fase de desarrollo inicial, mantenemos una estructura **mínima y ampliable**, de forma que podamos añadir nuevos componentes más adelante sin modificar este apartado por completo.
 
 Los componentes que consideramos actualmente son:

@@ -1,6 +1,6 @@
 ### Casos de uso – F (Actores externos a la aplicación)
-
-En este apartado describo los **casos de uso** relacionados con los **actores externos** que interactúan con la aplicación, es decir, aquellos usuarios que no forman parte del sistema internamente, pero que sí lo utilizan para realizar acciones concretas. En Aula Creativa, estos actores serían principalmente **Alumnos**, **Profesores** y **Administración**.
+---
+En este apartado se describe los **casos de uso** relacionados con los **actores externos** que interactúan con la aplicación, es decir, aquellos usuarios que no forman parte del sistema internamente, pero que sí lo utilizan para realizar acciones concretas. En Aula Creativa, estos actores serían principalmente **Alumnos**, **Profesores** y **Administración**.
 
 A continuación, se resumen las acciones más importantes que realiza cada uno:
 

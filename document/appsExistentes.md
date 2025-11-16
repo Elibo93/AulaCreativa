@@ -1,8 +1,8 @@
 ### Qué apps existen actualmente
-
+---
 En el mercado existen varias aplicaciones educativas, pero ninguna se ajusta del todo a las necesidades de un centro de **talleres artísticos** como *Aula Creativa*. A continuación se describen algunas de las más conocidas y sus limitaciones.
 
-#### Google Classroom
+####  Google Classroom
 
 Es una herramienta muy usada para **gestionar tareas**, compartir material y comunicarse con los alumnos. Sin embargo, no está pensada para la **gestión administrativa**, por lo que no permite controlar **pagos**, **inscripciones** o la organización específica de talleres.
 
@@ -13,5 +13,8 @@ Ofrece funciones de **gestión docente**, planificación y comunicación, pero e
 #### ClassDojo
 
 Es una app centrada en la **motivación** y la comunicación con las familias, sobre todo en primaria. Aunque es útil para mantener contacto, no incluye módulos de **inscripciones**, **pagos** o **gestión económica**, por lo que no cubre las necesidades de un centro como este.
+
+En **adición** otra app a tener en cuenta es el sistema de **Aula Virtual de EducaMadrid**, Esta bien para crear cursos y compartir material, pero está pensada sobre todo para el trabajo online y esta ha sido desarrollada principalmente para centros públicos por lo que no tiene opciones de pagos, inscripciones o gestión de talleres, así que **no termina de ajustarse a lo que necesita un centro pequeño con actividades presenciales y organización propia** como lo hace nuestra app.
+
 
 [Volver](/README.md)

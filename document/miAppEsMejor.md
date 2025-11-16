@@ -1,5 +1,5 @@
-### **Por qué mi aplicación es mejor**
-
+### Por qué mi aplicación es mejor
+---
 Mi aplicación destaca frente a otras porque reúne en una sola herramienta todo lo que realmente necesita un centro como **Aula Creativa**:
 
 * Gestión completa de **talleres**, **profesores** y **alumnos** sin depender de varias apps.

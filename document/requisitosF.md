@@ -1,6 +1,6 @@
 ### Requisitos funcionales (F)
-
-En este apartado describo las funciones principales que mi aplicación debe realizar para que cumpla con lo que necesita un centro como **Aula Creativa**. Son requisitos basados en cómo debería comportarse la app desde el punto de vista del usuario.
+---
+En este apartado se describe las funciones principales que nuestra aplicación debe realizar para que cumpla con lo que necesita un centro como **Aula Creativa**. Son requisitos basados en cómo debería comportarse la app desde el punto de vista del usuario.
 
 * La aplicación debe permitir gestionar **alumnos**, **profesores** y **talleres**.
 * Debe poder registrar **inscripciones** de alumnos en los distintos talleres.

@@ -1,5 +1,5 @@
 ### Despliegue
-
+---
 En este subapartado se describe **cómo se va a ejecutar y publicar la aplicación** una vez desarrollada. Aunque algunos detalles aún están por definir, aquí se incluye lo esencial que debe aparecer:
 
 * **Entorno de ejecución**: indicar que la aplicación está desarrollada con **Spring Boot Web** y que se ejecutará sobre un entorno **Linux** (actualmente usando un contenedor basado en **Alpine** durante el desarrollo).

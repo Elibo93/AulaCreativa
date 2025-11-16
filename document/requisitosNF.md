@@ -1,5 +1,5 @@
 ### Requisitos no funcionales (NF)
-
+---
 Estos requisitos no dependen directamente de la lógica del negocio, sino de cómo debe ser la aplicación a nivel de calidad, rendimiento y usabilidad. Son cosas que hacen que la app sea más profesional y agradable de usar.
 
 * La aplicación debe tener una **interfaz clara y fácil de usar**, adecuada para usuarios sin conocimientos técnicos.
