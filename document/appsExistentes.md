@@ -14,7 +14,7 @@ Ofrece funciones de **gestión docente**, planificación y comunicación, pero e
 
 Es una app centrada en la **motivación** y la comunicación con las familias, sobre todo en primaria. Aunque es útil para mantener contacto, no incluye módulos de **inscripciones**, **pagos** o **gestión económica**, por lo que no cubre las necesidades de un centro como este.
 
-En **adición** otra app a tener en cuenta es el sistema de **Aula Virtual de EducaMadrid**, Esta bien para crear cursos y compartir material, pero está pensada sobre todo para el trabajo online y esta ha sido desarrollada principalmente para centros públicos por lo que no tiene opciones de pagos, inscripciones o gestión de talleres, así que **no termina de ajustarse a lo que necesita un centro pequeño con actividades presenciales y organización propia** como lo hace nuestra app.
+En **adición** otra app a tener en cuenta es el sistema de **Aula Virtual de EducaMadrid**, Está bien para crear cursos y compartir material, pero está pensada sobre todo para el trabajo online y esta ha sido desarrollada especialmente para centros públicos por lo que no tiene opciones de pagos, inscripciones o gestión de talleres, así que **no termina de ajustarse a lo que necesita un centro pequeño con actividades presenciales y organización propia** como lo hace nuestra app.
 
 
 [Volver](/README.md)

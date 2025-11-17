@@ -1,22 +1,5 @@
 package es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.web.rest;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.command.alumnos.CreateAlumnoCommand;
-
-import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.command.alumnos.EditAlumnoCommand;
-import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.service.alumnos.CreateAlumnoService;
-import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.service.alumnos.DeleteAlumnoService;
-import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.service.alumnos.EditAlumnoService;
-import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.service.alumnos.FindAlumnoService;
-
-import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.Alumno;
-import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.mapper.AlumnoMapper;
-import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.web.dto.AlumnoRequest;
-import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.web.dto.AlumnoResponse;
-import lombok.RequiredArgsConstructor;
-
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -27,12 +10,27 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.command.alumnos.CreateAlumnoCommand;
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.command.alumnos.EditAlumnoCommand;
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.service.alumnos.CreateAlumnoService;
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.service.alumnos.DeleteAlumnoService;
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.service.alumnos.EditAlumnoService;
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.service.alumnos.FindAlumnoService;
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.Alumno;
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.mapper.AlumnoMapper;
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.web.dto.AlumnoRequest;
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.web.dto.AlumnoResponse;
+import es.etg.daw.dawes.java.web.aulaCreativa.common.domain.model.AlumnoId;
+import lombok.RequiredArgsConstructor;
 
 
 
 
 @RestController
-@RequestMapping("/alumnos") // La url para los alumnos será /alumnos
+@RequestMapping("api/v1/alumnos") // La url para los alumnos será api/v1/alumnos
 @RequiredArgsConstructor
 public class AlumnoController {
     private final CreateAlumnoService createAlumnoService;
@@ -60,12 +58,12 @@ public class AlumnoController {
 
     @DeleteMapping("/{id}") // Método Delete
     public ResponseEntity<?> deleteAlumno(@PathVariable int id) {
-        deleteAlumnoService.delete(id);
+        deleteAlumnoService.delete(new AlumnoId(id));
         return ResponseEntity.noContent().build(); // Devpñvemos una respuesta vacía.
     }
 
     @PutMapping("/{id}") // Método Put
-    public AlumnoResponse editProducto(@PathVariable int id, @RequestBody AlumnoRequest alumnoRequest) {
+    public AlumnoResponse editAlumno(@PathVariable int id, @RequestBody AlumnoRequest alumnoRequest) {
         EditAlumnoCommand comando = AlumnoMapper.toCommand(id, alumnoRequest);
         Alumno alumno = editAlumnoService.update(comando);
         return AlumnoMapper.toResponse(alumno); // Respuesta

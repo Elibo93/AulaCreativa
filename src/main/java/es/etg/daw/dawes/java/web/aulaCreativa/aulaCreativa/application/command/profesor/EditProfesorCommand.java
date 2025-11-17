@@ -12,8 +12,6 @@ public class EditProfesorCommand {
 
     //Atributos
     private ProfesorId id;
-    private String nombre;
-    private String apellido;
     private String especialidad;
 	private String email;
 	private String telefono;

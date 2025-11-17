@@ -14,7 +14,7 @@
     | Elisabeth | Bargalló Ortiz | Desarrolladora colaborativa |
 
 
-##### Contexto de la aplicación**
+##### Contexto de la aplicación
   - [**Mundo real del problema**](document/mundoReal.md)
   - [**Qué apps existen actualmente**](document/appsExistentes.md)  
   - [**Por qué mi aplicación es mejor**](document/miAppEsMejor.md) 

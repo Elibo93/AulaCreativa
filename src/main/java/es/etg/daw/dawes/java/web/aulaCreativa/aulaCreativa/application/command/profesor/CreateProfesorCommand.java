@@ -11,8 +11,8 @@ public class CreateProfesorCommand {
 
     //Atributos
     private String nombre;
-    private String especialidad;
 	private String apellido;
+    private String especialidad;
 	private String email;
 	private String telefono;
     

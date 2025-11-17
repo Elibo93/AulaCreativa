@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class FindAlumnoService {
 
-     private final FindAlumnoUseCase findAlumnoUseCase;
+    private final FindAlumnoUseCase findAlumnoUseCase;
 
     public List<Alumno> findAll() {
         return findAlumnoUseCase.findAll();
