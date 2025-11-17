@@ -24,6 +24,7 @@ import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.mappe
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.web.dto.profesor.ProfesorRequest;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.web.dto.profesor.ProfesorResponse;
 import es.etg.daw.dawes.java.web.aulaCreativa.common.domain.model.ProfesorId;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -38,7 +39,7 @@ public class ProfesorController {
     private final EditProfesorService editProfesorService;
 
     @PostMapping
-    public ResponseEntity<ProfesorResponse> createProducto(@RequestBody ProfesorRequest profesorRequest) {
+    public ResponseEntity<ProfesorResponse> createProducto(@Valid@RequestBody ProfesorRequest profesorRequest) {
         CreateProfesorCommand comando = ProfesorMapper.toCommand(profesorRequest);
         Profesor profesor = createProfesorService.createProfesor(comando);
         return ResponseEntity.status(HttpStatus.CREATED).body(ProfesorMapper.toResponse(profesor)); // Respuestagit@github.com:julparper/dawes-springboot-restful.git
@@ -56,7 +57,7 @@ public class ProfesorController {
     }
 
     @PutMapping("/{id}")
-    public ProfesorResponse editProfesor(@PathVariable int id, @RequestBody ProfesorRequest profesorRequest) {
+    public ProfesorResponse editProfesor(@PathVariable int id, @Valid@RequestBody ProfesorRequest profesorRequest) {
         EditProfesorCommand comando = ProfesorMapper.toCommand(id, profesorRequest);
         Profesor profesor = editProfesorService.update(comando);
         return ProfesorMapper.toResponse(profesor); // Respuesta
