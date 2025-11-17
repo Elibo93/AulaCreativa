@@ -1,4 +1,4 @@
-### **Documentación**
+### **Documentación comentario: poner titulo llamativo con imagirrunchas, dibujinchis**
 ---
 #### Aplicación Web **Aula Creativa**
 
@@ -34,8 +34,8 @@
     - [Reutilización](document/reutilizacion.md)
 
   - **Arquitectura**
-    - [Despliegue](document/despliegue.md)
-    - [Componentes](document/componenentes.md)
+    - [Despliegue comentario: Spring boot Web](document/despliegue.md)
+    - [Componentes comentarios: definir aplicattion, domain, infraestructure](document/componenentes.md)
   - [**Diseño de los servicios REST**](document/diseñoServiciosREST.md)
   - [**Base de datos**](document/db.md)
   - [**Paquetes, Interfaces y Clases**](document/packIntClass.md)
