@@ -1,5 +1,7 @@
 package es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.db.jpa.entity;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Basic;
@@ -55,4 +57,7 @@ public class AlumnoEntity {
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
+
+   
+
 }
