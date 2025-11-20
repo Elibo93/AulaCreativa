@@ -8,6 +8,7 @@ import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.command.a
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.command.alumnos.EditAlumnoCommand;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.Alumno;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.AlumnoId;
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.db.jpa.entity.AlumnoEntity;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.web.dto.AlumnoRequest;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.web.dto.AlumnoResponse;
 
@@ -22,26 +23,31 @@ public class AlumnoMapper {
         return new EditAlumnoCommand(new AlumnoId(id), AlumnoRequest.nombre(), AlumnoRequest.precio(), new CategoriaId(AlumnoRequest.categoriaId()));
     }
 
-    public static AlumnoResponse toResponse(Alumno Alumno) {
+    public static AlumnoResponse toResponse(Alumno alumno) {
         return new AlumnoResponse(Alumno.getId().getValue(), // lo pasamos a int
-                Alumno.getNombre(),
-                Alumno.getPrecio(),
-                Alumno.getCreatedAt(),
-                Alumno.getCategoria().getValue());// Agregamos la categoria.
+                alumno.getNombre(),
+                alumno.getApellido(),
+                alumno.getEmail(),
+                alumno.getTelefono(),
+                alumno.getDireccion(),
+                alumno.getFecha_alta(),
+                alumno.getCreatedAt(),
+                alumno.getIsActivo()
+        );
     }
 
     public static AlumnoEntity toEntity(Alumno p){
+        return AlumnoEntity.builder().id(p.getId().getValue())
+                                 .nombre(p.getNombre())
+                                 .apellido(p.getApellido())
+                                 .email(p.getEmail())
+                                 .telefono(p.getTelefono())
+                                 .direccion(p.getDireccion())
+                                 .fecha_alta(p.getFecha_alta())
+                                 .activo(p.isActivo())
 
-        // Defino la categoría
-        CategoriaEntity cat = new CategoriaEntity();
-        cat.setId(p.getCategoria().getValue());
-        AlumnoId id = p.getId();
-        return AlumnoEntity.builder().id(id!=null?id.getValue():null)
-                                        .nombre(p.getNombre())
-                                       .precio(new BigDecimal(p.getPrecio()))
-                                       .fechaCreacion(p.getCreatedAt())
-                                       .categoria(cat)
-                                       .build();
+                                 .fechaCreacion(p.getCreatedAt())
+                                 .build();
 
     }
 
