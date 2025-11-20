@@ -1,16 +1,22 @@
 package es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.web.rest;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.command.alumnos.CreateAlumnoCommand;
@@ -39,7 +45,7 @@ public class AlumnoController {
     private final EditAlumnoService editAlumnoService;
 
     @PostMapping // Método Post
-    public ResponseEntity<AlumnoResponse> createProducto(@RequestBody AlumnoRequest alumnoRequest) {
+    public ResponseEntity<AlumnoResponse> createAlumno(@RequestBody AlumnoRequest alumnoRequest) {
         CreateAlumnoCommand comando = AlumnoMapper.toCommand(alumnoRequest);
         Alumno alumno = createAlumnoService.createAlumno(comando);
         return ResponseEntity.status(HttpStatus.CREATED).body(AlumnoMapper.toResponse(alumno)); // Respuestagit@github.com:julparper/dawes-springboot-restful.git
@@ -50,8 +56,8 @@ public class AlumnoController {
 
         return findAlumnoService.findAll()
                 .stream() // Convierte la lista en un flujo
-                .map(AlumnoMapper::toResponse) // Mapeamos/Convertimos cada elemento del flujo (Producto) en un objeto
-                // de Respuesta (ProductoResponse)
+                .map(AlumnoMapper::toResponse) // Mapeamos/Convertimos cada elemento del flujo (Alumno) en un objeto
+                // de Respuesta (AlumnoResponse)
                 .toList(); // Lo devuelve como una lista.
 
     }
@@ -63,10 +69,24 @@ public class AlumnoController {
     }
 
     @PutMapping("/{id}") // Método Put
-    public AlumnoResponse editProducto(@PathVariable int id, @RequestBody AlumnoRequest alumnoRequest) {
+    public AlumnoResponse editAlumno(@PathVariable int id, @RequestBody AlumnoRequest alumnoRequest) {
         EditAlumnoCommand comando = AlumnoMapper.toCommand(id, alumnoRequest);
         Alumno alumno = editAlumnoService.update(comando);
         return AlumnoMapper.toResponse(alumno); // Respuesta
+    }
+
+    // Método que captura los errores y devuelve un mapa con el campo que no cumple
+    // la validación y un mensaje de error.
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
+        Map<String, String> errors = new HashMap<>();
+        ex.getBindingResult().getAllErrors().forEach((error) -> {
+            String fieldName = ((FieldError) error).getField();
+            String errorMessage = error.getDefaultMessage();
+            errors.put(fieldName, errorMessage);
+        });
+        return errors;
     }
 
 

@@ -16,5 +16,6 @@ public class EditAlumnoCommand {
     private String email;
     private String telefono;
     private String direccion;
+    private String fechaNacimiento;
 
 }

@@ -9,6 +9,10 @@ import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.service.p
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.service.profesor.FindProfesorService;
 import lombok.RequiredArgsConstructor;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/profesores") // La url para los profesores será /profesores
 @RequiredArgsConstructor
@@ -34,3 +38,4 @@ public class ProfesorController {
 
 
 }
+

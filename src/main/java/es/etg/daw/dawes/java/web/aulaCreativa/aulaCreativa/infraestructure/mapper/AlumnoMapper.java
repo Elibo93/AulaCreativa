@@ -1,8 +1,7 @@
 package es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.mapper;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.command.alumnos.CreateAlumnoCommand;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.command.alumnos.EditAlumnoCommand;
@@ -14,65 +13,85 @@ import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.web.d
 
 public class AlumnoMapper {
 
-    public static CreateAlumnoCommand toCommand(AlumnoRequest AlumnoRequest) {
-        return new CreateAlumnoCommand(AlumnoRequest.nombre(), AlumnoRequest.precio(), new CategoriaId(AlumnoRequest.categoriaId()));
+    // REQUEST -> CREATE COMMAND
+    public static CreateAlumnoCommand toCommand(AlumnoRequest req) {
+        return new CreateAlumnoCommand(
+                req.nombre(),
+                req.apellido(),
+                req.email(),
+                req.telefono(),
+                req.direccion(),
+                req.fechaNacimiento()
+               
+        );
     }
 
-    public static EditAlumnoCommand toCommand(int id, AlumnoRequest AlumnoRequest) {
-        // pasamos del int a AlumnoId
-        return new EditAlumnoCommand(new AlumnoId(id), AlumnoRequest.nombre(), AlumnoRequest.precio(), new CategoriaId(AlumnoRequest.categoriaId()));
-    }
+    // REQUEST -> EDIT COMMAND
+   public static EditAlumnoCommand toCommand(int id, AlumnoRequest req) {
+    return new EditAlumnoCommand(
+            new AlumnoId(id),
+            req.nombre(),
+            req.apellido(),
+            req.email(),
+            req.telefono(),
+            req.direccion(),
+            req.fechaNacimiento()
+    );
+}
 
+    // DOMAIN -> RESPONSE
     public static AlumnoResponse toResponse(Alumno alumno) {
-        return new AlumnoResponse(Alumno.getId().getValue(), // lo pasamos a int
+        return new AlumnoResponse(
+                alumno.getId() != null ? alumno.getId().getValue() : 0,
                 alumno.getNombre(),
                 alumno.getApellido(),
                 alumno.getEmail(),
                 alumno.getTelefono(),
                 alumno.getDireccion(),
-                alumno.getFecha_alta(),
-                alumno.getCreatedAt(),
-                alumno.getIsActivo()
+                alumno.getFechaNacimiento(),
+                alumno.getFechaAlta(),
+                alumno.isActivo(),
+                alumno.getCreatedAt()
         );
     }
 
-    public static AlumnoEntity toEntity(Alumno p){
-        return AlumnoEntity.builder().id(p.getId().getValue())
-                                 .nombre(p.getNombre())
-                                 .apellido(p.getApellido())
-                                 .email(p.getEmail())
-                                 .telefono(p.getTelefono())
-                                 .direccion(p.getDireccion())
-                                 .fecha_alta(p.getFecha_alta())
-                                 .activo(p.isActivo())
 
-                                 .fechaCreacion(p.getCreatedAt())
-                                 .build();
-
+    // DOMAIN -> ENTITY
+    public static AlumnoEntity toEntity(Alumno a) {
+        return AlumnoEntity.builder()
+                .id(a.getId() != null ? a.getId().getValue() : null)
+                .nombre(a.getNombre())
+                .apellido(a.getApellido())
+                .email(a.getEmail())
+                .telefono(a.getTelefono())
+                .direccion(a.getDireccion())
+                .fechaNacimiento(a.getFechaNacimiento())
+                .fechaAlta(a.getFechaAlta())
+                .activo(a.isActivo())
+                .createdAt(a.getCreatedAt())
+                .build();
     }
 
-    public static Alumno toDomain(AlumnoEntity p){
-        return Alumno.builder().id(new AlumnoId(p.getId()))
-                                 .nombre(p.getNombre())
-                                 .apellido(p.getApellido())
-                                 .email(p.getEmail())
-                                 .telefono(p.getTelefono())
-                                 .direccion(p.getDireccion())
-                                 .fecha_alta(p.getFecha_alta())
-                                 .activo(p.isActivo())
-
-                                 .createdAt(p.getFechaCreacion())
-                                 .build();
-
+    // ENTITY -> DOMAIN
+    public static Alumno toDomain(AlumnoEntity e) {
+        return Alumno.builder()
+                .id(e.getId() != null ? new AlumnoId(e.getId()) : null)
+                .nombre(e.getNombre())
+                .apellido(e.getApellido())
+                .email(e.getEmail())
+                .telefono(e.getTelefono())
+                .direccion(e.getDireccion())
+                .fechaNacimiento(e.getFechaNacimiento())
+                .fechaAlta(e.getFechaAlta())
+                .activo(e.isActivo())
+                .createdAt(e.getCreatedAt())
+                .build();
     }
 
-    public static List<Alumno> toDomain(List<AlumnoEntity> lista){
-        List<Alumno> lp = new ArrayList<>();
-        for(AlumnoEntity pe: lista){
-            lp.add(toDomain(pe));
-        }
-        return lp;
+    // LIST ENTITY -> LIST DOMAIN
+    public static List<Alumno> toDomain(List<AlumnoEntity> lista) {
+        return lista.stream()
+                .map(AlumnoMapper::toDomain)
+                .collect(Collectors.toList());
     }
-
-
 }
