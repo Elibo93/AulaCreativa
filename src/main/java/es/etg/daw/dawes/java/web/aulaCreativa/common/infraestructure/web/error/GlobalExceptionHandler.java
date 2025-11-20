@@ -34,5 +34,5 @@ public class GlobalExceptionHandler {
         CustomResponse cr = new CustomResponse(LocalDateTime.now(), HttpStatus.INTERNAL_SERVER_ERROR, msg);
         return new ResponseEntity<>(cr, cr.getStatus());
     }
-
+    
 }

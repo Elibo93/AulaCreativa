@@ -1,9 +1,8 @@
-## **Documentación**
-#### Proyecto Entorno Servidor — Aplicación Web Aula Creativa
-
+### **Documentación comentario: poner titulo llamativo con imagirrunchas, dibujinchis**
 ---
+#### Aplicación Web **Aula Creativa**
 
-- **Nombre de la aplicación: Artia**
+##### Nombre de la aplicación: Artia
   - **Versión:** 1.0  
     **Autor:** Diego y Ely
     **Fecha:** 10/11/2025
@@ -14,11 +13,10 @@
     | Diego | Romero Vera | Desarrollador colaborativo |
     | Elisabeth | Bargalló Ortiz | Desarrolladora colaborativa |
 
----
 
-- [**Contexto de la aplicación**](document/contexto.md)
+##### Contexto de la aplicación
   - [**Mundo real del problema**](document/mundoReal.md)
-  - [**Qué apps existen actualmente**](documnet/appsExistentes.md)  
+  - [**Qué apps existen actualmente**](document/appsExistentes.md)  
   - [**Por qué mi aplicación es mejor**](document/miAppEsMejor.md) 
     - **Casos de uso - F**
         - [Actores externos:](document/actoresExternos.md)  
@@ -27,9 +25,7 @@
       - [Requisitos funcionales (F)](document/requisitosF.md)
       - [Requisitos no funcionales (NF)](document/requisitosNF.md)
 
----
-
-- **Diseño**
+##### Diseño
   - **GUI (Interfaz Gráfica)**
     - [UI (Vistas)](document/UI.md)
     - [UX (Usabilidad)](document/UX.md)
@@ -38,46 +34,30 @@
     - [Reutilización](document/reutilizacion.md)
 
   - **Arquitectura**
-    - [Despliegue](document/despliegue.md)
-    - [Componentes](document/componenentes.md)
+    - [Despliegue comentario: Spring boot Web](document/despliegue.md)
+    - [Componentes comentarios: definir aplicattion, domain, infraestructure](document/componenentes.md)
   - [**Diseño de los servicios REST**](document/diseñoServiciosREST.md)
   - [**Base de datos**](document/db.md)
   - [**Paquetes, Interfaces y Clases**](document/packIntClass.md)
   - [**Plan de pruebas**](document/planPruebas.md)
-  
----
 
-- **Implementación**
-  - **Entorno de Desarrollo:**
+##### Implementación
+  - [**Entorno de Desarrollo**](document/entornoDesarrollo.md)
     - [Implantación/Puesta en producción](document/implantacion.md)
 
----
-
-- **Capturas de la ejecución de la funcionalidad**
+##### Capturas de la ejecución de la funcionalidad
   - [**Ejecución de las pruebas**](document/ejecucionPruebas.md)
 
----
+##### [Información sobre la versión de las herramientas utilizadas](document/infoVersion.md)
 
-- [**Información sobre la versión de las herramientas utilizadas**](document/infoVersion.md)
+##### [Elementos destacables del desarrollo](document/elementosDestacables.md)
 
----
+##### [Manual de usuario](document/manual.md) 
 
-- **Elemenetos destacables del desarrollo**
+##### Conclusiones - sobre la marcha
+  - [**Realizar de manera individual**](document/conclusiones.md)
 
----
+##### [Bibliografía](document/bibliografia.md)
 
-- **Manual de usuario**
-
----
-
-- **Conclusiones - sobre la marcha**
-  - **Realizar de manera individual**
-
----
-
-- **Bibliografía**
-  
----
-
-- **Anexos**
+##### [Anexos](document/anexos.md)
 

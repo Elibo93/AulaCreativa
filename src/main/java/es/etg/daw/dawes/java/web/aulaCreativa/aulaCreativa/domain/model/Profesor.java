@@ -14,8 +14,8 @@ public class Profesor {
 	// Atributos
 	private ProfesorId id;
 	private String nombre;
-    private String especialidad;
 	private String apellido;
+	private String especialidad;
 	private String email;
 	private String telefono;
 	private LocalDateTime createdAt;

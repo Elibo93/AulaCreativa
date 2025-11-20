@@ -36,7 +36,7 @@ import lombok.RequiredArgsConstructor;
 
 
 @RestController
-@RequestMapping("/alumnos") // La url para los alumnos será /alumnos
+@RequestMapping("api/v1/alumnos") // La url para los alumnos será api/v1/alumnos
 @RequiredArgsConstructor
 public class AlumnoController {
     private final CreateAlumnoService createAlumnoService;
@@ -88,6 +88,5 @@ public class AlumnoController {
         });
         return errors;
     }
-
 
 }

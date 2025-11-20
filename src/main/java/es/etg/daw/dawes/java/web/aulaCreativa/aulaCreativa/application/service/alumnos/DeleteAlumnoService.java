@@ -2,6 +2,7 @@ package es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.service.
 
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.useCase.alumnos.DeleteAlumnoUseCase;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.AlumnoId;
+
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -11,7 +12,6 @@ public class DeleteAlumnoService {
 
     public void delete(AlumnoId id) {
         deleteAlumnoUseCase.delete(id);
-
     }
 
 }

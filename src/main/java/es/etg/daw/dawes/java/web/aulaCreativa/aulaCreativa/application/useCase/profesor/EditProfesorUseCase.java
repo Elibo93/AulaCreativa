@@ -15,8 +15,6 @@ public class EditProfesorUseCase {
     public Profesor update(EditProfesorCommand command) {
         return profesorRepository.getById(command.id())
                 .map(p -> { // ACtualizamos los atributos del objeto
-                    p.setNombre(command.nombre());
-                    p.setApellido(command.apellido());
                     p.setEspecialidad(command.especialidad());
                     p.setEmail(command.email());
                     p.setTelefono(command.telefono());
