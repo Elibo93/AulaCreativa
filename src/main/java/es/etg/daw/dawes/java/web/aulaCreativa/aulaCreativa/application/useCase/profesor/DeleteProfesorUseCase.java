@@ -1,7 +1,7 @@
 package es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.useCase.profesor;
 
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.ProfesorId;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.repository.ProfesorRepository;
-import es.etg.daw.dawes.java.web.aulaCreativa.common.domain.model.ProfesorId;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

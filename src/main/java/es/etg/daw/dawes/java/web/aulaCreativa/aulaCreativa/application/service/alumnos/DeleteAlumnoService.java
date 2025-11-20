@@ -1,7 +1,7 @@
 package es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.service.alumnos;
 
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.useCase.alumnos.DeleteAlumnoUseCase;
-import es.etg.daw.dawes.java.web.aulaCreativa.common.domain.model.AlumnoId;
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.AlumnoId;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

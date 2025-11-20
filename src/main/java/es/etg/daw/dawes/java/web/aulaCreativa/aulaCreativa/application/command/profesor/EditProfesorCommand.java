@@ -1,6 +1,6 @@
 package es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.command.profesor;
 
-import es.etg.daw.dawes.java.web.aulaCreativa.common.domain.model.ProfesorId;
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.ProfesorId;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.experimental.Accessors;
