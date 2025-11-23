@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 @Builder
-public class inscripcion {
+public class Inscripcion {
     private InscripcionId id;
     private AlumnoId alumnoId;
     //private TallerId tallerId;
