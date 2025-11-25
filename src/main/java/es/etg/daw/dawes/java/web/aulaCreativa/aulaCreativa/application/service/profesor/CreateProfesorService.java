@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.command.profesor.CreateProfesorCommand;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.useCase.profesor.CreateProfesorUseCase;
-import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.Profesor;
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.profesor.Profesor;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

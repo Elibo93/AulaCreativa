@@ -25,11 +25,11 @@ import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.service.a
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.service.alumnos.DeleteAlumnoService;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.service.alumnos.EditAlumnoService;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.service.alumnos.FindAlumnoService;
-import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.Alumno;
-import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.AlumnoId;
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.alumno.Alumno;
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.alumno.AlumnoId;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.mapper.AlumnoMapper;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.web.dto.AlumnoRequest;
-import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.web.dto.AlumnoResponse;
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.web.dto.alumno.AlumnoResponse;
 import lombok.RequiredArgsConstructor;
 
 

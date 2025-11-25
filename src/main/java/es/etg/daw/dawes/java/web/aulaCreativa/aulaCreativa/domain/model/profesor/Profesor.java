@@ -1,4 +1,4 @@
-package es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model;
+package es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.profesor;
 
 import java.time.LocalDateTime;
 

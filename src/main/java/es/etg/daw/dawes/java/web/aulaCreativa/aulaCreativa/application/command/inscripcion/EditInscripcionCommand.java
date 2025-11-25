@@ -1,7 +1,7 @@
 package es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.command.inscripcion;
 
-import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.AlumnoId;
-import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.InscripcionId;
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.inscripcion.InscripcionId;
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.alumno.AlumnoId;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.experimental.Accessors;

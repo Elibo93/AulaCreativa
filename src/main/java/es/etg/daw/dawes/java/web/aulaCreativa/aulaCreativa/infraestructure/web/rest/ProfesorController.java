@@ -19,11 +19,11 @@ import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.service.p
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.service.profesor.DeleteProfesorService;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.service.profesor.EditProfesorService;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.service.profesor.FindProfesorService;
-import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.Profesor;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.mapper.ProfesorMapper;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.web.dto.profesor.ProfesorRequest;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.web.dto.profesor.ProfesorResponse;
-import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.ProfesorId;
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.profesor.Profesor;
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.profesor.ProfesorId;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 

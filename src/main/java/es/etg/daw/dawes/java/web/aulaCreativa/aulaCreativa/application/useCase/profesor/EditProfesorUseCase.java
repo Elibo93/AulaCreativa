@@ -2,7 +2,7 @@ package es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.useCase.
 
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.command.profesor.EditProfesorCommand;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.error.ProfesorNotFoundException;
-import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.Profesor;
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.profesor.Profesor;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.repository.ProfesorRepository;
 import lombok.AllArgsConstructor;
 
