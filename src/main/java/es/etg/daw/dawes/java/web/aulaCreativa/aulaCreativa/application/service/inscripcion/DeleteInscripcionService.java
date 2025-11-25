@@ -3,7 +3,7 @@ package es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.service.
 import org.springframework.stereotype.Service;
 
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.useCase.inscripcion.DeleteInscripcionUseCase;
-import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.InscripcionId;
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.inscripcion.InscripcionId;
 
 import lombok.RequiredArgsConstructor;
 

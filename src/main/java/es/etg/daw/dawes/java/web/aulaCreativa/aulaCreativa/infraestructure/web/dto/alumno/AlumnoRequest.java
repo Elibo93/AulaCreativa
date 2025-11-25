@@ -1,10 +1,12 @@
-package es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.web.dto;
+package es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.web.dto.alumno;
 
-import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.Alumno;
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.alumno.Alumno;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
 public record AlumnoRequest(
+     @NotBlank(message = "{Alumno.valid.dni.no_vacio}")
+    String dni,
 
     @NotBlank(message = "{Alumno.valid.nombre.no_vacio}")
     String nombre,
@@ -24,11 +26,15 @@ public record AlumnoRequest(
     @NotBlank(message = "{Alumno.valid.fechaNacimiento.no_vacio}")
     String fechaNacimiento
 
+
+    
+
 ) {
 
     // Constructor de conveniencia para crear un request desde el dominio
     public AlumnoRequest(Alumno p) {
         this(
+                p.getDni(),
                 p.getNombre(),
                 p.getApellido(),
                 p.getEmail(),

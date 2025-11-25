@@ -1,7 +1,8 @@
-package es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model;
+package es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.inscripcion;
 
 import java.time.LocalDateTime;
 
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.alumno.AlumnoId;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,7 +15,6 @@ public class Inscripcion {
     private AlumnoId alumnoId;
     private TallerId tallerId;
     private String fechaInscripcion;
-    private boolean activo;
     private LocalDateTime createdAt;
 
 }

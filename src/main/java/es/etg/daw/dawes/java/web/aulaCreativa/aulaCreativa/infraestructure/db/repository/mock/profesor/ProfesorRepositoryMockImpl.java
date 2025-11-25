@@ -8,9 +8,9 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
-import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.Profesor;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.repository.ProfesorRepository;
-import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.ProfesorId;
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.profesor.Profesor;
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.profesor.ProfesorId;
 
 @Repository
 public class ProfesorRepositoryMockImpl implements ProfesorRepository {

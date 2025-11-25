@@ -1,4 +1,4 @@
-package es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model;
+package es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.alumno;
 
 import es.etg.daw.dawes.java.web.aulaCreativa.common.domain.model.Identificador;
 

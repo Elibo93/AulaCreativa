@@ -5,17 +5,18 @@ import java.util.stream.Collectors;
 
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.command.alumnos.CreateAlumnoCommand;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.command.alumnos.EditAlumnoCommand;
-import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.Alumno;
-import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.AlumnoId;
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.alumno.Alumno;
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.alumno.AlumnoId;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.db.jpa.entity.AlumnoEntity;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.web.dto.AlumnoRequest;
-import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.web.dto.AlumnoResponse;
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.web.dto.alumno.AlumnoResponse;
 
 public class AlumnoMapper {
 
     // REQUEST -> CREATE COMMAND
     public static CreateAlumnoCommand toCommand(AlumnoRequest req) {
         return new CreateAlumnoCommand(
+                req.dni(),
                 req.nombre(),
                 req.apellido(),
                 req.email(),
@@ -30,12 +31,10 @@ public class AlumnoMapper {
    public static EditAlumnoCommand toCommand(int id, AlumnoRequest req) {
     return new EditAlumnoCommand(
             new AlumnoId(id),
-            req.nombre(),
-            req.apellido(),
             req.email(),
             req.telefono(),
-            req.direccion(),
-            req.fechaNacimiento()
+            req.direccion()
+            
     );
 }
 
@@ -49,8 +48,6 @@ public class AlumnoMapper {
                 alumno.getTelefono(),
                 alumno.getDireccion(),
                 alumno.getFechaNacimiento(),
-                alumno.getFechaAlta(),
-                alumno.isActivo(),
                 alumno.getCreatedAt()
         );
     }
@@ -66,8 +63,6 @@ public class AlumnoMapper {
                 .telefono(a.getTelefono())
                 .direccion(a.getDireccion())
                 .fechaNacimiento(a.getFechaNacimiento())
-                .fechaAlta(a.getFechaAlta())
-                .activo(a.isActivo())
                 .createdAt(a.getCreatedAt())
                 .build();
     }
@@ -76,14 +71,13 @@ public class AlumnoMapper {
     public static Alumno toDomain(AlumnoEntity e) {
         return Alumno.builder()
                 .id(e.getId() != null ? new AlumnoId(e.getId()) : null)
+                .dni(e.getDni())
                 .nombre(e.getNombre())
                 .apellido(e.getApellido())
                 .email(e.getEmail())
                 .telefono(e.getTelefono())
                 .direccion(e.getDireccion())
                 .fechaNacimiento(e.getFechaNacimiento())
-                .fechaAlta(e.getFechaAlta())
-                .activo(e.isActivo())
                 .createdAt(e.getCreatedAt())
                 .build();
     }
