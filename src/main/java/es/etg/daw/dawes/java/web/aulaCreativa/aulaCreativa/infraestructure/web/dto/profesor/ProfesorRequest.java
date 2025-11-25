@@ -1,6 +1,6 @@
 package es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.web.dto.profesor;
 
-import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.Profesor;
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.profesor.Profesor;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Email;
 

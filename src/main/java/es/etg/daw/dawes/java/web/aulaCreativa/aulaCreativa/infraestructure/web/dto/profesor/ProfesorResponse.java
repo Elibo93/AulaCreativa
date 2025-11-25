@@ -2,7 +2,7 @@ package es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.web.
 
 import java.time.LocalDateTime;
 
-import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.ProfesorId;
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.profesor.ProfesorId;
 
 public record ProfesorResponse(
     ProfesorId id,

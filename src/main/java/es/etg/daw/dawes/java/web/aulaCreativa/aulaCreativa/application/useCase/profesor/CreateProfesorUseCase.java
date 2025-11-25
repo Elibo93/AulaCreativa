@@ -3,7 +3,7 @@ package es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.useCase.
 import java.time.LocalDateTime;
 
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.command.profesor.CreateProfesorCommand;
-import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.Profesor;
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.profesor.Profesor;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.repository.ProfesorRepository;
 import lombok.AllArgsConstructor;
 

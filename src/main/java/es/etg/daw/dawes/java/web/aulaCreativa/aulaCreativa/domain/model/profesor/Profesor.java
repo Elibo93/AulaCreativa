@@ -1,4 +1,4 @@
-package es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model;
+package es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.profesor;
 
 import java.time.LocalDateTime;
 
@@ -9,17 +9,14 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 @Builder
-public class Alumno {
+public class Profesor {
 	
 	// Atributos
-	private AlumnoId id;
+	private ProfesorId id;
 	private String nombre;
 	private String apellido;
+	private String especialidad;
 	private String email;
 	private String telefono;
-	private String direccion;
-	private String fechaNacimiento;
-	private String fechaAlta;
-	private boolean activo;
 	private LocalDateTime createdAt;
 }
