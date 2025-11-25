@@ -13,13 +13,12 @@ public class Alumno {
 	
 	// Atributos
 	private AlumnoId id;
+	private String dni;
 	private String nombre;
 	private String apellido;
 	private String email;
 	private String telefono;
 	private String direccion;
 	private String fechaNacimiento;
-	private String fechaAlta;
-	private boolean activo;
 	private LocalDateTime createdAt;
 }

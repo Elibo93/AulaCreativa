@@ -1,17 +1,15 @@
-package es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.web.dto;
+package es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.web.dto.alumno;
 
 import java.time.LocalDateTime;
 
 public record AlumnoResponse(
         int id,
+        String dni,
         String nombre,
         String apellido,
         String email,
         String telefono,
         String direccion,
         String fechaNacimiento,
-        String fechaAlta,
-        boolean activo,
         LocalDateTime createdAt
-) {}
-
+)

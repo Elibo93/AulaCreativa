@@ -4,8 +4,7 @@ import org.springframework.stereotype.Service;
 
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.command.inscripcion.CreateInscripcionCommand;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.useCase.inscripcion.CreateInscripcionUseCase;
-import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.Inscripcion;
-import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.InscripcionId;
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.inscripcion.Inscripcion;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

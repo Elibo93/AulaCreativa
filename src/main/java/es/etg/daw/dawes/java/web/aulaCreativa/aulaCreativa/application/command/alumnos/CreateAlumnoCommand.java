@@ -8,6 +8,7 @@ import lombok.experimental.Accessors;
 @AllArgsConstructor
 @Accessors(fluent = true)
 public class CreateAlumnoCommand {
+    private String dni;
     private String nombre;
     private String apellido;
     private String email;

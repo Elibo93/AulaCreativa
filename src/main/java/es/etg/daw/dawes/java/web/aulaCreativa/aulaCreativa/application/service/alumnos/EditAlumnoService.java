@@ -2,7 +2,7 @@ package es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.service.
 
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.command.alumnos.EditAlumnoCommand;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.useCase.alumnos.EditAlumnoUseCase;
-import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.Alumno;
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.alumno.Alumno;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

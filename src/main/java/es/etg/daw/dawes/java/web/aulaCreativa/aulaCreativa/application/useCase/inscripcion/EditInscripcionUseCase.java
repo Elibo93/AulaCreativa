@@ -3,12 +3,12 @@ package es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.useCase.
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.command.inscripcion.EditInscripcionCommand;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.repository.InscripcionRepository;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.error.InscripcionNotFoundException;
-import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.Inscripcion;
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.inscripcion.Inscripcion;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.repository.InscripcionRepository;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class EditInscrpcionUseCase {
+public class EditInscripcionUseCase {
     private final InscripcionRepository inscripcionRepository;
 
    public Inscripcion update(EditInscripcionCommand command) {

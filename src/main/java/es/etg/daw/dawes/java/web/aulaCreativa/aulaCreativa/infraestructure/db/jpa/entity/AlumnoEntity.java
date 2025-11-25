@@ -32,6 +32,9 @@ public class AlumnoEntity {
     private Integer id;
 
     @Column(nullable = false, length = 255)
+    private String dni;
+
+    @Column(nullable = false, length = 255)
     private String nombre;
 
     @Column(nullable = false, length = 255)

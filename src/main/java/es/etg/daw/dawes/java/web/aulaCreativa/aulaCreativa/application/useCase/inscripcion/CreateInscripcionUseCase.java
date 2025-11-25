@@ -3,7 +3,7 @@ package es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.useCase.
 import java.time.LocalDateTime;
 
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.command.inscripcion.CreateInscripcionCommand;
-import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.Inscripcion;
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.inscripcion.Inscripcion;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.repository.InscripcionRepository;
 import lombok.AllArgsConstructor;
 
@@ -13,8 +13,9 @@ public class CreateInscripcionUseCase {
 
     public Inscripcion create(CreateInscripcionCommand comando) {
         Inscripcion inscripcion = Inscripcion.builder()
+                .dni(comando.dni())
                 .alumnoId(comando.alumnoId())
-                //tallerId(comando.tallerId())
+                .tallerId(comando.tallerId())
                 .createdAt(LocalDateTime.now())
                 .build();
 

@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.useCase.alumnos.FindAlumnoUseCase;
-import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.Alumno;
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.alumno.Alumno;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
