@@ -8,7 +8,7 @@ import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.repository.Ins
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class EditInscrpcionUseCase {
+public class EditInscripcionUseCase {
     private final InscripcionRepository inscripcionRepository;
 
    public Inscripcion update(EditInscripcionCommand command) {

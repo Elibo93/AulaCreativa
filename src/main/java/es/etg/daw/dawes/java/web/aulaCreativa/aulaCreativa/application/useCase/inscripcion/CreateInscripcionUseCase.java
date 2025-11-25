@@ -14,7 +14,7 @@ public class CreateInscripcionUseCase {
     public Inscripcion create(CreateInscripcionCommand comando) {
         Inscripcion inscripcion = Inscripcion.builder()
                 .alumnoId(comando.alumnoId())
-                //tallerId(comando.tallerId())
+                tallerId(comando.tallerId())
                 .createdAt(LocalDateTime.now())
                 .build();
 

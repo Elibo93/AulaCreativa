@@ -12,7 +12,7 @@ import lombok.Data;
 public class Inscripcion {
     private InscripcionId id;
     private AlumnoId alumnoId;
-    //private TallerId tallerId;
+    private TallerId tallerId;
     private String fechaInscripcion;
     private boolean activo;
     private LocalDateTime createdAt;
