@@ -8,7 +8,7 @@ import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.command.a
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.alumno.Alumno;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.alumno.AlumnoId;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.db.jpa.entity.AlumnoEntity;
-import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.web.dto.AlumnoRequest;
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.web.dto.alumno.AlumnoRequest;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.web.dto.alumno.AlumnoResponse;
 
 public class AlumnoMapper {
