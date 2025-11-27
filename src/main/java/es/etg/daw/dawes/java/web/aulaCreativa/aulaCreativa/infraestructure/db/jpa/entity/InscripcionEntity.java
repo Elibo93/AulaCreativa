@@ -18,39 +18,19 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "alumnos")
-public class AlumnoEntity {
+@Table(name = "inscripciones")
+public class InscripcionEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false, length = 255)
-    private String dni;
+    @Column(name = "alumno_id", nullable = false)
+    private Integer alumnoId;
 
-    @Column(nullable = false, length = 255)
-    private String nombre;
-
-    @Column(nullable = false, length = 255)
-    private String apellido;
-
-    @Column(nullable = false, length = 255)
-    private String email;
-
-    @Column(length = 20)
-    private String telefono;
-
-    @Column(length = 500)
-    private String direccion;
-
-    @Column(name = "fecha_nacimiento", length = 20)
-    private String fechaNacimiento;
-
-       
+    @Column(name = "taller_id", nullable = false)
+    private Integer tallerId;
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
-
-   
-
 }

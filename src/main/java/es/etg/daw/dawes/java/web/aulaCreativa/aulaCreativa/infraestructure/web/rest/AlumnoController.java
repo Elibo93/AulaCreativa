@@ -28,7 +28,7 @@ import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.service.a
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.alumno.Alumno;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.alumno.AlumnoId;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.mapper.AlumnoMapper;
-import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.web.dto.AlumnoRequest;
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.web.dto.alumno.AlumnoRequest;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.web.dto.alumno.AlumnoResponse;
 import lombok.RequiredArgsConstructor;
 

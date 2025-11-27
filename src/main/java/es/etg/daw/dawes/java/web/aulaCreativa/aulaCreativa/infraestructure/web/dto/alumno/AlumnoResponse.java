@@ -12,4 +12,6 @@ public record AlumnoResponse(
         String direccion,
         String fechaNacimiento,
         LocalDateTime createdAt
-)
+)       {
+        
+}

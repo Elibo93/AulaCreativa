@@ -42,6 +42,7 @@ public class AlumnoMapper {
     public static AlumnoResponse toResponse(Alumno alumno) {
         return new AlumnoResponse(
                 alumno.getId() != null ? alumno.getId().getValue() : 0,
+                alumno.getDni(),
                 alumno.getNombre(),
                 alumno.getApellido(),
                 alumno.getEmail(),
@@ -57,6 +58,7 @@ public class AlumnoMapper {
     public static AlumnoEntity toEntity(Alumno a) {
         return AlumnoEntity.builder()
                 .id(a.getId() != null ? a.getId().getValue() : null)
+                .dni(a.getDni())
                 .nombre(a.getNombre())
                 .apellido(a.getApellido())
                 .email(a.getEmail())

@@ -12,7 +12,7 @@ import lombok.experimental.Accessors;
 public class EditInscripcionCommand {
     private InscripcionId id;
     private AlumnoId alumnoId;
-    //private TallerId tallerId;
+    private TallerId tallerId;
     private String fechaInscripcion;
     private boolean estado;
 

@@ -14,6 +14,7 @@ public class CreateAlumnoUseCase {
 
     public Alumno create(CreateAlumnoCommand comando) {
         Alumno alumno = Alumno.builder()
+                .dni(comando.dni())
                 .nombre(comando.nombre())
                 .apellido(comando.apellido())
                 .email(comando.email())

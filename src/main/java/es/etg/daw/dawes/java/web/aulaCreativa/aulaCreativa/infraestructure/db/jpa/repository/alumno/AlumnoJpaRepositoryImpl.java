@@ -1,4 +1,4 @@
-package es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.db.jpa.repository;
+package es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.db.jpa.repository.alumno;
 
 import java.util.List;
 import java.util.Optional;
