@@ -10,9 +10,7 @@ import lombok.experimental.Accessors;
 @AllArgsConstructor
 @Accessors(fluent = true)
 public class CreateInscripcionCommand {
-    private InscripcionId inscripcionId;
     private AlumnoId alumnoId;
     private TallerId tallerId;
-    private String fechaInscripcion;
-    private boolean estado;
+    
 }
