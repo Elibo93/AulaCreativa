@@ -1,18 +1,4 @@
-### **Documentación comentario: poner titulo llamativo con imagirrunchas, dibujinchis**
----
-#### Aplicación Web **Aula Creativa**
-
-##### Nombre de la aplicación: Artia
-  - **Versión:** 1.0  
-    **Autor:** Diego y Ely
-    **Fecha:** 10/11/2025
-
-  - **Integrantes**
-    | Nombre | Apellidos | Rol |
-    |---------|------------|------|
-    | Diego | Romero Vera | Desarrollador colaborativo |
-    | Elisabeth | Bargalló Ortiz | Desarrolladora colaborativa |
-
+![Portada](img/portada.png)
 
 ##### Contexto de la aplicación
   - [**Mundo real del problema**](document/mundoReal.md)

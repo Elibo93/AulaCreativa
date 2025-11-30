@@ -10,6 +10,7 @@ A continuación, se resumen las acciones más importantes que realiza cada uno:
 * Ver su **asistencia** mensual.
 * Revisar el **estado de sus pagos**.
 * Recibir **notificaciones** importantes (recordatorios, avisos, etc.).
+![Diagrama caso de uso Alumno](/img/alumno.png)
 
 #### Profesor
 
@@ -17,6 +18,7 @@ A continuación, se resumen las acciones más importantes que realiza cada uno:
 * Registrar la **asistencia** de cada sesión.
 * Acceder a un pequeño resumen de **estadísticas** de participación.
 * Enviar **mensajes** o avisos a los alumnos de su taller.
+![Diagrama caso de uso Profesor](/img/profesor.png)
 
 #### Administración
 

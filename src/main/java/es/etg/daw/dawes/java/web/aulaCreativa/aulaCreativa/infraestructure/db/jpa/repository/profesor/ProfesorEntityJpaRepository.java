@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.db.jpa.entity.ProfesorEntity;
 
 @Repository
-public class ProfesorEntityJpaRepository extends JpaRepository<ProfesorEntity, Integer> {
+public interface ProfesorEntityJpaRepository extends JpaRepository<ProfesorEntity, Integer> {
     
     public ProfesorEntity findByNombre(String nombre);
 

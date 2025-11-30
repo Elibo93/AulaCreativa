@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "profesores")
+@Table(name = "PROFESORES")
 public class ProfesorEntity {
 
     @Id
@@ -37,7 +37,7 @@ public class ProfesorEntity {
     @Column(nullable = false, length = 255)
     private String email;
 
-    @Column(length = 9)
+    @Column(nullable = false, length = 9)
     private String telefono;
 
     @Column(name = "created_at", nullable = false)

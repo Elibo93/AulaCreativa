@@ -46,11 +46,8 @@ public class AlumnoEntity {
     @Column(name = "fecha_nacimiento", length = 20)
     private String fechaNacimiento;
 
-       
-
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
-
    
 
 }

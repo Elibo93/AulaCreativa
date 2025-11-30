@@ -39,7 +39,7 @@ public class ProfesorController {
     private final EditProfesorService editProfesorService;
 
     @PostMapping
-    public ResponseEntity<ProfesorResponse> createProducto(@Valid@RequestBody ProfesorRequest profesorRequest) {
+    public ResponseEntity<ProfesorResponse> createProfesor(@Valid@RequestBody ProfesorRequest profesorRequest) {
         CreateProfesorCommand comando = ProfesorMapper.toCommand(profesorRequest);
         Profesor profesor = createProfesorService.createProfesor(comando);
         return ResponseEntity.status(HttpStatus.CREATED).body(ProfesorMapper.toResponse(profesor)); // Respuestagit@github.com:julparper/dawes-springboot-restful.git

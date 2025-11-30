@@ -12,8 +12,11 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class ProfesorJpaRepositoryImpl implements ProfesorRepository{
+
+    //Atributos
     private final ProfesorEntityJpaRepository repository;
 
+    //Implementacion de metodos
     @Override
     public Profesor save(Profesor t) {
 
@@ -28,16 +31,16 @@ public class ProfesorJpaRepositoryImpl implements ProfesorRepository{
 
     @Override
     public Optional<Profesor> getById(ProfesorId id) {
-        Optional<Profesor> Profesor = null;
+        Optional<Profesor> profesor = null;
         Optional<ProfesorEntity> pe = repository.findById(id.getValue());
 
         if (pe.isEmpty()) {
-            Profesor = Optional.empty();
+            profesor = Optional.empty();
         } else {
-            Profesor = Optional.of(ProfesorMapper.toDomain(pe.get()));
+            profesor = Optional.of(ProfesorMapper.toDomain(pe.get()));
         }
 
-        return Profesor;
+        return profesor;
     }
 
     @Override
@@ -47,8 +50,11 @@ public class ProfesorJpaRepositoryImpl implements ProfesorRepository{
 
     @Override
     public Optional<Profesor> getByName(String name) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getByName'");
+        ProfesorEntity profesor = repository.findByNombre(name);
+        if(profesor!=null)
+            return Optional.of(ProfesorMapper.toDomain(profesor));
+        else
+            return Optional.empty() ;
     }
     // Hereda automáticamente métodos como: save(), findById(), findAll(), delete(),
     // etc.

@@ -24,8 +24,7 @@ public class CreateProfesorUseCase {
                 .telefono(comando.telefono())
                 .createdAt(LocalDateTime.now()).build();
 
-        profesorRepository.save(profesor);
+        return profesorRepository.save(profesor);
 
-        return profesor;
     }
 }
