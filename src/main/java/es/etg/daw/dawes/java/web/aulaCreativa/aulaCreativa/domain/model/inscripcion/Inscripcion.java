@@ -14,7 +14,6 @@ public class Inscripcion {
     private InscripcionId id;
     private AlumnoId alumnoId;
     private TallerId tallerId;
-    private String fechaInscripcion;
     private LocalDateTime createdAt;
 
 }

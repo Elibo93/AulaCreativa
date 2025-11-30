@@ -2,10 +2,10 @@ package es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.web.
 
 import java.time.LocalDateTime;
 
-public record InscripcionResponse() {
+public record InscripcionResponse(
         int id,
         int alumnoId,
         int tallerId,
-        LocalDateTime createdAt
-
+        LocalDateTime fechaInscripcion
+) {
 }

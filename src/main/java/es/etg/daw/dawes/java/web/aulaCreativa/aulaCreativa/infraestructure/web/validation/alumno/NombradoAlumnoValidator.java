@@ -1,4 +1,4 @@
-package es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.web.validation;
+package es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.web.validation.alumno;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
