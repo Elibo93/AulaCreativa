@@ -1,5 +1,8 @@
 ### Por qué mi aplicación es mejor
 ---
+<p align="center">
+  <img src="/img/movil_tocho.png" width="300">
+</p>
 La aplicación desarrollada para **Aula Creativa** surge como respuesta a una problemática común en centros formativos y espacios creativos: la fragmentación de la información y la ausencia de un sistema unificado que permita gestionar de forma eficiente alumnos, profesores, talleres y procesos administrativos. Tradicionalmente, este tipo de centros depende de múltiples herramientas (hojas de cálculo, documentos improvisados, mensajería instantánea y registros manuales), lo que genera duplicidad de datos, descoordinación y un control limitado sobre la actividad diaria.
 
 La propuesta presentada destaca por integrar en una única plataforma todas las funcionalidades esenciales para la operación de un centro de estas características. Su diseño se basa en principios de simplicidad, cohesión funcional y accesibilidad, permitiendo que diferentes perfiles (administración, docentes o alumnos) puedan utilizar el sistema sin necesidad de formación técnica avanzada.
