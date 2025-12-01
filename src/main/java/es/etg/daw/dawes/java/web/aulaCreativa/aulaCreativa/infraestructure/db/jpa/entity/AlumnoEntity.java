@@ -18,14 +18,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "alumnos")
+@Table(name = "ALUMNOS")
 public class AlumnoEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Column(nullable = false, length = 255)
+    @Column(nullable = false, length = 9)
     private String dni;
 
     @Column(nullable = false, length = 255)
@@ -47,7 +47,6 @@ public class AlumnoEntity {
     private String fechaNacimiento;
 
     @Column(name = "created_at", nullable = false)
-    private LocalDateTime createdAt;
-   
+    private LocalDateTime createdAt; 
 
 }

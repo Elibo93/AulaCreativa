@@ -19,17 +19,17 @@ public class TallerMapper {
                 tallerRequest.nombre(),
                 tallerRequest.descripcion(),
                 new ProfesorId(tallerRequest.profesorId()),
-                tallerRequest.horaIncio(),
+                tallerRequest.horaInicio(),
                 tallerRequest.horaFin(),
                 tallerRequest.aforoMaximo());
     }
 
     public static TallerResponse toResponse(Taller taller) {
         return new TallerResponse(
-                taller.getId(),
+                taller.getId().getValue(),
                 taller.getNombre(),
                 taller.getDescripcion(),
-                taller.getProfesor(),
+                taller.getProfesor().getValue(),
                 taller.getHoraInicio(),
                 taller.getHoraFin(),
                 taller.getAforoMaximo());

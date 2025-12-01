@@ -3,10 +3,8 @@ package es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.db.j
 import java.util.List;
 import java.util.Optional;
 
-import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.alumno.AlumnoId;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.inscripcion.Inscripcion;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.inscripcion.InscripcionId;
-import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.taller.TallerId;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.repository.InscripcionRepository;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.db.jpa.entity.InscripcionEntity;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.mapper.InscripcionMapper;
@@ -47,31 +45,31 @@ public class InscripcionJpaRepositoryImpl implements InscripcionRepository {
         repository.deleteById(id.getValue());
     }
 
-    @Override
-    public List<Inscripcion> getByAlumnoId(AlumnoId alumnoId) {
-        return InscripcionMapper.toDomain(repository.findByIdAlumno(alumnoId.getValue()));
-    }
+    // @Override
+    // public List<Inscripcion> getByAlumnoId(AlumnoId alumnoId) {
+    //     return InscripcionMapper.toDomain(repository.findByIdAlumno(alumnoId.getValue()));
+    // }
 
-    @Override
-    public List<Inscripcion> getByTallerId(TallerId tallerId) {
-        return InscripcionMapper.toDomain(repository.findByIdTaller(tallerId.getValue()));
-    }
+    // @Override
+    // public List<Inscripcion> getByTallerId(TallerId tallerId) {
+    //     return InscripcionMapper.toDomain(repository.findByIdTaller(tallerId.getValue()));
+    // }
 
-    @Override
-    public Optional<Inscripcion> getByAlumnoAndTaller(AlumnoId alumnoId, TallerId tallerId) {
-        InscripcionEntity entity = repository.findByIdAlumnoAndIdTaller(alumnoId.getValue(), tallerId.getValue());
+    // @Override
+    // public Optional<Inscripcion> getByAlumnoAndTaller(AlumnoId alumnoId, TallerId tallerId) {
+    //     InscripcionEntity entity = repository.findByIdAlumnoAndIdTaller(alumnoId.getValue(), tallerId.getValue());
 
-        if (entity == null) {
-            return Optional.empty();
-        }
+    //     if (entity == null) {
+    //         return Optional.empty();
+    //     }
 
-        return Optional.of(InscripcionMapper.toDomain(entity));
-    }
+    //     return Optional.of(InscripcionMapper.toDomain(entity));
+    // }
 
-    @Override
-    public boolean existsByAlumnoAndTaller(AlumnoId alumnoId, TallerId tallerId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'existsByAlumnoAndTaller'");
-    }
+    // @Override
+    // public boolean existsByAlumnoAndTaller(AlumnoId alumnoId, TallerId tallerId) {
+    //     // TODO Auto-generated method stub
+    //     throw new UnsupportedOperationException("Unimplemented method 'existsByAlumnoAndTaller'");
+    // }
 
 }

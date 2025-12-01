@@ -8,8 +8,6 @@ import java.util.Optional;
 
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.inscripcion.Inscripcion;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.inscripcion.InscripcionId;
-import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.alumno.AlumnoId;
-import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.taller.TallerId;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.repository.InscripcionRepository;
 
 public class InscripcionRepositoryMockImpl implements InscripcionRepository {
@@ -57,55 +55,55 @@ public class InscripcionRepositoryMockImpl implements InscripcionRepository {
         inscripciones.remove(id);
     }
 
-    @Override
-    public List<Inscripcion> getByAlumnoId(AlumnoId alumnoId) {
-        List<Inscripcion> result = new ArrayList<>();
+    // @Override
+    // public List<Inscripcion> getByAlumnoId(AlumnoId alumnoId) {
+    //     List<Inscripcion> result = new ArrayList<>();
 
-        for (Inscripcion i : inscripciones.values()) {
-            if (i.getAlumnoId().equals(alumnoId)) {
-                result.add(i);
-            }
-        }
+    //     for (Inscripcion i : inscripciones.values()) {
+    //         if (i.getAlumnoId().equals(alumnoId)) {
+    //             result.add(i);
+    //         }
+    //     }
 
-        return result;
-    }
+    //     return result;
+    // }
 
-    @Override
-    public List<Inscripcion> getByTallerId(TallerId tallerId) {
-        List<Inscripcion> result = new ArrayList<>();
+    // @Override
+    // public List<Inscripcion> getByTallerId(TallerId tallerId) {
+    //     List<Inscripcion> result = new ArrayList<>();
 
-        for (Inscripcion i : inscripciones.values()) {
-            if (i.getTallerId().equals(tallerId)) {
-                result.add(i);
-            }
-        }
+    //     for (Inscripcion i : inscripciones.values()) {
+    //         if (i.getTallerId().equals(tallerId)) {
+    //             result.add(i);
+    //         }
+    //     }
 
-        return result;
-    }
+    //     return result;
+    // }
 
-    @Override
-    public Optional<Inscripcion> getByAlumnoAndTaller(AlumnoId alumnoId, TallerId tallerId) {
+    // @Override
+    // public Optional<Inscripcion> getByAlumnoAndTaller(AlumnoId alumnoId, TallerId tallerId) {
 
-        for (Inscripcion i : inscripciones.values()) {
-            if (i.getAlumnoId().equals(alumnoId) &&
-                i.getTallerId().equals(tallerId)) {
-                return Optional.of(i);
-            }
-        }
+    //     for (Inscripcion i : inscripciones.values()) {
+    //         if (i.getAlumnoId().equals(alumnoId) &&
+    //             i.getTallerId().equals(tallerId)) {
+    //             return Optional.of(i);
+    //         }
+    //     }
 
-        return Optional.empty();
-    }
+    //     return Optional.empty();
+    // }
 
-    @Override
-    public boolean existsByAlumnoAndTaller(AlumnoId alumnoId, TallerId tallerId) {
+    // @Override
+    // public boolean existsByAlumnoAndTaller(AlumnoId alumnoId, TallerId tallerId) {
 
-        for (Inscripcion i : inscripciones.values()) {
-            if (i.getAlumnoId().equals(alumnoId) &&
-                i.getTallerId().equals(tallerId)) {
-                return true;
-            }
-        }
+    //     for (Inscripcion i : inscripciones.values()) {
+    //         if (i.getAlumnoId().equals(alumnoId) &&
+    //             i.getTallerId().equals(tallerId)) {
+    //             return true;
+    //         }
+    //     }
 
-        return false;
-    }
+    //     return false;
+    // }
 }

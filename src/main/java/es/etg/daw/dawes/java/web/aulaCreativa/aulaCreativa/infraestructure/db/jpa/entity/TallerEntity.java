@@ -36,7 +36,7 @@ public class TallerEntity {
 
     // Relación Many-to-One: Es el lado propietario (tendrá la FK)
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "profesor_id", nullable = false) // Columna de clave foránea en la tabla Taller
+    @JoinColumn(name = "id_profesor", nullable = false) // Columna de clave foránea en la tabla Taller
     private ProfesorEntity profesor;
 
     @Column(name = "hora_inicio", nullable = false, length = 8)

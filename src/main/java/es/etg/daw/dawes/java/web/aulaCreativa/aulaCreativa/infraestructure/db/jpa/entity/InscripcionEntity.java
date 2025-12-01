@@ -33,7 +33,7 @@ public class InscripcionEntity {
      * Lado propietario: columna alumno_id en INSCRIPCIONES
      */
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "alumno_id", nullable = false)
+    @JoinColumn(name = "id_alumno", nullable = false)
     private AlumnoEntity alumno;
 
     /**
@@ -41,7 +41,7 @@ public class InscripcionEntity {
      * Lado propietario: columna taller_id en INSCRIPCIONES
      */
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "taller_id", nullable = false)
+    @JoinColumn(name = "id_taller", nullable = false)
     private TallerEntity taller;
 
     @Column(name = "created_at", nullable = false)

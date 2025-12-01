@@ -18,10 +18,12 @@ public class CreateAlumnoUseCase {
                 .nombre(comando.nombre())
                 .apellido(comando.apellido())
                 .email(comando.email())
+                .telefono(comando.telefono())
+                .direccion(comando.direccion())
+                .fechaNacimiento(comando.fechaNacimiento())
                 .createdAt(LocalDateTime.now())
                 .build();
-        alumnoRepository.save(alumno);
-        return alumno;
+        return alumnoRepository.save(alumno);
         
     }
 

@@ -18,7 +18,6 @@ public class CreateInscripcionUseCase {
                 .createdAt(LocalDateTime.now())
                 .build();
 
-        inscripcionRepository.save(inscripcion);
-        return inscripcion;
+        return inscripcionRepository.save(inscripcion);
     }
 }
