@@ -1,4 +1,4 @@
-package es.etg.daw.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.web.rest;
+package es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.web.rest;
 
 import java.util.HashMap;
 import java.util.List;
@@ -31,6 +31,7 @@ import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.inscripc
 
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.web.dto.inscripcion.InscripcionRequest;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.web.dto.inscripcion.InscripcionResponse;
+import jakarta.validation.Valid;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.mapper.InscripcionMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -78,7 +79,7 @@ public class InscripcionController {
     @PutMapping("/{id}")
     public InscripcionResponse editInscripcion(
             @PathVariable int id,
-            @RequestBody InscripcionRequest request
+            @Valid@RequestBody InscripcionRequest request
     ) {
         EditInscripcionCommand command = InscripcionMapper.toCommand(id, request);
         Inscripcion inscripcion = editService.update(command);

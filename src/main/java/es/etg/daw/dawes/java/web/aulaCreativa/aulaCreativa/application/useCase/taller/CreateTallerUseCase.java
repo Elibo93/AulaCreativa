@@ -15,7 +15,7 @@ public class CreateTallerUseCase {
         Taller taller = Taller.builder()
                 .nombre(comando.nombre())
                 .descripcion(comando.descripcion())
-                .profesorId(comando.profesorId())
+                .profesor(comando.profesorId())
                 .horaInicio(comando.horaInicio())
                 .horaFin(comando.horaFin())
                 .aforoMaximo(comando.aforoMaximo()).build();

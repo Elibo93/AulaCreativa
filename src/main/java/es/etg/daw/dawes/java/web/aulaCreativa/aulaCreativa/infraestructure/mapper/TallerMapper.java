@@ -37,20 +37,21 @@ public class TallerMapper {
 
 
     // DOMAIN -> ENTITY
-    public static TallerEntity toEntity(Taller a) {
+    public static TallerEntity toEntity(Taller t) {
 
         //Defino el profesor
         ProfesorEntity profesor = new ProfesorEntity();
-        profesor.setId(a.getProfesor().getValue());
-        TallerId id = a.getId();
+        profesor.setId(t.getProfesor().getValue());
+
+        TallerId id = t.getId();
         return TallerEntity.builder()
                 .id(id != null ? id.getValue() : null)
-                .nombre(a.getNombre())
-                .descripcion(a.getDescripcion())
+                .nombre(t.getNombre())
+                .descripcion(t.getDescripcion())
                 .profesor(profesor)
-                .horaInicio(a.getHoraInicio())
-                .horaFin(a.getHoraFin())
-                .aforoMaximo(a.getAforoMaximo())
+                .horaInicio(t.getHoraInicio())
+                .horaFin(t.getHoraFin())
+                .aforoMaximo(t.getAforoMaximo())
                 .build();
     }
 

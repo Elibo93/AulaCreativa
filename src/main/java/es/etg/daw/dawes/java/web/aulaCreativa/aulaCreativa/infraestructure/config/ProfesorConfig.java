@@ -12,18 +12,26 @@ import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.useCase.p
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.useCase.profesor.EditProfesorUseCase;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.useCase.profesor.FindProfesorUseCase;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.repository.ProfesorRepository;
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.db.jpa.repository.profesor.ProfesorEntityJpaRepository;
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.db.jpa.repository.profesor.ProfesorJpaRepositoryImpl;
 import lombok.RequiredArgsConstructor;
 
 @Configuration
 @RequiredArgsConstructor
 public class ProfesorConfig {
 
-    private final ProfesorRepository profesorRepository;
+    private final ProfesorEntityJpaRepository profesorRepository;
+
+    // Creo por configuración la instalacia que me interesa del productoRepository (desde jpa)
+    @Bean
+    public ProfesorRepository profesorRepository() {
+        return new ProfesorJpaRepositoryImpl(profesorRepository);
+    }
 
     // POST
     @Bean
     public CreateProfesorUseCase createProfesorUseCase() {
-        return new CreateProfesorUseCase(profesorRepository);
+        return new CreateProfesorUseCase(profesorRepository());
     }
 
     @Bean
@@ -34,7 +42,7 @@ public class ProfesorConfig {
     // GET
     @Bean
     public FindProfesorUseCase findProfesorUseCase() {
-        return new FindProfesorUseCase(profesorRepository);
+        return new FindProfesorUseCase(profesorRepository());
     }
 
     @Bean
@@ -46,7 +54,7 @@ public class ProfesorConfig {
 
     @Bean
     public DeleteProfesorUseCase deleteProfesorUseCase() {
-        return new DeleteProfesorUseCase(profesorRepository);
+        return new DeleteProfesorUseCase(profesorRepository());
     }
 
     @Bean
@@ -57,7 +65,7 @@ public class ProfesorConfig {
     // PUT
     @Bean
     public EditProfesorUseCase editProfesorUseCase() {
-        return new EditProfesorUseCase(profesorRepository);
+        return new EditProfesorUseCase(profesorRepository());
     }
 
     @Bean

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.useCase.inscripcion.FindInscripcionUseCase;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.inscripcion.Inscripcion;
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.inscripcion.InscripcionId;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -16,6 +17,10 @@ public class FindInscripcionService {
 
     public List<Inscripcion> findAll() {
         return findInscripcionUseCase.findAll();
+    }
+
+    public Inscripcion findById(InscripcionId id) {
+        return findInscripcionUseCase.findById(id);
     }
 
 }

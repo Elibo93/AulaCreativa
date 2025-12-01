@@ -4,6 +4,7 @@ import java.util.List;
 
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.error.InscripcionNotFoundException;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.inscripcion.Inscripcion;
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.inscripcion.InscripcionId;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.repository.InscripcionRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -19,5 +20,9 @@ public class FindInscripcionUseCase {
             throw new InscripcionNotFoundException();
 
         return inscripciones;
+    }
+
+    public Inscripcion findById(InscripcionId id) {
+        return inscripcionRepository.getById(id).orElseThrow(() -> new InscripcionNotFoundException(id.getValue()));
     }
 }

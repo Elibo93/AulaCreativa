@@ -3,6 +3,7 @@ package es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.inscrip
 import java.time.LocalDateTime;
 
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.alumno.AlumnoId;
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.taller.TallerId;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

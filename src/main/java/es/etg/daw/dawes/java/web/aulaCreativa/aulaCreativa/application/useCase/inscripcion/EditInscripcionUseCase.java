@@ -4,7 +4,6 @@ import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.command.i
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.repository.InscripcionRepository;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.error.InscripcionNotFoundException;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.model.inscripcion.Inscripcion;
-import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.repository.InscripcionRepository;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
@@ -14,7 +13,6 @@ public class EditInscripcionUseCase {
    public Inscripcion update(EditInscripcionCommand command) {
        return inscripcionRepository.getById(command.id())
                .map(p -> { // Actualizamos los atributos del objeto
-                   p.setFechaInscripcion(command.fechaInscripcion());
                    p.setTallerId(command.tallerId());
                    p.setAlumnoId(command.alumnoId());
                    return inscripcionRepository.save(p);

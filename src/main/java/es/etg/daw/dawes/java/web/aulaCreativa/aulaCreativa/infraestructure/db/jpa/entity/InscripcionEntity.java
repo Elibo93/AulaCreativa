@@ -4,9 +4,12 @@ import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,18 +21,28 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "inscripciones")
+@Table(name = "INSCRIPCIONES")
 public class InscripcionEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Column(name = "alumno_id", nullable = false)
-    private Integer alumnoId;
+    /**
+     * Alumno (FK)
+     * Lado propietario: columna alumno_id en INSCRIPCIONES
+     */
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "alumno_id", nullable = false)
+    private AlumnoEntity alumno;
 
-    @Column(name = "taller_id", nullable = false)
-    private Integer tallerId;
+    /**
+     * Taller (FK)
+     * Lado propietario: columna taller_id en INSCRIPCIONES
+     */
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "taller_id", nullable = false)
+    private TallerEntity taller;
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;

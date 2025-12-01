@@ -12,18 +12,25 @@ import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.useCase.i
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.useCase.inscripcion.EditInscripcionUseCase;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.useCase.inscripcion.FindInscripcionUseCase;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.repository.InscripcionRepository;
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.db.jpa.repository.inscripcion.InscripcionEntityJpaRepository;
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.db.jpa.repository.inscripcion.InscripcionJpaRepositoryImpl;
 import lombok.RequiredArgsConstructor;
 
 @Configuration
 @RequiredArgsConstructor
 public class InscripcionConfig {
 
-    private final InscripcionRepository inscripcionRepository;
+    private final InscripcionEntityJpaRepository inscripcionRepository;
 
+    // Creo por configuración la instalacia que me interesa del productoRepository (desde jpa)
+    @Bean
+    public InscripcionRepository inscripcionRepository() {
+        return new InscripcionJpaRepositoryImpl(inscripcionRepository);
+    }
     // POST
     @Bean
     public CreateInscripcionUseCase createInscripcionUseCase() {
-        return new CreateInscripcionUseCase(inscripcionRepository);
+        return new CreateInscripcionUseCase(inscripcionRepository());
     }
 
     @Bean
@@ -34,7 +41,7 @@ public class InscripcionConfig {
     // GET
     @Bean
     public FindInscripcionUseCase findInscripcionUseCase() {
-        return new FindInscripcionUseCase(inscripcionRepository);
+        return new FindInscripcionUseCase(inscripcionRepository());
     }
 
     @Bean
@@ -45,7 +52,7 @@ public class InscripcionConfig {
     // DELETE
     @Bean
     public DeleteInscripcionUseCase deleteInscripcionUseCase() {
-        return new DeleteInscripcionUseCase(inscripcionRepository);
+        return new DeleteInscripcionUseCase(inscripcionRepository());
     }
 
     @Bean
@@ -56,7 +63,7 @@ public class InscripcionConfig {
     // PUT
     @Bean
     public EditInscripcionUseCase editInscripcionUseCase() {
-        return new EditInscripcionUseCase(inscripcionRepository);
+        return new EditInscripcionUseCase(inscripcionRepository());
     }
 
     @Bean

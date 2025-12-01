@@ -12,17 +12,26 @@ import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.useCase.a
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.useCase.alumnos.EditAlumnoUseCase;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.application.useCase.alumnos.FindAlumnoUseCase;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.domain.repository.AlumnoRepository;
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.db.jpa.repository.alumno.AlumnoEntityJpaRepository;
+import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.db.jpa.repository.alumno.AlumnoJpaRepositoryImpl;
 import lombok.RequiredArgsConstructor;
 
 @Configuration
 @RequiredArgsConstructor
 public class AlumnoConfig {
-    private final AlumnoRepository alumnoRepository;
 
+    private final AlumnoEntityJpaRepository alumnoRepository;
+
+    // Creo por configuración la instalacia que me interesa del productoRepository (desde jpa)
+    @Bean
+    public AlumnoRepository alumnoRepository() {
+        return new AlumnoJpaRepositoryImpl(alumnoRepository);
+    }
+    
     // POST
     @Bean
     public CreateAlumnoUseCase createAlumnoUseCase() {
-        return new CreateAlumnoUseCase(alumnoRepository);
+        return new CreateAlumnoUseCase(alumnoRepository());
     }
 
     @Bean
@@ -33,7 +42,7 @@ public class AlumnoConfig {
     // GET
     @Bean
     public FindAlumnoUseCase findAlumnoUseCase() {
-        return new FindAlumnoUseCase(alumnoRepository);
+        return new FindAlumnoUseCase(alumnoRepository());
     }
 
     @Bean
@@ -45,7 +54,7 @@ public class AlumnoConfig {
 
     @Bean
     public DeleteAlumnoUseCase deleteAlumnoUseCase() {
-        return new DeleteAlumnoUseCase(alumnoRepository);
+        return new DeleteAlumnoUseCase(alumnoRepository());
     }
 
     @Bean
@@ -56,7 +65,7 @@ public class AlumnoConfig {
     // PUT
     @Bean
     public EditAlumnoUseCase editAlumnoUseCase() {
-        return new EditAlumnoUseCase(alumnoRepository);
+        return new EditAlumnoUseCase(alumnoRepository());
     }
 
     @Bean

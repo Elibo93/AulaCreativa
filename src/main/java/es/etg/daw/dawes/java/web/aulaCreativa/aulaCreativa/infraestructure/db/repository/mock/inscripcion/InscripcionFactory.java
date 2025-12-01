@@ -20,7 +20,7 @@ public class InscripcionFactory {
                         new InscripcionId(1),
                         new AlumnoId(1),
                         new TallerId(10),
-                        LocalDateTime.of(2025, 1, 10, 10, 0),
+                        LocalDateTime.of(2025, 1, 10, 10, 0)
                         
                 )
         );
@@ -30,7 +30,7 @@ public class InscripcionFactory {
                         new InscripcionId(2),
                         new AlumnoId(2),
                         new TallerId(10),
-                        LocalDateTime.of(2025, 1, 11, 11, 30),
+                        LocalDateTime.of(2025, 1, 11, 11, 30)
                         
                 )
         );
@@ -40,7 +40,7 @@ public class InscripcionFactory {
                         new InscripcionId(3),
                         new AlumnoId(3),
                         new TallerId(11),
-                        LocalDateTime.of(2025, 1, 12, 9, 45),
+                        LocalDateTime.of(2025, 1, 12, 9, 45)
                         
                 )
         );
@@ -50,7 +50,7 @@ public class InscripcionFactory {
                         new InscripcionId(4),
                         new AlumnoId(4),
                         new TallerId(12),
-                        LocalDateTime.of(2025, 1, 15, 17, 0),
+                        LocalDateTime.of(2025, 1, 15, 17, 0)
                         
                 )
         );
@@ -64,7 +64,7 @@ public class InscripcionFactory {
                 new InscripcionId(99),
                 new AlumnoId(99),
                 new TallerId(99),
-                LocalDateTime.now(),
+                LocalDateTime.now());
                
     }
 }
