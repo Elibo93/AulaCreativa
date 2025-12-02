@@ -22,7 +22,7 @@ public class InscripcionConfig {
 
     private final InscripcionEntityJpaRepository inscripcionRepository;
 
-    // Creo por configuración la instalacia que me interesa del productoRepository (desde jpa)
+    // Creo por configuración la instalacia que me interesa de inscripcionRepository (desde jpa)
     @Bean
     public InscripcionRepository inscripcionRepository() {
         return new InscripcionJpaRepositoryImpl(inscripcionRepository);
