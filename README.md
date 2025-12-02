@@ -1,4 +1,4 @@
-![Portada](img/portada.png)
+![Portada](/img/portada.png)
 
 ##### Contexto de la aplicación
   - [**Mundo real del problema**](document/mundoReal.md)
