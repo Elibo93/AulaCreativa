@@ -15,7 +15,6 @@ import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.db.jp
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.web.dto.inscripcion.InscripcionRequest;
 import es.etg.daw.dawes.java.web.aulaCreativa.aulaCreativa.infraestructure.web.dto.inscripcion.InscripcionResponse;
 
-
 public class InscripcionMapper {
 
     // REQUEST -> CREATE COMMAND
