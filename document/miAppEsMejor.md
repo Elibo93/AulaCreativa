@@ -1,9 +1,10 @@
 ### Por qué mi aplicación es mejor
 ---
 <p align="center">
-  <img src="/img/movil_tocho.png" width="300">
+  <img src="/img/miApp_esMejor.png" width="275">
 </p>
-La aplicación desarrollada para **Aula Creativa** surge como respuesta a una problemática común en centros formativos y espacios creativos: la fragmentación de la información y la ausencia de un sistema unificado que permita gestionar de forma eficiente alumnos, profesores, talleres y procesos administrativos. Tradicionalmente, este tipo de centros depende de múltiples herramientas (hojas de cálculo, documentos improvisados, mensajería instantánea y registros manuales), lo que genera duplicidad de datos, descoordinación y un control limitado sobre la actividad diaria.
+
+La aplicación **Artia** desarrollada para **Aula Creativa** surge como respuesta a una problemática común en centros formativos y espacios creativos: la fragmentación de la información y la ausencia de un sistema unificado que permita gestionar de forma eficiente alumnos, profesores, talleres y procesos administrativos. Tradicionalmente, este tipo de centros depende de múltiples herramientas (hojas de cálculo, documentos improvisados, mensajería instantánea y registros manuales), lo que genera duplicidad de datos, descoordinación y un control limitado sobre la actividad diaria.
 
 La propuesta presentada destaca por integrar en una única plataforma todas las funcionalidades esenciales para la operación de un centro de estas características. Su diseño se basa en principios de simplicidad, cohesión funcional y accesibilidad, permitiendo que diferentes perfiles (administración, docentes o alumnos) puedan utilizar el sistema sin necesidad de formación técnica avanzada.
 
@@ -21,6 +22,6 @@ La interfaz ha sido desarrollada buscando accesibilidad y claridad, con un dise�
 - **Adaptabilidad y escalabilidad**
 La arquitectura de la aplicación permite ampliaciones futuras, ya sea incorporando nuevos módulos (por ejemplo, gestión de materiales o evaluaciones) o integrando servicios externos. Su estructura interna sigue principios de buena ingeniería que facilitan el mantenimiento y la evolución del sistema.
 
-En conclusion,la aplicación no solo centraliza y optimiza la gestión de Aula Creativa, sino que aporta un modelo organizado, eficiente y escalable para el funcionamiento del centro. Su valor diferencial radica en ofrecer una solución integral, coherente y adaptada a las necesidades reales de este tipo de instituciones, superando la dispersión y las limitaciones de los métodos tradicionales utilizados hasta ahora.
+En conclusion,la aplicación no solo centraliza y optimiza la gestión de Aula Creativa, sino que aporta un modelo **organizado, eficiente y escalable** para el funcionamiento del centro. Su valor diferencial radica en ofrecer una solución integral, coherente y adaptada a las necesidades reales de este tipo de instituciones, superando la dispersión y las limitaciones de los métodos tradicionales utilizados hasta ahora.
 
 [Volver](/README.md)

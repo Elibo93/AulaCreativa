@@ -1,14 +1,49 @@
 ### Requisitos no funcionales (NF)
 ---
-Estos requisitos no dependen directamente de la lógica del negocio, sino de cómo debe ser la aplicación a nivel de calidad, rendimiento y usabilidad. Son cosas que hacen que la app sea más profesional y agradable de usar.
 
-* La aplicación debe tener una **interfaz clara y fácil de usar**, adecuada para usuarios sin conocimientos técnicos.
-* El diseño tiene que ser **responsive**, para que funcione bien en **móvil, tablet y ordenador**.
-* El sistema debe mantener una **estructura ordenada** y con un código fácil de entender (buena organización de archivos y módulos).
-* Debe garantizar un mínimo de **seguridad**, evitando accesos no autorizados a partes internas de la aplicación.
-* La información debe cargarse en un **tiempo razonable**, evitando esperas excesivas.
-* La base de datos debe estar **normalizada** para evitar inconsistencias y duplicados.
-* La aplicación debe ser **escalable** a nivel básico, permitiendo que en el futuro se añadan más módulos sin tener que rehacer todo.
-* Se prioriza el uso de **estándares web actuales** (HTML5, CSS3, JavaScript moderno) y buenas prácticas básicas.
+#### Requisitos No Funcionales (RNF) de Arquitectura y Mantenibilidad
+
+<p align="center">
+  <img src="/img/rnf.png" width="450">
+</p>
+
+**Adherencia Estricta a la Arquitectura Hexagonal**
+
+El código fuente debe **respetar de manera estricta** los límites y principios definidos por la Arquitectura Hexagonal. Esto implica que:
+
+* **Dirección de Dependencias:** Las dependencias entre las capas deben fluir **siempre hacia el interior**, apuntando hacia la capa central del **Dominio (Business Core)**.
+* **Aislamiento de la Lógica:** La lógica de negocio crucial y las reglas de la aplicación deben estar completamente **libres de dependencias** de cualquier tecnología externa, como *frameworks* de interfaz de usuario, librerías de persistencia (como JPA o Spring Data), o *frameworks* web. Esto asegura la máxima *testabilidad* y *portabilidad* del *core* de la aplicación.
+
+**Modularidad y Escalabilidad mediante Vertical Slicing**
+
+La estructura organizativa del proyecto debe basarse en el patrón de **Vertical Slicing** (Cortes Verticales).
+
+* **Organización por Funcionalidad:** El código debe agruparse en paquetes o módulos que representan una funcionalidad o característica completa de la aplicación (ej., `com.tudominio.inscripciones`, `com.tudominio.talleres`).
+* **Independencia Funcional:** Al añadir una **nueva funcionalidad** (*slice* vertical), el impacto en los *slices* existentes debe ser **nulo o mínimo**. Este enfoque garantiza una **escalabilidad funcional** superior, facilitando el desarrollo paralelo y la futura segregación del código si se migra a microservicios.
+
+**Convenciones de Código y Limpieza**
+
+Para garantizar la **legibilidad** y **mantenibilidad** a largo plazo, el código debe adherirse a estándares profesionales:
+
+* **Convenciones Estándar:** El código debe seguir las convenciones de nombrado de Java (ej. `CamelCase` para clases y variables, nombres **descriptivos** y que reflejen la intención).
+* **Uso Juicioso de Lombok:** Se permitirá el uso de la librería **Lombok** para reducir el código repetitivo (*boilerplate*), específicamente para generar *getters*, *setters*, y constructores simples. Su uso debe ser moderado, evitando ocultar lógica crucial o métodos que deberían implementarse explícitamente.
+
+**Garantía de Testabilidad del Dominio (Unit Testing)**
+
+La arquitectura debe **facilitar inherentemente** la creación de pruebas automatizadas en los distintos niveles de la aplicación.
+
+* **Enfoque en el Dominio:** Debe ser posible crear y ejecutar **pruebas unitarias** (empleando *JUnit* y *Mockito*) sobre la **capa de Dominio** y su lógica de negocio de manera **completamente aislada**.
+* **Independencia de Contexto:** Esto significa que las pruebas más importantes **no deben requerir** levantar el contexto completo de Spring (*Spring Context*) ni inicializar la base de datos (incluso la base de datos H2 en memoria).
+
+---
+
+#### Requisitos No Funcionales (RNF) de Desacoplamiento y Persistencia
+
+**Abstracción Total de la Persistencia (Database Agnostic)**
+
+Aunque el desarrollo inicial y las pruebas utilicen una base de datos en memoria (como **H2**), la solución debe estar diseñada para ser **completamente agnóstica** al motor de base de datos final.
+
+* **Aislamiento JPA/Hibernate:** El uso de JPA/Hibernate (o cualquier *framework* ORM) debe actuar como el adaptador, **abstraído** del Dominio mediante el patrón *Repository* de la Arquitectura Hexagonal.
+* **Portabilidad de Datos:** El cambio a una base de datos de producción (como **PostgreSQL** o **MySQL**) debe ser un proceso de **configuración pura**. Solo debe requerir modificar las propiedades de conexión dentro del archivo `application.properties` y ajustar las dependencias del *driver* en Maven/Gradle, **sin necesidad de realizar cambios** en el código fuente de Java.
   
 [Volver](/README.md)

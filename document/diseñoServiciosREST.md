@@ -18,75 +18,77 @@ La API utiliza:
 Con estas pautas, la API es fácil de consumir, mantener y extender, y soporta todas las funcionalidades del sistema actual y futuros módulos.
 
 
-## Endpoints REST — Aula Creativa
+### Endpoints REST — Aula Creativa
 
-## 1. Alumnos
+#### 1. Alumnos
 
-### 1.1 CRUD de alumnos
+- ##### 1.1 CRUD de alumnos
 
-| Operación        | Método | Endpoint             | Body Ejemplo                                                                                                                           | Código | Ejemplo Respuesta                          | Errores        |
-|------------------|--------|----------------------|------------------------------------------------------------------------------------------------------------------------------------------|--------|---------------------------------------------|----------------|
-| Crear alumno     | POST   | /api/v1/alumnos      | { "nombre": "Diego", "apellidos": "Romero", "dni": "12345678A", "email": "diego@example.com" }                                          | 201    | { "idAlumno": 1, "nombre": "Diego" }        | 400,401,409    |
-| Listar alumnos   | GET    | /api/v1/alumnos      | -                                                                                                                                        | 200    | { "meta": {...}, "data": [] }              | 400,401        |
-| Ver alumno       | GET    | /api/v1/alumnos/{id} | -                                                                                                                                        | 200    | { "idAlumno": 1, "nombre": "Diego" }       | 404,401        |
-| Modificar alumno | PUT    | /api/v1/alumnos/{id} | { "nombre": "Diego", "email": "nuevo@example.com" }                                                                                     | 200    | { "idAlumno": 1, "email": "nuevo@example.com" } | 400,404,401 |
-| Eliminar alumno  | DELETE | /api/v1/alumnos/{id} | -                                                                                                                                        | 204    | -                                           | 404,401,403    |
+    | Operación        | Método | Endpoint             | Body Ejemplo                                                                                                                           | Código | Ejemplo Respuesta                          | Errores        |
+    |------------------|--------|----------------------|------------------------------------------------------------------------------------------------------------------------------------------|--------|---------------------------------------------|----------------|
+    | Crear alumno     | POST   | /api/v1/alumnos      | { "nombre": "Diego", "apellidos": "Romero", "dni": "12345678A", "email": "diego@example.com" }                                          | 201    | { "idAlumno": 1, "nombre": "Diego" }        | 400,401,409    |
+    | Listar alumnos   | GET    | /api/v1/alumnos      | -                                                                                                                                        | 200    | { "meta": {...}, "data": [] }              | 400,401        |
+    | Ver alumno       | GET    | /api/v1/alumnos/{id} | -                                                                                                                                        | 200    | { "idAlumno": 1, "nombre": "Diego" }       | 404,401        |
+    | Modificar alumno | PUT    | /api/v1/alumnos/{id} | { "nombre": "Diego", "email": "nuevo@example.com" }                                                                                     | 200    | { "idAlumno": 1, "email": "nuevo@example.com" } | 400,404,401 |
+    | Eliminar alumno  | DELETE | /api/v1/alumnos/{id} | -                                                                                                                                        | 204    | -                                           | 404,401,403    |
 
-### 1.2 Funcionalidades del alumno
+- ##### 1.2 Funcionalidades del alumno
 
-#### Consultar asistencias del alumno
+    ###### Consultar asistencias del alumno
 
-| Operación               | Método | Endpoint                             | Código | Respuesta Ejemplo                             | Errores |
-|-------------------------|--------|--------------------------------------|--------|-----------------------------------------------|---------|
-| Consultar asistencias   | GET    | /api/v1/alumnos/{id}/asistencias     | 200    | { "alumnoId": 1, "asistencias": [] }          | 404,401 |
+    | Operación               | Método | Endpoint                             | Código | Respuesta Ejemplo                             | Errores |
+    |-------------------------|--------|--------------------------------------|--------|-----------------------------------------------|---------|
+    | Consultar asistencias   | GET    | /api/v1/alumnos/{id}/asistencias     | 200    | { "alumnoId": 1, "asistencias": [] }          | 404,401 |
 
-#### Consultar talleres disponibles
+    ###### Consultar talleres disponibles
 
-| Operación                     | Método | Endpoint         | Código | Respuesta Ejemplo                                      | Errores |
-|------------------------------|--------|-------------------|--------|----------------------------------------------------------|---------|
-| Listar talleres disponibles  | GET    | /api/v1/talleres | 200    | { "data": [ { "idTaller": 10, "cupos": 4 } ] }          | 400,401 |
+    | Operación                     | Método | Endpoint         | Código | Respuesta Ejemplo                                      | Errores |
+    |------------------------------|--------|-------------------|--------|----------------------------------------------------------|---------|
+    | Listar talleres disponibles  | GET    | /api/v1/talleres | 200    | { "data": [ { "idTaller": 10, "cupos": 4 } ] }          | 400,401 |
 
-#### Inscribirse en un taller
+    ###### Inscribirse en un taller
 
-| Operación                | Método | Endpoint                           | Body Ejemplo     | Código | Respuesta Ejemplo                               | Errores          |
-|--------------------------|--------|------------------------------------|------------------|--------|--------------------------------------------------|-------------------|
-| Inscribirse en taller    | POST   | /api/v1/alumnos/{id}/inscripciones | { "idTaller":10 } | 201    | { "idInscripcion": 101, "estado": "ACTIVA" }    | 400,401,404,409  |
+    | Operación                | Método | Endpoint                           | Body Ejemplo     | Código | Respuesta Ejemplo                               | Errores          |
+    |--------------------------|--------|------------------------------------|------------------|--------|--------------------------------------------------|-------------------|
+    | Inscribirse en taller    | POST   | /api/v1/alumnos/{id}/inscripciones | { "idTaller":10 } | 201    | { "idInscripcion": 101, "estado": "ACTIVA" }    | 400,401,404,409  |
 
+---
 
-## 2. Profesores
+#### 2. Profesores
 
-### 2.1 CRUD de profesores
+- ##### 2.1 CRUD de profesores
 
-| Operación         | Método | Endpoint                   | Body Ejemplo                                                                                                 | Código | Respuesta Ejemplo                      | Errores        |
-|-------------------|--------|----------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|--------|-----------------------------------------|----------------|
-| Crear profesor    | POST   | /api/v1/profesores         | { "nombre": "Laura", "apellidos": "García", "especialidad": "Dibujo", "email": "laura@example.com" }                                                            | 201    | { "idProfesor": 2, "nombre": "Laura" } | 400,401,409    |
-| Listar profesores | GET    | /api/v1/profesores         | -                                                                                                                                                              | 200    | { "meta": {...}, "data": [] }          | 400,401        |
-| Ver profesor      | GET    | /api/v1/profesores/{id}    | -                                                                                                                                                              | 200    | { "idProfesor": 2, "nombre": "Laura" } | 404,401        |
-| Modificar prof.   | PUT    | /api/v1/profesores/{id}    | { "email": "nuevo@example.com" }                                                                                                                               | 200    | { "idProfesor": 2, "email": "nuevo" }  | 400,404,401    |
-| Eliminar profesor | DELETE | /api/v1/profesores/{id}    | -                                                                                                                                                              | 204    | -                                       | 404,401,403    |
+    | Operación         | Método | Endpoint                   | Body Ejemplo                                                                                                 | Código | Respuesta Ejemplo                      | Errores        |
+    |-------------------|--------|----------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|--------|-----------------------------------------|----------------|
+    | Crear profesor    | POST   | /api/v1/profesores         | { "nombre": "Laura", "apellidos": "García", "especialidad": "Dibujo", "email": "laura@example.com" }                                                            | 201    | { "idProfesor": 2, "nombre": "Laura" } | 400,401,409    |
+    | Listar profesores | GET    | /api/v1/profesores         | -                                                                                                                                                              | 200    | { "meta": {...}, "data": [] }          | 400,401        |
+    | Ver profesor      | GET    | /api/v1/profesores/{id}    | -                                                                                                                                                              | 200    | { "idProfesor": 2, "nombre": "Laura" } | 404,401        |
+    | Modificar prof.   | PUT    | /api/v1/profesores/{id}    | { "email": "nuevo@example.com" }                                                                                                                               | 200    | { "idProfesor": 2, "email": "nuevo" }  | 400,404,401    |
+    | Eliminar profesor | DELETE | /api/v1/profesores/{id}    | -                                                                                                                                                              | 204    | -                                       | 404,401,403    |
 
-### 2.2 Funcionalidades del profesor
+- ##### 2.2 Funcionalidades del profesor
 
-#### Registrar asistencias
+    ###### Registrar asistencias
 
-| Operación              | Método | Endpoint                                                        | Body Ejemplo                                                               | Código | Respuesta Ejemplo                                      | Errores |
-|------------------------|--------|------------------------------------------------------------------|----------------------------------------------------------------------------|--------|----------------------------------------------------------|---------|
-| Registrar asistencias  | POST   | /api/v1/profesores/{id}/talleres/{idTaller}/asistencias         | { "fechaSesion":"2025-11-10","asistencias":[{"idAlumno":1,"asistio":true}] } | 201    | { "mensaje": "Asistencias registradas" }                | 400,401,404 |
+    | Operación              | Método | Endpoint                                                        | Body Ejemplo                                                               | Código | Respuesta Ejemplo                                      | Errores |
+    |------------------------|--------|------------------------------------------------------------------|----------------------------------------------------------------------------|--------|----------------------------------------------------------|---------|
+    | Registrar asistencias  | POST   | /api/v1/profesores/{id}/talleres/{idTaller}/asistencias         | { "fechaSesion":"2025-11-10","asistencias":[{"idAlumno":1,"asistio":true}] } | 201    | { "mensaje": "Asistencias registradas" }                | 400,401,404 |
 
-#### Ver alumnos inscritos
+    ###### Ver alumnos inscritos
 
-| Operación               | Método | Endpoint                                                       | Código | Respuesta Ejemplo                                         | Errores |
-|-------------------------|--------|----------------------------------------------------------------|--------|-------------------------------------------------------------|---------|
-| Ver alumnos inscritos   | GET    | /api/v1/profesores/{id}/talleres/{idTaller}/alumnos           | 200    | { "tallerId": 10, "alumnos": [{ "idAlumno":1 }] }          | 400,401,404 |
+    | Operación               | Método | Endpoint                                                       | Código | Respuesta Ejemplo                                         | Errores |
+    |-------------------------|--------|----------------------------------------------------------------|--------|-------------------------------------------------------------|---------|
+    | Ver alumnos inscritos   | GET    | /api/v1/profesores/{id}/talleres/{idTaller}/alumnos           | 200    | { "tallerId": 10, "alumnos": [{ "idAlumno":1 }] }          | 400,401,404 |
 
-#### Consultar talleres impartidos
+    ###### Consultar talleres impartidos
 
-| Operación                     | Método | Endpoint                        | Código | Respuesta Ejemplo                                   | Errores |
-|-------------------------------|--------|----------------------------------|--------|-------------------------------------------------------|---------|
-| Consultar talleres impartidos | GET    | /api/v1/profesores/{id}/talleres | 200    | { "profesorId": 2, "talleres": [{ "idTaller":10 }] } | 400,401,404 |
+    | Operación                     | Método | Endpoint                        | Código | Respuesta Ejemplo                                   | Errores |
+    |-------------------------------|--------|----------------------------------|--------|-------------------------------------------------------|---------|
+    | Consultar talleres impartidos | GET    | /api/v1/profesores/{id}/talleres | 200    | { "profesorId": 2, "talleres": [{ "idTaller":10 }] } | 400,401,404 |
 
+---
 
-## 3. Talleres
+#### 3. Talleres
 
 | Operación        | Método | Endpoint              | Body Ejemplo                                                                             | Código | Respuesta Ejemplo                    | Errores     |
 |------------------|--------|------------------------|------------------------------------------------------------------------------------------|--------|---------------------------------------|-------------|
@@ -96,7 +98,9 @@ Con estas pautas, la API es fácil de consumir, mantener y extender, y soporta t
 | Modificar taller | PUT    | /api/v1/talleres/{id}  | { "nombre":"Acuarela Av.","descripcion":"Nivel medio" }                                 | 200    | { "idTaller":10,"nombre":"Acuarela"} | 400,404,401 |
 | Eliminar taller  | DELETE | /api/v1/talleres/{id}  | -                                                                                        | 204    | -                                     | 404,401,403 |
 
-## 4. Inscripciones
+---
+
+#### 4. Inscripciones
 
 | Operación             | Método | Endpoint                     | Body Ejemplo                                           | Código | Respuesta Ejemplo                              | Errores        |
 |-----------------------|--------|------------------------------|--------------------------------------------------------|--------|------------------------------------------------|----------------|
@@ -106,7 +110,9 @@ Con estas pautas, la API es fácil de consumir, mantener y extender, y soporta t
 | Modificar inscripción | PUT    | /api/v1/inscripciones/{id}   | { "estado":"BAJA" }                                    | 200    | { "idInscripcion":100,"estado":"BAJA" }        | 400,404,401    |
 | Eliminar inscripción  | DELETE | /api/v1/inscripciones/{id}   | -                                                      | 204    | -                                              | 404,401,403    |
 
-## 5. Asistencias
+---
+
+#### 5. Asistencias
 
 | Operación             | Método | Endpoint                 | Body Ejemplo                                            | Código | Respuesta Ejemplo                       | Errores          |
 |-----------------------|--------|---------------------------|----------------------------------------------------------|--------|------------------------------------------|-------------------|

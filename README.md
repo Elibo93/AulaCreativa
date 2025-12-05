@@ -20,7 +20,7 @@
     - [Reutilización](document/reutilizacion.md)
 
   - **Arquitectura**
-    - [Despliegue comentario: Spring boot Web](document/despliegue.md)
+    - [Despliegue](document/despliegue.md)
     - [Componentes comentarios: definir aplicattion, domain, infraestructure](document/componenentes.md)
   - [**Diseño de los servicios REST**](document/diseñoServiciosREST.md)
   - [**Base de datos**](document/db.md)
