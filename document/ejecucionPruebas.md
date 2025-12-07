@@ -18,7 +18,7 @@ Para cada test se registró:
 1. Entrada enviada
 2. Respuesta esperada
 3. Código HTTP devuelto
-4. Resultado: *Correcto / Fallido / Observación*
+4. Resultado: *Correcto / Fallido*
 
 #### Alumnos
 
