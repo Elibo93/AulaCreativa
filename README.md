@@ -21,7 +21,7 @@
 
   - **Arquitectura**
     - [Despliegue](document/despliegue.md)
-    - [Componentes comentarios: definir aplicattion, domain, infraestructure](document/componenentes.md)
+    - [Componentes](document/componenentes.md)
   - [**Diseño de los servicios REST**](document/diseñoServiciosREST.md)
   - [**Base de datos**](document/db.md)
   - [**Paquetes, Interfaces y Clases**](document/packIntClass.md)
@@ -41,7 +41,8 @@
 ##### [Manual de usuario](document/manual.md) 
 
 ##### Conclusiones - sobre la marcha
-  - [**Realizar de manera individual**](document/conclusiones.md)
+  - [**Diego**](document/diego.md)
+  - [**Elisabeth**](document/elisabeth.md)
 
 ##### [Bibliografía](document/bibliografia.md)
 

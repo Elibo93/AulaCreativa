@@ -3,7 +3,7 @@
 
 A continuación se describen los componentes utilizados en el proyecto **AulaCreativa** y por qué se usan dentro del proceso de implantación y puesta en producción.
 
-  #### DevContainer
+#### DevContainer
 Un entorno de desarrollo reproducible basado en Docker que se configura automáticamente al abrir el proyecto en VS Code.
 
 **Por qué se usa:**

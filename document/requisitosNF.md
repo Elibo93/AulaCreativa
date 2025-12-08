@@ -7,28 +7,28 @@
   <img src="/img/rnf.png" width="450">
 </p>
 
-**Adherencia Estricta a la Arquitectura Hexagonal**
+##### Adherencia Estricta a la Arquitectura Hexagonal
 
 El código fuente debe **respetar de manera estricta** los límites y principios definidos por la Arquitectura Hexagonal. Esto implica que:
 
 * **Dirección de Dependencias:** Las dependencias entre las capas deben fluir **siempre hacia el interior**, apuntando hacia la capa central del **Dominio (Business Core)**.
 * **Aislamiento de la Lógica:** La lógica de negocio crucial y las reglas de la aplicación deben estar completamente **libres de dependencias** de cualquier tecnología externa, como *frameworks* de interfaz de usuario, librerías de persistencia (como JPA o Spring Data), o *frameworks* web. Esto asegura la máxima *testabilidad* y *portabilidad* del *core* de la aplicación.
 
-**Modularidad y Escalabilidad mediante Vertical Slicing**
+##### Modularidad y Escalabilidad mediante Vertical Slicing
 
 La estructura organizativa del proyecto debe basarse en el patrón de **Vertical Slicing** (Cortes Verticales).
 
 * **Organización por Funcionalidad:** El código debe agruparse en paquetes o módulos que representan una funcionalidad o característica completa de la aplicación (ej., `com.tudominio.inscripciones`, `com.tudominio.talleres`).
 * **Independencia Funcional:** Al añadir una **nueva funcionalidad** (*slice* vertical), el impacto en los *slices* existentes debe ser **nulo o mínimo**. Este enfoque garantiza una **escalabilidad funcional** superior, facilitando el desarrollo paralelo y la futura segregación del código si se migra a microservicios.
 
-**Convenciones de Código y Limpieza**
+##### Convenciones de Código y Limpieza
 
 Para garantizar la **legibilidad** y **mantenibilidad** a largo plazo, el código debe adherirse a estándares profesionales:
 
 * **Convenciones Estándar:** El código debe seguir las convenciones de nombrado de Java (ej. `CamelCase` para clases y variables, nombres **descriptivos** y que reflejen la intención).
 * **Uso Juicioso de Lombok:** Se permitirá el uso de la librería **Lombok** para reducir el código repetitivo (*boilerplate*), específicamente para generar *getters*, *setters*, y constructores simples. Su uso debe ser moderado, evitando ocultar lógica crucial o métodos que deberían implementarse explícitamente.
 
-**Garantía de Testabilidad del Dominio (Unit Testing)**
+##### Garantía de Testabilidad del Dominio (Unit Testing)
 
 La arquitectura debe **facilitar inherentemente** la creación de pruebas automatizadas en los distintos niveles de la aplicación.
 
@@ -39,7 +39,7 @@ La arquitectura debe **facilitar inherentemente** la creación de pruebas automa
 
 #### Requisitos No Funcionales (RNF) de Desacoplamiento y Persistencia
 
-**Abstracción Total de la Persistencia (Database Agnostic)**
+##### Abstracción Total de la Persistencia (Database Agnostic)
 
 Aunque el desarrollo inicial y las pruebas utilicen una base de datos en memoria (como **H2**), la solución debe estar diseñada para ser **completamente agnóstica** al motor de base de datos final.
 
