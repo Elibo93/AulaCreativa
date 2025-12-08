@@ -1,8 +1,8 @@
 ### Mundo real del problema
 ---
-<p align="center">
+
   <img src="/img/mundo_real.png" width="210">
-</p>
+
 
 #### Motivación del proyecto
 
