@@ -48,7 +48,7 @@ public class AlumnoController {
     public ResponseEntity<AlumnoResponse> createAlumno(@RequestBody AlumnoRequest alumnoRequest) {
         CreateAlumnoCommand comando = AlumnoMapper.toCommand(alumnoRequest);
         Alumno alumno = createAlumnoService.createAlumno(comando);
-        return ResponseEntity.status(HttpStatus.CREATED).body(AlumnoMapper.toResponse(alumno)); // Respuestagit@github.com:julparper/dawes-springboot-restful.git
+        return ResponseEntity.status(HttpStatus.CREATED).body(AlumnoMapper.toResponse(alumno));
     }
 
     @GetMapping // Método Get
@@ -65,7 +65,7 @@ public class AlumnoController {
     @DeleteMapping("/{id}") // Método Delete
     public ResponseEntity<?> deleteAlumno(@PathVariable int id) {
         deleteAlumnoService.delete(new AlumnoId(id));
-        return ResponseEntity.noContent().build(); // Devpñvemos una respuesta vacía.
+        return ResponseEntity.noContent().build(); // Devolvemos una respuesta vacía.
     }
 
     @PutMapping("/{id}") // Método Put
