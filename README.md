@@ -29,7 +29,9 @@
 
 ##### Implementación
   - [**Entorno de Desarrollo**](document/entornoDesarrollo.md)
+  
     - [Implantación/Puesta en producción](document/implantacion.md)
+  - [**Internacionalización**](document/internacionalizacion.md)
 
 ##### Capturas de la ejecución de la funcionalidad
   - [**Ejecución de las pruebas**](document/ejecucionPruebas.md)

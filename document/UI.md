@@ -1,6 +1,5 @@
 ### UI (Vistas)
 ---
-[Volver](/README.md)4.2 UI – Vistas (Thymeleaf)
 
 La capa de presentación se implementa utilizando Thymeleaf como motor de plantillas del lado servidor, integrado con Spring Boot. La aplicación está diseñada para disponer de un conjunto completo de vistas que permitan la gestión de los distintos elementos del sistema.
 
@@ -21,3 +20,5 @@ Vista de actividades: gestión de actividades formativas. (Planificada)
 Vista de inscripciones: relación entre alumnos y actividades. (Planificada)
 
 Las vistas se comunican con el backend REST para obtener y modificar los datos, mostrando la información de forma dinámica mediante el modelo proporcionado por los controladores Spring MVC.
+
+[Volver](/README.md)
