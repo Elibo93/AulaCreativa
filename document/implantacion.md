@@ -3,6 +3,17 @@
 
 A continuación se describen los componentes utilizados en el proyecto **AulaCreativa** y por qué se usan dentro del proceso de implantación y puesta en producción.
 
+#### Contenedorización con Docker
+
+La aplicación AulaCreativa está diseñada para ser ejecutada dentro de un contenedor Docker, lo que permite encapsular todo el entorno necesario para su ejecución (Java, dependencias y configuración).
+
+**Por qué se usa:**
+
+- Garantiza que la aplicación se ejecute de forma idéntica en cualquier entorno.
+- Evita problemas derivados de diferencias entre sistemas operativos.
+- Facilita la puesta en producción y el despliegue futuro.
+- Permite escalar o migrar la aplicación fácilmente a otros servidores.
+
 #### DevContainer
 Un entorno de desarrollo reproducible basado en Docker que se configura automáticamente al abrir el proyecto en VS Code.
 

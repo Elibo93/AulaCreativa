@@ -7,7 +7,8 @@ Este documento describe los entornos de desarrollo, ejecución y herramientas ut
 - **Java 17** como lenguaje principal del proyecto
 
 #### Frameworks y librerías principales 
-- **Spring Boot** como Framework de la aplkicación.
+- **Spring Boot** como Framework de la apllicación.
+- **Thymeleaf** como motor de plantillas.
 - **Spring Data** como capa de abstracción de acceso a datos.
 - **Spring Data JPA** como capa de persistencia basada en JPA.
 - **JPA** como API de mapeo objeto-relacional(ORM).
