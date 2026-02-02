@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{alumno.list.page.title}">Listado de Alumnos</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/estilos.css}">
+</head>
+
+<body>
+    <div class="language-selector">
+        <a th:href="@{/web/alumnos(lang=es)}">🇪🇸</a> |
+        <a th:href="@{/web/alumnos(lang=en)}">🇬🇧</a> |
+        <a th:href="@{/web/alumnos(lang=ar)}">🇲🇦</a> |
+        <a th:href="@{/web/alumnos(lang=it)}">🇮🇹</a>
+    </div>
+
+    <hr>
+    <h1 class="page-title" th:text="#{alumno.list.title}">LISTADO DE ALUMNOS</h1>
+
+    <div class="table-container card">
+        <a class="action-link create" th:href="@{/web/alumnos/nuevo}" th:text="#{generic.link.create}">
+            | Crear Nuevo |
+        </a>
+
+        <a class="delete" th:href="@{/web/alumnos/eliminar}" th:text="#{generic.link.delete}">
+            | Eliminar Alumno |
+        </a>
+
+        <a class="action-link pdf" th:href="@{/web/alumnos/pdf}">
+            <img th:src="@{/images/archivo-pdf.png}" th:alt="#{generic.link.export.pdf}"
+                th:title="#{generic.link.export.pdf}" width="40">
+        </a>
+
+        <table id="tablaAlumnos">
+            <thead>
+                <tr>
+                    <th th:text="#{alumno.table.header.id}">ID</th>
+                    <th th:text="#{alumno.table.header.name}">Nombre</th>
+                    <th th:text="#{alumno.table.header.apellido}">Apellido</th>
+                    <th th:text="#{alumno.table.header.dni}">DNI</th>
+                </tr>
+            </thead>
+            <tbody id="cuerpoTabla">
+                <tr th:each="a : ${alumnos}">
+                    <td th:text="${a.id.value}">1</td>
+                    <td th:text="${a.nombre}">Juan</td>
+                    <td th:text="${a.apellido}">Pérez</td>
+                    <td th:text="${a.dni}">12345678A</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>
