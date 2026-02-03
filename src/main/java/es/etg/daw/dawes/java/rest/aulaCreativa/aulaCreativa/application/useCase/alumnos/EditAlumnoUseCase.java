@@ -15,6 +15,8 @@ public class EditAlumnoUseCase {
                 .map(p -> { // Actualizamos los atributos del objeto
                    
                     p.setEmail(command.email());
+                    p.setTelefono(command.telefono());
+                    p.setDireccion(command.direccion());
                     return alumnoRepository.save(p);
                 })
                 .orElseThrow(() -> new AlumnoNotFoundException(command.id().getValue())); // Lo cambiamos

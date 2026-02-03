@@ -7,5 +7,5 @@ public interface WebRoutes {
     public static final String ALUMNOS_BASE = "/web/alumnos";
     public static final String ALUMNOS_NUEVO = "/web/alumnos/nuevo";
     public static final String ALUMNOS_PDF = "/web/alumnos/pdf";
-    public static final String ALUMNOS_ELIMINAR = "/web/alumnos/eliminar";
+    public static final String ALUMNOS_ELIMINAR = "/web/alumnos/{id}/borrar";
 }

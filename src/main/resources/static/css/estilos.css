@@ -165,3 +165,204 @@ td:last-child {
     text-align: right;
     font-weight: 600;
 }
+
+
+
+/* ============================
+   Modal & Edit Form Styles
+   ============================ */
+
+/* Animación suave para la aparición */
+@keyframes modalFadeIn {
+    from { opacity: 0; transform: translate(-50%, -60%); }
+    to { opacity: 1; transform: translate(-50%, -50%); }
+}
+
+/* Overlay oscuro tras el modal */
+.modal-overlay {
+    position: fixed;
+    inset: 0; /* Ocupa toda la pantalla (top, right, bottom, left) */
+    background: rgba(0, 0, 0, 0.5); /* Oscurece el fondo */
+    backdrop-filter: blur(2px); /* Efecto borroso moderno */
+    z-index: 9998;
+    display: none; /* Se controla con JS */
+}
+
+/* Contenedor del modal */
+.modal {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px; /* Un poco más ancho para respirar mejor */
+    max-width: 90%;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+    display: none; /* Se controla con JS */
+    
+    /* Animación al abrirse */
+    animation: modalFadeIn 0.3s ease-out forwards;
+}
+
+/* Encabezado del modal */
+.modal h3 {
+    margin: 0 0 20px 0;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1e293b;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 10px;
+}
+
+/* ============================
+   Estilos del Formulario
+   ============================ */
+
+.edit-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.edit-form .form-row {
+    margin-bottom: 16px;
+}
+
+.edit-form label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+    color: #475569;
+    font-weight: 600;
+}
+
+/* Inputs: Selector generalizado para atrapar todos los campos */
+.edit-form input,
+.edit-form select,
+.edit-form textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: 1px solid #cbd5e1;
+    background: #f8fafc;
+    color: #0f172a;
+    font-size: 0.95rem;
+    outline: none;
+    box-sizing: border-box; /* Vital para que el padding no rompa el ancho */
+    transition: all 0.2s ease;
+}
+
+/* Estados Focus de los inputs */
+.edit-form input:focus,
+.edit-form select:focus {
+    border-color: #3b82f6;
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+/* ============================
+   Botones (Actions)
+   ============================ */
+
+.form-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    margin-top: 20px;
+    padding-top: 10px;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    border: none;
+    transition: transform 0.1s ease, box-shadow 0.2s ease;
+}
+
+.btn:active {
+    transform: translateY(1px);
+}
+
+/* Botón Guardar */
+.btn-primary {
+    background: #2563eb;
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background: #1d4ed8;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+}
+
+/* Botón Cancelar */
+.btn-secondary {
+    background: #f1f5f9;
+    color: #475569;
+    border: 1px solid #e2e8f0;
+}
+
+.btn-secondary:hover {
+    background: #e2e8f0;
+    color: #1e293b;
+}
+
+/* ============================
+   Caja de Errores
+   ============================ */
+
+.form-errors {
+    margin-top: 15px;
+    color: #dc2626;
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+/* Ocultar la caja de errores si no tiene texto dentro */
+.form-errors:empty {
+    display: none;
+}
+
+/* iconos dentro de botones (si los usas) */
+.btn img {
+    height: 16px;
+    width: 16px;
+    object-fit: contain;
+}
+
+/* Responsive tweaks */
+@media (max-width:420px) {
+    .modal {
+        padding: 14px;
+        border-radius: 10px;
+    }
+
+    .edit-form label {
+        font-size: 0.82rem;
+    }
+
+    .btn {
+        padding: 7px 10px;
+        font-size: 0.92rem;
+    }
+}
+
+/* Utility classes para mostrar/ocultar desde JS */
+.show {
+    display: block !important;
+}
+
+.hide {
+    display: none !important;
+}

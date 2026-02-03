@@ -23,10 +23,6 @@
             | Crear Nuevo |
         </a>
 
-        <a class="delete" th:href="@{/web/alumnos/eliminar}" th:text="#{generic.link.delete}">
-            | Eliminar Alumno |
-        </a>
-
         <a class="action-link pdf" th:href="@{/web/alumnos/pdf}">
             <img th:src="@{/images/archivo-pdf.png}" th:alt="#{generic.link.export.pdf}"
                 th:title="#{generic.link.export.pdf}" width="40">
@@ -39,18 +35,209 @@
                     <th th:text="#{alumno.table.header.name}">Nombre</th>
                     <th th:text="#{alumno.table.header.apellido}">Apellido</th>
                     <th th:text="#{alumno.table.header.dni}">DNI</th>
+                    <th th:text="#{alumno.table.header.email} ?: 'Email'">Email</th>
+                    <th th:text="#{alumno.table.header.telefono} ?: 'Teléfono'">Teléfono</th>
+                    <th th:text="#{alumno.table.header.direccion} ?: 'Dirección'">Dirección</th>
+                    <th th:text="#{alumno.table.header.action}">Acción</th>
                 </tr>
             </thead>
             <tbody id="cuerpoTabla">
-                <tr th:each="a : ${alumnos}">
+                <tr th:each="a : ${alumnos}" th:attr="data-id=${a.id.value},
+             data-email=${a.email},
+             data-telefono=${a.telefono},
+             data-direccion=${a.direccion}">
                     <td th:text="${a.id.value}">1</td>
                     <td th:text="${a.nombre}">Juan</td>
                     <td th:text="${a.apellido}">Pérez</td>
                     <td th:text="${a.dni}">12345678A</td>
+                    <td class="email-col" th:text="${a.email}">juan@ejemplo.com</td>
+                    <td class="telefono-col" th:text="${a.telefono}">600123456</td>
+                    <td class="direccion-col" th:text="${a.direccion}">Calle Falsa 123</td>
+                    <td>
+                        <form th:action="@{/web/alumnos/{id}/borrar(id=${a.id.value})}" method="post"
+                            style="display:inline"
+                            onsubmit="return confirm('¿Seguro que quieres eliminar este alumno?');">
+                            <button type="submit">
+                                <img th:src="@{/images/eliminar.png}" alt="Eliminar" title="Eliminar" width="15" />
+                            </button>
+                        </form>
+
+                        <!-- Botón editar (fuera del form) -->
+                        <button type="button" class="btn-edit" th:attr="data-id=${a.id.value}" title="Editar">
+                            <img th:src="@{/images/editar.png}" alt="Editar" width="15" />
+                        </button>
+                    </td>
                 </tr>
             </tbody>
         </table>
     </div>
+
+    <!-- Modal overlay -->
+    <div id="modalOverlay" class="modal-overlay" aria-hidden="true" style="display:none;"></div>
+
+    <!-- Modal -->
+    <div id="editModal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" style="display:none;">
+        <h3 id="editModalTitle">Editar alumno</h3>
+
+        <form id="editForm" class="edit-form" novalidate>
+            <input type="hidden" id="editId" name="id" />
+
+            <div class="form-row">
+                <label for="editEmail">Email</label><br />
+                <input id="editEmail" name="email" type="email" autocomplete="email" />
+            </div>
+
+            <div class="form-row">
+                <label for="editTelefono">Teléfono</label><br />
+                <input id="editTelefono" name="telefono" autocomplete="tel" />
+            </div>
+
+            <div class="form-row">
+                <label for="editDireccion">Dirección</label><br />
+                <input id="editDireccion" name="direccion" autocomplete="street-address" />
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                <button type="button" id="editCancel" class="btn btn-secondary">Cancelar</button>
+            </div>
+
+            <div id="editErrors" class="form-errors" aria-live="polite"></div>
+        </form>
+    </div>
+
+    <!-- Script corregido -->
+    <script>
+        /* Configuración: base de la API REST */
+        const apiBase = '/api/v1/alumnos'; // endpoint REST
+
+        const modal = document.getElementById('editModal');
+        const overlay = document.getElementById('modalOverlay');
+        const editForm = document.getElementById('editForm');
+        const editId = document.getElementById('editId');
+        const editEmail = document.getElementById('editEmail');
+        const editTelefono = document.getElementById('editTelefono');
+        const editDireccion = document.getElementById('editDireccion');
+        const editErrors = document.getElementById('editErrors');
+        const editCancel = document.getElementById('editCancel');
+        const tabla = document.getElementById('tablaAlumnos');
+
+        /* Mostrar / ocultar modal */
+        function showModal() {
+            modal.style.display = 'block';
+            overlay.style.display = 'block';
+            modal.setAttribute('aria-hidden', 'false');
+            overlay.setAttribute('aria-hidden', 'false');
+            editErrors.innerText = '';
+            // poner foco en primer campo
+            setTimeout(() => editEmail.focus(), 0);
+        }
+        function closeModal() {
+            modal.style.display = 'none';
+            overlay.style.display = 'none';
+            modal.setAttribute('aria-hidden', 'true');
+            overlay.setAttribute('aria-hidden', 'true');
+            editForm.reset();
+        }
+
+        /* Rellenar modal desde fila <tr> */
+        function fillModalFromRow(tr) {
+            if (!tr) return;
+            // dataset devuelve strings, si falta alguna propiedad quedará ''
+            editId.value = tr.dataset.id || '';
+            editEmail.value = tr.dataset.email || '';
+            editTelefono.value = tr.dataset.telefono || '';
+            editDireccion.value = tr.dataset.direccion || '';
+        }
+
+        /* Actualizar atributos data-* de la fila (y opcionalmente columnas visibles si existen) */
+        function updateRow(alumno) {
+            const tr = document.querySelector(`tr[data-id='${alumno.id}']`);
+            if (!tr) return;
+            if (alumno.email !== undefined) {
+                tr.dataset.email = alumno.email;
+                const emailTd = tr.querySelector('.email-col');
+                if (emailTd) emailTd.textContent = alumno.email || '';
+            }
+            if (alumno.telefono !== undefined) {
+                tr.dataset.telefono = alumno.telefono;
+                const telTd = tr.querySelector('.telefono-col');
+                if (telTd) telTd.textContent = alumno.telefono || '';
+            }
+            if (alumno.direccion !== undefined) {
+                tr.dataset.direccion = alumno.direccion;
+                const dirTd = tr.querySelector('.direccion-col');
+                if (dirTd) dirTd.textContent = alumno.direccion || '';
+            }
+        }
+
+        /* Event delegation: manejar clicks en botones editar */
+        tabla.addEventListener('click', (ev) => {
+            const btn = ev.target.closest('.btn-edit');
+            if (!btn) return;
+            const tr = btn.closest('tr');
+            if (!tr) return;
+            fillModalFromRow(tr);
+            showModal();
+        });
+
+        /* Cerrar modal: overlay click y botón cancelar */
+        overlay.addEventListener('click', closeModal);
+        editCancel.addEventListener('click', closeModal);
+
+        /* Cerrar con Escape */
+        document.addEventListener('keydown', (ev) => {
+            if (ev.key === 'Escape' && modal.style.display === 'block') {
+                closeModal();
+            }
+        });
+
+        /* Submit -> PUT a la API */
+        editForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const id = editId.value;
+            if (!id) {
+                editErrors.innerText = 'ID inválido.';
+                return;
+            }
+
+            const payload = {
+                id: Number(id),
+                email: editEmail.value.trim(),
+                telefono: editTelefono.value.trim(),
+                direccion: editDireccion.value.trim()
+            };
+
+            try {
+                const resp = await fetch(`${apiBase}/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (resp.ok) {
+                    // intentamos parsear JSON; si no viene, usamos payload
+                    let updated;
+                    try { updated = await resp.json(); } catch (_) { updated = payload; }
+                    // Normalizar: si backend no devuelve id, mantener el id enviado
+                    if (!updated.id) updated.id = payload.id;
+                    updateRow(updated);
+                    closeModal();
+                } else if (resp.status === 400) {
+                    const txt = await resp.text();
+                    editErrors.innerText = 'Validación: ' + txt;
+                } else if (resp.status === 409) {
+                    editErrors.innerText = 'Conflicto: el registro fue modificado por otro usuario.';
+                } else {
+                    editErrors.innerText = 'Error al actualizar. Código: ' + resp.status;
+                }
+            } catch (err) {
+                console.error(err);
+                editErrors.innerText = 'Error de red.';
+            }
+        });
+    </script>
+
 </body>
 
 </html>

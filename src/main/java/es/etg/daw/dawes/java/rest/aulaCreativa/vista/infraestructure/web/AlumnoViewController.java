@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.thymeleaf.TemplateEngine;
@@ -18,7 +19,6 @@ import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.application.service.
 import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.application.service.alumnos.FindAlumnoService;
 import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.domain.model.alumno.Alumno;
 import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.domain.model.alumno.AlumnoId;
-
 import es.etg.daw.dawes.java.rest.aulaCreativa.vista.infraestructure.web.constants.WebRoutes;
 import es.etg.daw.dawes.java.rest.aulaCreativa.vista.infraestructure.web.enums.ModelAttribute;
 import es.etg.daw.dawes.java.rest.aulaCreativa.vista.infraestructure.web.enums.ThymTemplates;
@@ -68,22 +68,11 @@ public class AlumnoViewController {
         return ThymTemplates.ALUMNO_CREATED.getPath();
     }
 
-    // Carga la vista del formulario http://localhost:8082/web/alumnos/eliminar
-    @GetMapping(WebRoutes.ALUMNOS_ELIMINAR)
-    public String formularioDelete(Model model) {
-
-        // Agrego un atributo con el nombre "alumno" y con los datos vacíos, este alumno se rellenará con los datos de la vista.
-        // es necesario que Alumno tenga el constructor vacío: @NoArgsConstructor
-        model.addAttribute(ModelAttribute.SINGLE_ALUMNO.getName(), new Alumno());
-
-        return ThymTemplates.ALUMNO_FORM_DELETE.getPath(); //Devuelvo la vista que carga el formulario
-    }
-
-    // Este método elimina un alumno y devuelve la vista del mensaje eliminado
+    // Este método elimina un alumno y devuelve la lista con el alumno eliminado
     @PostMapping(WebRoutes.ALUMNOS_ELIMINAR)
-    public String borrar(@RequestParam Integer id, Model model) {
+    public String borrar(@PathVariable Integer id, Model model) {
         deleteAlumnoService.delete(new AlumnoId(id));
-        return ThymTemplates.ALUMNO_DELETED.getPath();
+        return "redirect:" + WebRoutes.ALUMNOS_BASE;
     }
 
      //Listado de Alumnos http://localhost:8082/web/alumnos/pdf
