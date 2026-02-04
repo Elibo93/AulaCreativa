@@ -1,368 +1,316 @@
 /* =====================
-   BASE / RESET
+   RESET & VARIABLES
 ===================== */
+:root {
+    --primary: #4f46e5;
+    --primary-hover: #4338ca;
+    --danger: #ef4444;
+    --danger-bg: #fee2e2;
+    --text-main: #1f2937;
+    --text-muted: #6b7280;
+    --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #eef2ff 100%);
+    --card-bg: rgba(255, 255, 255, 0.9);
+    --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+}
+
 * {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
 
 body {
-    margin: 0;
-    padding: 60px 40px;
-    background: linear-gradient(180deg, #020617, #111827);
-    font-family: 'Segoe UI', system-ui, sans-serif;
-    color: #e5e7eb;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: var(--bg-gradient);
+    background-attachment: fixed;
+    color: var(--text-main);
+    line-height: 1.5;
+    padding: 40px 20px;
 }
 
 /* =====================
-   LANGUAGE SELECTOR
+   CABECERA APP
 ===================== */
-.language-selector {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    margin-bottom: 30px;
-    font-size: 1.3rem;
-}
-
-.language-selector a {
-    text-decoration: none;
-    transition: transform 0.2s ease;
-}
-
-.language-selector a:hover {
-    transform: scale(1.15);
-}
-
-/* =====================
-   TITULO
-===================== */
-h1 {
-    font-size: 2.2rem;
-    font-weight: 700;
-    margin-bottom: 35px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: #facc15;
-    position: relative;
-}
-
-h1::after {
-    content: "";
-    display: block;
-    width: 90px;
-    height: 4px;
-    background: linear-gradient(90deg, #facc15, #fde047);
-    margin-top: 10px;
-    border-radius: 2px;
-}
-
-/* =====================
-   CONTENEDOR PRINCIPAL
-===================== */
-.table-container {
+.app-header {
     max-width: 1100px;
-    margin: auto;
-    padding: 28px;
-    border-radius: 18px;
-    background: #111827;
-    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.6);
-}
-
-/* =====================
-   ACCIONES (LINKS)
-===================== */
-.table-container>a {
-    display: inline-flex;
+    margin: 0 auto 30px auto;
+    padding: 12px 24px;
+    border-radius: 16px;
+    background: var(--card-bg);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: var(--shadow);
+    display: flex;
     align-items: center;
-    gap: 8px;
-    margin-bottom: 20px;
-    margin-right: 12px;
-    padding: 10px 18px;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.9rem;
-    border-radius: 999px;
-    transition: all 0.25s ease;
+    justify-content: space-between;
 }
 
-/* Crear */
-.table-container>a:first-of-type {
-    background: linear-gradient(135deg, #facc15, #fde047);
-    color: #020617;
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
-.table-container>a:first-of-type:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(250, 204, 21, 0.4);
+.app-logo {
+    width: 40px;
+    height: 40px;
 }
 
-/* Eliminar */
-.delete {
-    background: linear-gradient(135deg, #facc15, #fde047);
-    color: #ff0000;
-}
-
-.delete:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(250, 204, 21, 0.4);
-}
-
-/* PDF */
-.table-container>a:nth-of-type(2) {
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-}
-
-.table-container>a:nth-of-type(2):hover {
-    background: rgba(255, 255, 255, 0.15);
-}
-
-/* =====================
-   TABLA
-===================== */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-thead {
-    background: rgba(250, 204, 21, 0.15);
-}
-
-th {
-    padding: 16px;
-    text-align: left;
-    font-size: 0.8rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: #fde047;
-}
-
-td {
-    padding: 16px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    font-size: 0.95rem;
-    color: #e5e7eb;
-}
-
-tbody tr {
-    transition: background 0.25s ease;
-}
-
-tbody tr:hover {
-    background: rgba(255, 255, 255, 0.04);
-}
-
-/* ID */
-td:first-child {
-    font-weight: 700;
-    color: #facc15;
-}
-
-/* Precio */
-td:last-child {
-    text-align: right;
-    font-weight: 600;
-}
-
-
-
-/* ============================
-   Modal & Edit Form Styles
-   ============================ */
-
-/* Animación suave para la aparición */
-@keyframes modalFadeIn {
-    from { opacity: 0; transform: translate(-50%, -60%); }
-    to { opacity: 1; transform: translate(-50%, -50%); }
-}
-
-/* Overlay oscuro tras el modal */
-.modal-overlay {
-    position: fixed;
-    inset: 0; /* Ocupa toda la pantalla (top, right, bottom, left) */
-    background: rgba(0, 0, 0, 0.5); /* Oscurece el fondo */
-    backdrop-filter: blur(2px); /* Efecto borroso moderno */
-    z-index: 9998;
-    display: none; /* Se controla con JS */
-}
-
-/* Contenedor del modal */
-.modal {
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 400px; /* Un poco más ancho para respirar mejor */
-    max-width: 90%;
-    background: #ffffff;
-    border-radius: 12px;
-    padding: 24px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    z-index: 9999;
-    display: none; /* Se controla con JS */
-    
-    /* Animación al abrirse */
-    animation: modalFadeIn 0.3s ease-out forwards;
-}
-
-/* Encabezado del modal */
-.modal h3 {
-    margin: 0 0 20px 0;
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: #1e293b;
-    border-bottom: 1px solid #e2e8f0;
-    padding-bottom: 10px;
-}
-
-/* ============================
-   Estilos del Formulario
-   ============================ */
-
-.edit-form {
+.app-brand {
     display: flex;
     flex-direction: column;
 }
 
-.edit-form .form-row {
-    margin-bottom: 16px;
+.app-name {
+    font-weight: 800;
+    color: var(--primary);
+    font-size: 1.1rem;
+    line-height: 1.2;
 }
 
-.edit-form label {
-    display: block;
-    margin-bottom: 6px;
-    font-size: 0.9rem;
-    color: #475569;
+.app-subtitle {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* =====================
+   TITULO Y CONTENEDOR
+===================== */
+.page-title {
+    max-width: 1100px;
+    margin: 0 auto 20px auto;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #1e1b4b;
+}
+
+.table-container {
+    max-width: 1100px;
+    margin: auto;
+    background: var(--card-bg);
+    backdrop-filter: blur(12px);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+/* =====================
+   ACCIONES (Botones superiores)
+===================== */
+.action-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 8px;
     font-weight: 600;
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+    margin-bottom: 20px;
 }
 
-/* Inputs: Selector generalizado para atrapar todos los campos */
-.edit-form input,
-.edit-form select,
-.edit-form textarea {
+.action-link.create {
+    background: var(--primary);
+    color: white;
+}
+
+.action-link.create:hover {
+    background: var(--primary-hover);
+    transform: translateY(-1px);
+}
+
+.action-link.pdf {
+    background: white;
+    border: 1px solid #e5e7eb;
+    margin-left: 10px;
+}
+
+.action-link.pdf:hover {
+    background: #f9fafb;
+}
+
+/* =====================
+   TABLA MODERNA
+===================== */
+table {
     width: 100%;
-    padding: 10px 12px;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+thead th {
+    text-align: left;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    padding: 12px 16px;
+    border-bottom: 2px solid #f1f5f9;
+}
+
+tbody tr {
+    transition: background 0.2s;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+tbody tr:hover {
+    background: rgba(79, 70, 229, 0.04);
+}
+
+tbody td {
+    padding: 14px 16px;
+    font-size: 0.9rem;
+}
+
+/* Estilo para ID */
+tbody td:first-child {
+    font-weight: 700;
+    color: var(--primary);
+}
+
+/* Botones de acción en la tabla */
+.btn-edit, button[type="submit"] {
+    background: white;
+    border: 1px solid #e5e7eb;
+    padding: 6px;
     border-radius: 6px;
-    border: 1px solid #cbd5e1;
-    background: #f8fafc;
-    color: #0f172a;
-    font-size: 0.95rem;
-    outline: none;
-    box-sizing: border-box; /* Vital para que el padding no rompa el ancho */
-    transition: all 0.2s ease;
-}
-
-/* Estados Focus de los inputs */
-.edit-form input:focus,
-.edit-form select:focus {
-    border-color: #3b82f6;
-    background: #ffffff;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
-}
-
-/* ============================
-   Botones (Actions)
-   ============================ */
-
-.form-actions {
-    display: flex;
-    gap: 12px;
-    justify-content: flex-end;
-    margin-top: 20px;
-    padding-top: 10px;
-}
-
-.btn {
+    cursor: pointer;
+    transition: all 0.2s;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 10px 16px;
-    border-radius: 6px;
-    font-weight: 600;
-    font-size: 0.95rem;
-    cursor: pointer;
-    border: none;
-    transition: transform 0.1s ease, box-shadow 0.2s ease;
 }
 
-.btn:active {
-    transform: translateY(1px);
+.btn-edit:hover {
+    border-color: var(--primary);
+    background: #eef2ff;
 }
 
-/* Botón Guardar */
-.btn-primary {
-    background: #2563eb;
-    color: #ffffff;
+form button[type="submit"]:hover {
+    border-color: var(--danger);
+    background: var(--danger-bg);
 }
 
-.btn-primary:hover {
-    background: #1d4ed8;
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+/* =====================
+   MODAL MEJORADO
+===================== */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 1000;
 }
 
-/* Botón Cancelar */
-.btn-secondary {
-    background: #f1f5f9;
-    color: #475569;
-    border: 1px solid #e2e8f0;
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #ffffff;
+    width: 400px;
+    padding: 32px;
+    border-radius: 20px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    z-index: 1001;
 }
 
-.btn-secondary:hover {
-    background: #e2e8f0;
-    color: #1e293b;
-}
-
-/* ============================
-   Caja de Errores
-   ============================ */
-
-.form-errors {
-    margin-top: 15px;
-    color: #dc2626;
-    background: #fef2f2;
-    border: 1px solid #fecaca;
-    padding: 10px;
-    border-radius: 6px;
-    font-size: 0.9rem;
+.modal h3 {
+    font-size: 1.25rem;
+    margin-bottom: 24px;
+    color: #111827;
     text-align: center;
 }
 
-/* Ocultar la caja de errores si no tiene texto dentro */
-.form-errors:empty {
-    display: none;
+.form-row {
+    margin-bottom: 18px;
 }
 
-/* iconos dentro de botones (si los usas) */
-.btn img {
-    height: 16px;
-    width: 16px;
-    object-fit: contain;
+.form-row label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #4b5563;
+    margin-bottom: 6px;
 }
 
-/* Responsive tweaks */
-@media (max-width:420px) {
-    .modal {
-        padding: 14px;
-        border-radius: 10px;
-    }
-
-    .edit-form label {
-        font-size: 0.82rem;
-    }
-
-    .btn {
-        padding: 7px 10px;
-        font-size: 0.92rem;
-    }
+.form-row input {
+    border: 1px solid #d1d5db;
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: #f9fafb;
 }
 
-/* Utility classes para mostrar/ocultar desde JS */
-.show {
-    display: block !important;
+.form-row input:focus {
+    background: white;
+    border-color: var(--primary);
+    ring: 2px var(--primary);
 }
 
-.hide {
-    display: none !important;
+.form-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.btn {
+    padding: 12px;
+    font-size: 0.9rem;
+}
+
+/* Estilos específicos para el formulario de creación */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.full-width {
+    grid-column: 1 / -1;
+    margin-top: 10px;
+}
+
+/* Ajuste para que el formulario ocupe el ancho correcto */
+.edit-form {
+    max-width: 100%;
+}
+
+/* Mejora visual para los inputs de fecha nativos */
+input[type="date"] {
+    cursor: pointer;
+}
+
+/* Estilos para la confirmación de éxito */
+.confirmation-card {
+    max-width: 600px;
+    margin: 80px auto; /* Centrado vertical y horizontal */
+    text-align: center;
+    padding: 50px 30px;
+}
+
+.success-icon {
+    margin-bottom: 20px;
+    animation: scaleIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.confirmation-title {
+    font-size: 1.8rem;
+    color: #1e1b4b;
+    margin-bottom: 10px;
+    font-weight: 800;
+}
+
+.confirmation-text {
+    color: var(--text-muted);
+    font-size: 1rem;
+    margin-bottom: 30px;
+}
+
+/* Animación simple para el icono */
+@keyframes scaleIn {
+    0% { transform: scale(0); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
 }

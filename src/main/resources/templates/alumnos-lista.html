@@ -8,14 +8,27 @@
 </head>
 
 <body>
-    <div class="language-selector">
-        <a th:href="@{/web/alumnos(lang=es)}">🇪🇸</a> |
-        <a th:href="@{/web/alumnos(lang=en)}">🇬🇧</a> |
-        <a th:href="@{/web/alumnos(lang=ar)}">🇲🇦</a> |
-        <a th:href="@{/web/alumnos(lang=it)}">🇮🇹</a>
+
+    <header class="app-header">
+    <div class="header-left">
+        <img th:src="@{/images/logo-artia.png}" 
+             alt="Logo Aula Creativa Artia" 
+             class="app-logo">
+
+        <div class="app-brand">
+            <span class="app-name">Aula Creativa Artia</span>
+            <span class="app-subtitle">Gestión académica</span>
+        </div>
     </div>
 
-    <hr>
+    <nav class="header-right">
+        <a th:href="@{/web/alumnos(lang=es)}" title="Español">🇪🇸</a>
+        <a th:href="@{/web/alumnos(lang=en)}" title="English">🇬🇧</a>
+        <a th:href="@{/web/alumnos(lang=ar)}" title="العربية">🇲🇦</a>
+        <a th:href="@{/web/alumnos(lang=it)}" title="Italiano">🇮🇹</a>
+    </nav>
+</header>
+
     <h1 class="page-title" th:text="#{alumno.list.title}">LISTADO DE ALUMNOS</h1>
 
     <div class="table-container card">
