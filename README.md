@@ -23,6 +23,7 @@
     - [Despliegue](document/despliegue.md)
     - [Componentes](document/componenentes.md)
   - [**Diseño de los servicios REST**](document/diseñoServiciosREST.md)
+  - [**Seguridad**](document/seguridad.md)
   - [**Base de datos**](document/db.md)
   - [**Paquetes, Interfaces y Clases**](document/packIntClass.md)
   - [**Plan de pruebas**](document/planPruebas.md)
