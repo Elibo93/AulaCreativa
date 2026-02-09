@@ -32,6 +32,7 @@ body {
    CABECERA APP
 ===================== */
 .app-header {
+    font-size: 25px;
     max-width: 1100px;
     margin: 0 auto 30px auto;
     padding: 12px 24px;
@@ -53,7 +54,6 @@ body {
 
 .app-logo {
     width: 60px;
-    height: 60px;
 }
 
 .app-brand {
