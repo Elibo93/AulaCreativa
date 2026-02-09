@@ -15,6 +15,8 @@ Cada idioma dispone de su propio archivo, por ejemplo:
 
 - `messages_es.properties` – Español
 - `messages_en.properties` – Inglés
+- `messages_it.properties` – Italiano
+- `messages_ar.properties` – Arabe
 
 Estos archivos permiten asociar claves de texto con sus traducciones correspondientes.
 

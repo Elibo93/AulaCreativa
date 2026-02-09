@@ -122,4 +122,41 @@ Con estas pautas, la API es fácil de consumir, mantener y extender, y soporta t
 | Modificar asistencia  | PUT    | /api/v1/asistencias/{id} | { "asistio":false, "observaciones":"Falta justificada"} | 200    | { "idAsistencia":500,"asistio":false }  | 400,404,401       |
 | Eliminar asistencia   | DELETE | /api/v1/asistencias/{id} | -                                                        | 204    | -                                        | 404,401,403       |
 
+
+## Documentación de la API con OpenAPI / Swagger
+
+La API REST de **Aula Creativa** se documenta siguiendo el estándar **OpenAPI**, que permite describir de forma estructurada todos los servicios expuestos por el backend.
+
+Para facilitar la visualización y prueba de los endpoints, se utiliza **Swagger**, que genera una interfaz web interactiva a partir de la definición OpenAPI.
+
+Esta documentación complementa el diseño funcional descrito anteriormente y actúa como contrato entre el backend y los clientes de la aplicación.
+
+---
+
+### Función de OpenAPI
+
+- Define los endpoints y métodos HTTP.
+- Describe parámetros, cuerpos de petición y respuestas.
+- Documenta los modelos de datos.
+- Facilita el mantenimiento y evolución del sistema.
+
+---
+
+### Uso de Swagger
+
+Swagger permite:
+- Consultar la documentación completa de la API.
+- Probar los endpoints directamente desde el navegador.
+- Visualizar ejemplos de peticiones y respuestas.
+- Facilitar el desarrollo y depuración.
+
+---
+
+### Ubicación y estado de implementación
+
+La documentación Swagger se expone desde el **servidor**, ya que forma parte de la API REST.  
+En el estado actual del proyecto, la API está preparada para ser documentada mediante OpenAPI y Swagger, contemplándose su integración completa como una mejora futura.
+
+---
+
 [Volver](/README.md)

@@ -8,61 +8,71 @@
 </head>
 
 <body>
+    <header class="app-header">
+        <div class="header-left">
+            <img th:src="@{/images/logo-artia.png}" alt="Logo Aula Creativa Artia" class="app-logo">
+            <div class="app-brand">
+                <span class="app-name">Aula Creativa Artia</span>
+                <span class="app-subtitle">Gestión académica</span>
+            </div>
+        </div>
+        <nav class="header-right">
+            <a th:href="@{/web/alumnos}" class="btn-edit" style="padding: 5px 15px; text-decoration: none; font-size: 0.8rem; font-weight: bold; color: var(--primary);">
+                ← Volver al listado
+            </a>
+        </nav>
+    </header>
 
-    <h1 th:text="#{alumno.form.title}">CREAR ALUMNO</h1>
+    <h1 class="page-title" th:text="#{alumno.form.title}">CREAR ALUMNO</h1>
 
     <div class="table-container">
-        <form th:action="@{/web/alumnos/nuevo}" th:object="${alumno}" method="POST">
+        <form th:action="@{/web/alumnos/nuevo}" th:object="${alumno}" method="POST" class="edit-form">
+            
+            <div class="form-grid">
+                <div class="form-row">
+                    <label th:text="#{alumno.form.label.dni}">DNI:</label>
+                    <input type="text" th:field="*{dni}" required placeholder="Ej: 12345678Z">
+                </div>
 
-            <div>
-                <label th:text="#{alumno.form.label.dni}">DNI:</label>
-                <input type="text" th:field="*{dni}" required>
+                <div class="form-row">
+                    <label th:text="#{alumno.form.label.name}">Nombre:</label>
+                    <input type="text" th:field="*{nombre}" required>
+                </div>
+
+                <div class="form-row">
+                    <label th:text="#{alumno.form.label.apellido}">Apellido:</label>
+                    <input type="text" th:field="*{apellido}" required>
+                </div>
+
+                <div class="form-row">
+                    <label th:text="#{alumno.form.label.email}">Email:</label>
+                    <input type="email" th:field="*{email}" placeholder="ejemplo@correo.com">
+                </div>
+
+                <div class="form-row">
+                    <label th:text="#{alumno.form.label.telefono}">Teléfono:</label>
+                    <input type="text" th:field="*{telefono}">
+                </div>
+
+                <div class="form-row">
+                    <label th:text="#{alumno.form.label.fechaNac}">Fecha de nacimiento:</label>
+                    <input type="date" th:field="*{fechaNacimiento}">
+                </div>
             </div>
-            <br>
 
-            <div>
-                <label th:text="#{alumno.form.label.name}">Nombre:</label>
-                <input type="text" th:field="*{nombre}" required>
-            </div>
-            <br>
-
-            <div>
-                <label th:text="#{alumno.form.label.apellido}">Apellido:</label>
-                <input type="text" th:field="*{apellido}" required>
-            </div>
-            <br>
-
-            <div>
-                <label th:text="#{alumno.form.label.email}">Email:</label>
-                <input type="email" th:field="*{email}">
-            </div>
-            <br>
-
-            <div>
-                <label th:text="#{alumno.form.label.telefono}">Teléfono:</label>
-                <input type="text" th:field="*{telefono}">
-            </div>
-            <br>
-
-            <div>
+            <div class="form-row full-width">
                 <label th:text="#{alumno.form.label.direccion}">Dirección:</label>
                 <input type="text" th:field="*{direccion}">
             </div>
-            <br>
 
-            <div>
-                <label th:text="#{alumno.form.label.fechaNac}">Fecha de nacimiento:</label>
-                <input type="text" th:field="*{fechaNacimiento}">
+            <div class="form-actions" style="justify-content: flex-start; margin-top: 30px;">
+                <button type="submit" class="btn btn-primary" style="width: auto; padding: 12px 40px;">
+                    <span th:text="#{generic.button.save}">Guardar Alumno</span>
+                </button>
+                <a th:href="@{/web/alumnos}" class="btn btn-secondary" style="text-decoration: none; text-align: center;">Cancelar</a>
             </div>
-            <br>
-
-            <button type="submit" th:text="#{generic.button.save}">
-                Guardar Alumno
-            </button>
 
         </form>
     </div>
-
 </body>
-
 </html>
