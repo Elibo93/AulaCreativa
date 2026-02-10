@@ -1,46 +1,26 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
 <head>
     <meta charset="UTF-8">
-    <title th:text="#{alumno.confirmation.page.title}">Confirmación - Alumno Creado</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/estilos.css}">
+    <title th:text="#{alumno.confirmation.page.title}">Éxito</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
 </head>
-
 <body>
-    <header class="app-header">
-        <div class="header-left">
-            <img th:src="@{/images/logo-artia.png}" alt="Logo Aula Creativa Artia" class="app-logo">
-            <div class="app-brand">
-                <span class="app-name">Aula Creativa Artia</span>
-                <span class="app-subtitle">Gestión académica</span>
-            </div>
-        </div>
-    </header>
-
     <div class="table-container confirmation-card">
         <div class="success-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
                 <polyline points="22 4 12 14.01 9 11.01"></polyline>
             </svg>
         </div>
 
-        <h1 class="confirmation-title" th:text="#{feedback.success.created(#{alumno.name.singular})}">
-            El Alumno se ha creado correctamente
-        </h1>
-        
-        <p class="confirmation-text">Los datos han sido guardados en el sistema con éxito.</p>
+        <h1 class="confirmation-title" th:text="#{alumno.success.title}">¡Creado!</h1>
+        <p class="confirmation-text" th:text="#{alumno.success.message}">Datos guardados.</p>
 
-        <div class="form-actions" style="justify-content: center; margin-top: 30px;">
-            <a th:href="@{/web/alumnos}" class="btn btn-primary" style="text-decoration: none; padding: 12px 30px;">
-                <span th:text="#{generic.link.view-list}">Ver Listado de Alumnos</span>
-            </a>
-            <a th:href="@{/web/alumnos/nuevo}" class="btn btn-secondary" style="text-decoration: none;">
-                Crear otro alumno
-            </a>
+        <div style="display:flex; justify-content:center; gap:15px; margin-top:30px;">
+            <a th:href="@{/web/alumnos}" class="btn btn-primary" th:text="#{generic.link.view-list}">Ver lista</a>
+            <a th:href="@{/web/alumnos/nuevo}" class="btn btn-secondary" th:text="#{generic.link.create}">Crear otro</a>
         </div>
     </div>
-
 </body>
 </html>

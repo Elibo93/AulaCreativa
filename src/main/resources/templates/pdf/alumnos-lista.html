@@ -1,92 +1,38 @@
 <!DOCTYPE html>
-
-<!-- Plantilla para el PDF -->
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <meta charset="UTF-8" />
-    <title>Listado de Productos</title>
+    <title>Listado PDF</title>
     <style>
-       body {
-            background-color: #eeeeee;
-            /* Fondo oscuro profundo */
-            color: #121212;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            padding: 40px;
-        }
-
-        h1 {
-            color: #000000;
-            /* Amarillo dorado */
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            border-left: 5px solid #757470;
-            padding-left: 15px;
-        }
-
-        .table-container {
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(78, 78, 78, 0.5);
-            border: 1px solid #333;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background-color: #ffffff;
-        }
-
-        thead {
-            background-color: #a3a3a3;
-        }
-
-        th {
-            color: #000;
-            /* Texto negro sobre fondo amarillo */
-            padding: 15px;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-            font-weight: bold;
-            text-align: left;
-        }
-
-        td {
-            padding: 12px 15px;
-            border-bottom: 1px solid #333;
-            color: #444444;
-        }
-
-        td:first-child {
-            color: #757470;
-            font-weight: bold;
-        }
+        body { font-family: sans-serif; padding: 20px; color: #333; }
+        h1 { color: #4f46e5; border-bottom: 2px solid #ccc; padding-bottom: 10px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 12px; }
+        th { background-color: #f3f4f6; color: #000; padding: 10px; text-align: left; border-bottom: 2px solid #ccc; }
+        td { padding: 8px; border-bottom: 1px solid #eee; }
+        tr:nth-child(even) { background-color: #fafafa; }
     </style>
 </head>
-
 <body>
-    <h1 class="page-title" th:text="#{alumno.list.title}">LISTADO DE ALUMNOS</h1>
-
-    <div class="table-container card">
-        <table id="tablaAlumnos">
-            <thead>
-                <tr>
-                    <th th:text="#{alumno.table.header.id}">ID</th>
-                    <th th:text="#{alumno.table.header.name}">Nombre</th>
-                    <th th:text="#{alumno.table.header.apellido}">Apellido</th>
-                    <th th:text="#{alumno.table.header.dni}">DNI</th>
-                </tr>
-            </thead>
-            <tbody id="cuerpoTabla">
-                <tr th:each="a : ${alumnos}">
-                    <td th:text="${a.id}">1</td>
-                    <td th:text="${a.nombre}">Juan</td>
-                    <td th:text="${a.apellido}">Pérez</td>
-                    <td th:text="${a.dni}">12345678A</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+    <h1 th:text="#{alumno.list.title}">LISTADO</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Apellidos</th>
+                <th>DNI</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="a : ${alumnos}">
+                <td th:text="${a.id.value}"></td>
+                <td th:text="${a.nombre}"></td>
+                <td th:text="${a.apellido}"></td>
+                <td th:text="${a.dni}"></td>
+                <td th:text="${a.email}"></td>
+            </tr>
+        </tbody>
+    </table>
 </body>
-
 </html>

@@ -36,6 +36,13 @@ public class AlumnoViewController {
 
     private final TemplateEngine templateEngine; // Motor de Thymeleaf
 
+    // Carga la vista de la pagina principal http://localhost:8082/web/home
+    @GetMapping(WebRoutes.HOME)
+    public String home(Model model) {
+        return ThymTemplates.HOME_VIEW.getPath();
+    }
+    
+
     // Carga la vista de la lista de alumnos http://localhost:8082/web/alumnos
     @GetMapping(WebRoutes.ALUMNOS_BASE)
     public String listar(Model model) {

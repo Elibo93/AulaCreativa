@@ -4,8 +4,14 @@ package es.etg.daw.dawes.java.rest.aulaCreativa.vista.infraestructure.web.consta
  * Contiene las rutas de acceso desde el navegador
  */
 public interface WebRoutes {
+
+    // General
+    public static final String HOME="/web/home";
+    
+    // Alumnos
     public static final String ALUMNOS_BASE = "/web/alumnos";
     public static final String ALUMNOS_NUEVO = "/web/alumnos/nuevo";
     public static final String ALUMNOS_PDF = "/web/alumnos/pdf";
     public static final String ALUMNOS_ELIMINAR = "/web/alumnos/{id}/borrar";
+
 }

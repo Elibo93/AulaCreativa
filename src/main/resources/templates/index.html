@@ -1,110 +1,98 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Control | Artia</title>
+    <title th:text="#{home.page.title}">Panel de Control | Artia</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
-    
-    <link rel="stylesheet" type="text/css" th:href="@{/css/estilos.css}">
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
 </head>
 
 <body class="bg-dots">
     <header class="app-header">
-        <div class="header-container">
-            <div class="header-left">
-                <div class="logo-wrapper">
-                    <img th:src="@{/images/logo-artia.png}" alt="Logo Artia" class="app-logo">
-                </div>
-                <div class="app-brand">
-                    <span class="app-name">Aula Creativa Artia</span>
-                    <span class="app-subtitle">Gestión Académica</span>
-                </div>
+        <div class="header-left">
+            <img th:src="@{/images/logo-artia.png}" alt="Logo Artia" class="app-logo">
+            <div class="app-brand">
+                <span class="app-name" th:text="#{app.name}">Aula Creativa Artia</span>
+                <span class="app-subtitle" th:text="#{app.subtitle}">Gestión Académica</span>
             </div>
-            <div class="header-right">
-                <div class="user-profile">
-                    <span class="user-name">Administrador</span>
-                    <div class="avatar">A</div>
-                </div>
+        </div>
+        <div class="header-right">
+            <div class="user-profile">
+                <span class="user-name">Administrador</span>
+                <div class="avatar">A</div>
             </div>
         </div>
     </header>
 
-    <main class="main-content">
-        <div class="form-header">
-            <h1 class="page-title">Bienvenido de nuevo</h1>
-            <p class="page-description">Panel central de gestión de alumnos y actividades.</p>
-        </div>
-
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-icon purple">
-                    <i data-lucide="users"></i>
-                </div>
-                <div class="stat-info">
-                    <span class="stat-label">Total Alumnos</span>
-                    <span class="stat-value">124</span>
-                </div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon green">
-                    <i data-lucide="calendar-check"></i>
-                </div>
-                <div class="stat-info">
-                    <span class="stat-label">Activos hoy</span>
-                    <span class="stat-value">12</span>
-                </div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon orange">
-                    <i data-lucide="trending-up"></i>
-                </div>
-                <div class="stat-info">
-                    <span class="stat-label">Nuevas Altas</span>
-                    <span class="stat-value">+5</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="menu-grid">
-            <a th:href="@{/web/alumnos}" class="menu-card primary">
-                <div class="menu-content">
-                    <i data-lucide="users-round" class="menu-icon"></i>
-                    <h3>Gestión de Alumnos</h3>
-                    <p>Ver, editar, crear y eliminar registros de alumnos.</p>
-                </div>
-                <div class="menu-footer">
-                    <span>Acceder ahora</span>
-                    <i data-lucide="chevron-right"></i>
-                </div>
-            </a>
-
-            <a th:href="@{/web/alumnos/nuevo}" class="menu-card secondary">
-                <div class="menu-content">
-                    <i data-lucide="user-plus" class="menu-icon"></i>
-                    <h3>Nuevo Registro</h3>
-                    <p>Acceso rápido para dar de alta un nuevo estudiante.</p>
-                </div>
-                <div class="menu-footer">
-                    <span>Ir al formulario</span>
-                    <i data-lucide="chevron-right"></i>
-                </div>
-            </a>
-            
-            <div class="menu-card disabled">
-                <div class="menu-content">
-                    <i data-lucide="file-bar-chart" class="menu-icon"></i>
-                    <h3>Informes</h3>
-                    <p>Próximamente: Generación de reportes en PDF y estadísticas.</p>
-                </div>
-            </div>
-        </div>
+    <main class="welcome-section">
+        <h1 class="page-title">
+            <span th:text="#{home.welcome}">Bienvenido,</span> <span class="text-primary">Admin</span>
+        </h1>
+        <p style="color: var(--text-muted);" th:text="#{home.subtitle}">Panel de gestión</p>
     </main>
 
-    <script>
-        lucide.createIcons();
-    </script>
+    <section class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon-wrapper purple"><i data-lucide="users"></i></div>
+            <div class="stat-content">
+                <span class="stat-label" th:text="#{stats.total.students}">Alumnos</span>
+                <span class="stat-value" th:text="${totalAlumnos} ?: '0'">124</span>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon-wrapper green"><i data-lucide="palette"></i></div>
+            <div class="stat-content">
+                <span class="stat-label" th:text="#{stats.active.workshops}">Talleres</span>
+                <span class="stat-value" th:text="${totalTalleres} ?: '0'">8</span>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon-wrapper orange"><i data-lucide="trending-up"></i></div>
+            <div class="stat-content">
+                <span class="stat-label" th:text="#{stats.new.registrations}">Altas Mes</span>
+                <span class="stat-value text-primary">+5</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="menu-grid">
+        <a th:href="@{/web/alumnos}" class="menu-card primary-card">
+            <div class="menu-content">
+                <i data-lucide="graduation-cap" class="menu-icon"></i>
+                <h3 th:text="#{menu.students.title}">Gestión Alumnos</h3>
+                <p th:text="#{menu.students.desc}">Administración de estudiantes.</p>
+            </div>
+            <div class="menu-footer">
+                <span th:text="#{generic.btn.access}">Acceder</span> <i data-lucide="arrow-right" style="width:16px;"></i>
+            </div>
+        </a>
+
+        <a th:href="@{/web/alumnos/nuevo}" class="menu-card">
+            <div class="menu-content">
+                <i data-lucide="user-plus" class="menu-icon"></i>
+                <h3 th:text="#{menu.create.title}">Nuevo Alumno</h3>
+                <p th:text="#{menu.create.desc}">Alta rápida.</p>
+            </div>
+            <div class="menu-footer">
+                <span th:text="#{generic.btn.create}">Crear</span> <i data-lucide="plus" style="width:16px;"></i>
+            </div>
+        </a>
+
+        <div class="menu-card disabled-card">
+            <div class="menu-content">
+                <i data-lucide="file-bar-chart" class="menu-icon"></i>
+                <h3 th:text="#{menu.reports.title}">Informes</h3>
+                <p th:text="#{menu.reports.desc}">Estadísticas avanzadas.</p>
+            </div>
+            <div class="menu-footer">
+                <span class="badge-soon" th:text="#{generic.badge.soon}">Pronto</span>
+            </div>
+        </div>
+    </section>
+
+    <script>lucide.createIcons();</script>
 </body>
 </html>

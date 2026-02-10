@@ -6,6 +6,7 @@ package es.etg.daw.dawes.java.rest.aulaCreativa.vista.infraestructure.web.enums;
  */
 public enum ModelAttribute {
     ALUMNO_LIST("alumnos"),
+    AULA_CREATIVA("Aula Creativa"),
     SINGLE_ALUMNO("alumno"),
     ERROR_MESSAGE("errorMsg"),
     SUCCESS_MESSAGE("successMsg");
