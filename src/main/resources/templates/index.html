@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Control | Artia</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <link rel="stylesheet" type="text/css" th:href="@{/css/estilos.css}">
+</head>
+
+<body class="bg-dots">
+    <header class="app-header">
+        <div class="header-container">
+            <div class="header-left">
+                <div class="logo-wrapper">
+                    <img th:src="@{/images/logo-artia.png}" alt="Logo Artia" class="app-logo">
+                </div>
+                <div class="app-brand">
+                    <span class="app-name">Aula Creativa Artia</span>
+                    <span class="app-subtitle">Gestión Académica</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="user-profile">
+                    <span class="user-name">Administrador</span>
+                    <div class="avatar">A</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="form-header">
+            <h1 class="page-title">Bienvenido de nuevo</h1>
+            <p class="page-description">Panel central de gestión de alumnos y actividades.</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon purple">
+                    <i data-lucide="users"></i>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-label">Total Alumnos</span>
+                    <span class="stat-value">124</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon green">
+                    <i data-lucide="calendar-check"></i>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-label">Activos hoy</span>
+                    <span class="stat-value">12</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon orange">
+                    <i data-lucide="trending-up"></i>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-label">Nuevas Altas</span>
+                    <span class="stat-value">+5</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-grid">
+            <a th:href="@{/web/alumnos}" class="menu-card primary">
+                <div class="menu-content">
+                    <i data-lucide="users-round" class="menu-icon"></i>
+                    <h3>Gestión de Alumnos</h3>
+                    <p>Ver, editar, crear y eliminar registros de alumnos.</p>
+                </div>
+                <div class="menu-footer">
+                    <span>Acceder ahora</span>
+                    <i data-lucide="chevron-right"></i>
+                </div>
+            </a>
+
+            <a th:href="@{/web/alumnos/nuevo}" class="menu-card secondary">
+                <div class="menu-content">
+                    <i data-lucide="user-plus" class="menu-icon"></i>
+                    <h3>Nuevo Registro</h3>
+                    <p>Acceso rápido para dar de alta un nuevo estudiante.</p>
+                </div>
+                <div class="menu-footer">
+                    <span>Ir al formulario</span>
+                    <i data-lucide="chevron-right"></i>
+                </div>
+            </a>
+            
+            <div class="menu-card disabled">
+                <div class="menu-content">
+                    <i data-lucide="file-bar-chart" class="menu-icon"></i>
+                    <h3>Informes</h3>
+                    <p>Próximamente: Generación de reportes en PDF y estadísticas.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

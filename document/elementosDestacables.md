@@ -1,52 +1,75 @@
-### Elementos destacables del desarrollo
+### Elementos Destacables del Desarrollo
+
 ---
 
-El desarrollo de **Artia – Aula Creativa** se ha realizado teniendo en cuenta no solo la funcionalidad final de la aplicación, sino también la calidad del diseño, la mantenibilidad del código y la posibilidad de evolución futura del sistema. A continuación, se describen los principales aspectos técnicos y conceptuales que caracterizan el desarrollo de la aplicación y la diferencian de soluciones más tradicionales.
+El desarrollo de **Artia – Aula Creativa** trasciende la simple implementación funcional. Se ha priorizado la excelencia técnica, la robustez arquitectónica y la mantenibilidad a largo plazo. A continuación, se detallan las decisiones de diseño y los paradigmas de ingeniería que diferencian a este proyecto de una solución tradicional.
 
-#### Arquitectura modular y desacoplada
-La aplicación se ha diseñado siguiendo una arquitectura claramente estructurada, basada en la separación de responsabilidades. Se distinguen dos grandes bloques: una capa común reutilizable y el módulo específico de Aula Creativa, organizado internamente según el enfoque de arquitectura hexagonal.
+---
 
-Esta organización permite:
-- Aislar la lógica de negocio del resto de capas.
-- Reducir el acoplamiento entre componentes.
-- Facilitar el mantenimiento y la evolución del código.
-- Permitir la sustitución de elementos de infraestructura sin afectar al dominio.
+#### 1. Implementación Estricta de Clean Architecture
 
-#### Uso de una arquitectura hexagonal
-El núcleo de la aplicación se apoya en un modelo de arquitectura hexagonal, donde el dominio se mantiene independiente de detalles técnicos como la base de datos o la capa web. Las reglas de negocio se concentran en el dominio y se accede a ellas a través de casos de uso definidos en la capa de aplicación.
+A diferencia de las arquitecturas tradicionales de N-Capas (donde la base de datos es el centro), Artia sitúa al **Dominio** en el centro del sistema.
 
-Este enfoque aporta:
-- Mayor claridad en el flujo de la aplicación.
-- Facilidad para realizar pruebas.
-- Un diseño más alineado con principios de ingeniería de software.
+* **Independencia del Framework:** La lógica de negocio no depende de Spring Boot ni de librerías externas. Esto garantiza que el núcleo de la aplicación sobreviva a cambios tecnológicos.
+* **Inversión de Dependencias (DIP):** Las capas externas (Base de Datos, Web) dependen de las internas, nunca al revés. Esto se logra mediante el uso de **Puertos y Adaptadores**.
 
-#### Modelo de dominio orientado al negocio
-Las entidades principales del sistema (Alumno, Profesor, Taller e Inscripción) han sido diseñadas como parte de un modelo de dominio coherente, reflejando la realidad del funcionamiento del centro educativo.
+---
 
-Este modelo permite:
-- Representar de forma clara las relaciones entre los distintos actores.
-- Aplicar reglas de negocio directamente sobre los objetos del dominio.
-- Evitar que la lógica de negocio dependa de la capa de persistencia.
+#### 2. Modelo de Dominio Rico (DDD - Domain Driven Design)
 
-#### Gestión dinámica y motivadora del alumnado
-Uno de los aspectos más innovadores de la aplicación es su enfoque hacia una experiencia educativa más dinámica. El sistema no se limita a registrar información, sino que está preparado para incorporar elementos que fomenten la motivación del alumnado, como:
-- Seguimiento del progreso individual.
-- Sistemas de reconocimiento y ranking basados en rendimiento o esfuerzo.
-- Visión clara de objetivos y evolución dentro de los talleres.
+Se ha evitado el antipatrón de "Modelo Anémico" (clases que solo tienen getters y setters). Las entidades de Artia (`Alumno`, `Taller`) poseen lógica de negocio y validación intrínseca.
 
-Este planteamiento busca romper con modelos de enseñanza excesivamente pasivos y aproximar la experiencia educativa a formatos más atractivos y participativos.
+* **Value Objects:** Uso de objetos inmutables (como `Identificador` o `DNI`) que garantizan la integridad de los datos y evitan la "obsesión por los primitivos".
+* **Agregados:** Definición clara de límites transaccionales para garantizar la consistencia de los datos.
 
-#### Automatización de procesos clave
-La aplicación automatiza tareas que tradicionalmente se realizan de forma manual, como la gestión de inscripciones, el control de asistencias o el seguimiento de la actividad de los talleres. Esto reduce errores humanos, optimiza tiempos de gestión y mejora la fiabilidad de la información almacenada.
+---
 
-#### Escalabilidad y evolución futura
-El diseño del sistema permite la incorporación de nuevas funcionalidades sin necesidad de grandes refactorizaciones. Gracias a su arquitectura modular, Artia puede ampliarse con nuevos módulos como sistemas de evaluación, gestión de materiales, métricas de rendimiento o integración con servicios externos.
+#### 3. Versatilidad Multi-Interfaz (API First + Server Side Rendering)
 
-Esta capacidad de evolución garantiza que la aplicación pueda adaptarse a nuevas necesidades del centro a medio y largo plazo.
+Uno de los logros técnicos más notables es la capacidad del sistema para servir a múltiples clientes reutilizando el 100% de la lógica de negocio.
+Gracias a la capa de **Aplicación (Casos de Uso)**, el mismo servicio (`CrearAlumnoService`) alimenta simultáneamente:
 
-### Conclusión
+* **API REST:** Para clientes externos, móviles o integraciones JS (JSON).
+* **Interfaz Web (Thymeleaf):** Para la administración directa desde el navegador (HTML).
 
-Los elementos destacables del desarrollo de **Artia – Aula Creativa** reflejan una combinación de buenas prácticas de ingeniería de software, una arquitectura bien definida y una visión innovadora del proceso educativo. La aplicación no solo resuelve problemas de gestión, sino que sienta las bases para una plataforma moderna, escalable y orientada a mejorar tanto la organización del centro como la motivación y participación del alumnado.
+Esto demuestra un desacoplamiento real entre la lógica y la vista.
 
+---
+
+#### 4. Uso de Patrones de Diseño
+
+El código no es solo funcional, sino que es elegante y legible gracias a la aplicación de patrones probados:
+
+* **Repository:** Para abstraer la persistencia de datos.
+* **DTO (Data Transfer Object):** Para desacoplar la estructura de la base de datos de la información que se envía al cliente.
+* **Mapper:** Para la transformación segura de datos entre capas sin contaminar el dominio.
+* **Facade:** Implementado en los Servicios de Aplicación para orquestar flujos complejos de manera sencilla.
+
+---
+
+#### 5. Enfoque "Security by Design"
+
+La seguridad no es un añadido, sino que forma parte del diseño base.
+
+* **Validación en Profundidad:** Los datos se validan tanto en la entrada (DTOs con *Jakarta Validation*) como en el núcleo del dominio (Reglas de Negocio), impidiendo que el sistema alcance estados inconsistentes.
+* **Aislamiento de Infraestructura:** La base de datos está oculta en una red interna (Docker), exponiendo únicamente la API necesaria.
+
+---
+
+#### 6. Innovación: Gamificación del Aprendizaje
+
+Técnicamente, el modelo de datos se ha diseñado para soportar mecánicas de juego en el futuro. La estructura de `Inscripciones` y `Asistencias` está preparada para evolucionar hacia un sistema de **Logros y Recompensas**, permitiendo calcular métricas de rendimiento y ranking de alumnos mediante consultas optimizadas, sentando las bases para una experiencia educativa motivadora.
+
+---
+
+#### 7. Entorno de Desarrollo Profesional (DevOps Ready)
+
+El proyecto nace preparado para la integración continua (CI/CD):
+
+* **Dockerización completa:** Garantía de paridad entre desarrollo y producción.
+* **Testing Automatizado:** Batería de pruebas unitarias y de integración que actúan como red de seguridad ante refactorizaciones.
+* **Gestión de Versiones:** Uso de GitFlow para un ciclo de vida del software ordenado.
+
+---
 
 [Volver](/README.md)

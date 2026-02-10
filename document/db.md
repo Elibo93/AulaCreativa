@@ -1,150 +1,141 @@
-### Base de datos
----
-
-#### Base de datos en entorno de desarrollo: **H2**
-
-Para el desarrollo y las pruebas de la aplicación **Artia – Aula Creativa** se utiliza **H2**, una base de datos relacional ligera y embebida muy popular en el ecosistema Java y Spring Boot.
-
-H2 resulta especialmente adecuada para entornos de desarrollo, ya que no requiere instalación externa ni configuración compleja, al ejecutarse directamente dentro de la JVM de la aplicación. Esto permite un ciclo de desarrollo más ágil y sin dependencias externas.
+### Base de Datos
 
 ---
 
-#### Características principales de H2
-
-##### En memoria (*In-Memory*)
-
-H2 puede ejecutarse completamente en memoria, lo que proporciona un alto rendimiento.
-Los datos se recrean cada vez que la aplicación se inicia, siendo ideal para pruebas y desarrollo.
-
-##### Embebida (*Embedded*)
-
-La base de datos y su driver se integran directamente en la aplicación Java, eliminando la necesidad de un servidor de bases de datos independiente.
-
-##### Portabilidad
-
-Al estar escrita en Java, puede ejecutarse en cualquier sistema que disponga de una JVM.
-
-##### Tamaño reducido
-
-El tamaño del archivo JAR es muy pequeño (en torno a **2–3 MB**), lo que la hace ligera y fácil de integrar.
+La capa de persistencia de **Artia – Aula Creativa** ha sido diseñada bajo el principio de **abstracción de almacenamiento**. Gracias al uso de **Spring Data JPA** y el estándar **ORM** (Hibernate), la lógica de negocio permanece agnóstica respecto al motor de base de datos subyacente, permitiendo cambiar de tecnología según el entorno de ejecución sin impactar en el código fuente.
 
 ---
 
-#### Consola web de H2
+#### 1. Estrategia de Desarrollo: H2 Database
 
-H2 incluye una consola web integrada que permite inspeccionar la estructura de la base de datos, ejecutar consultas SQL y verificar los datos de forma visual desde el navegador.
+Para las fases de desarrollo local, prototipado y pruebas automatizadas (CI), se utiliza **H2**, un motor de base de datos relacional escrito en Java que destaca por su ligereza y velocidad.
 
-**URL por defecto:**
+##### Justificación de la elección
 
-```
-http://localhost:8080/h2-console
-```
+* **Ciclo de Feedback Rápido:** Al ejecutarse en modo *In-Memory*, el tiempo de arranque y las transacciones son casi instantáneas.
+* **Aislamiento:** Cada ejecución comienza con un estado limpio, garantizando que las pruebas de integración sean deterministas y no dependan de residuos de ejecuciones anteriores.
+* **Cero Configuración:** Al ser una base de datos embebida, no requiere la instalación de servicios externos (Docker o Daemons) en la máquina del desarrollador.
 
-Para habilitarla, es necesario añadir la siguiente configuración en el archivo `application.properties`:
+##### Configuración del Entorno (Profile: `dev`)
+
+La configuración se define para maximizar la visibilidad y el control durante la programación.
 
 ```properties
-spring.h2.console.enabled=true
-spring.h2.console.path=/h2-console
-```
-
-Esta herramienta resulta especialmente útil para depuración y validación del estado de la base de datos durante el desarrollo.
-
----
-
-#### Inicialización de la base de datos
-
-Spring Boot permite cargar automáticamente la estructura y los datos iniciales mediante scripts SQL ubicados en el directorio `src/main/resources`:
-
-* **schema.sql**: define la estructura de las tablas.
-* **data.sql**: inserta datos iniciales de prueba.
-
-Este enfoque facilita trabajar con una base de datos conocida y controlada desde el inicio de la aplicación.
-
----
-
-#### Configuración de H2 con Spring Data JPA
-
-La aplicación utiliza **Spring Data JPA** como capa de acceso a datos. A continuación se muestra la configuración empleada para H2 en el entorno de desarrollo:
-
-```properties
-# Información general
-spring.application.name=artia-aula-creativa
-api.version=1.0
-server.error.include-message=always
-
-# Configuración de la base de datos H2 (en memoria)
-spring.datasource.url=jdbc:h2:mem:testdb
+# --- H2 Configuration (application-dev.properties) ---
+spring.datasource.url=jdbc:h2:mem:artia_db;DB_CLOSE_DELAY=-1
 spring.datasource.driverClassName=org.h2.Driver
 spring.datasource.username=sa
 spring.datasource.password=
 
-# Configuración JPA / Hibernate
-spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+# --- JPA & Hibernate ---
+# Desactivamos la generación automática para validar nuestros scripts SQL
 spring.jpa.hibernate.ddl-auto=none
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+
+# Logging detallado para depuración de queries
 spring.jpa.show-sql=true
-
-# Inicialización mediante scripts SQL
-spring.jpa.defer-datasource-initialization=true
-spring.sql.init.mode=always
-
-# Consola H2
-spring.h2.console.enabled=true
-spring.h2.console.path=/h2-console
-
-# Logging SQL para depuración
 spring.jpa.properties.hibernate.format_sql=true
-logging.level.org.hibernate.SQL=DEBUG
+
 ```
 
-Se utiliza el valor `spring.jpa.hibernate.ddl-auto=none` para evitar que Hibernate genere automáticamente el esquema, ya que la estructura de la base de datos se define explícitamente mediante el archivo `schema.sql`.
+##### Inicialización de Esquema (Schema-First)
+
+En lugar de permitir que Hibernate genere las tablas automáticamente (lo cual puede ocultar errores de diseño), se ha optado por un enfoque **Schema-First**. Spring Boot carga automáticamente los siguientes scripts al inicio:
+
+1. **`schema.sql`**: Contiene los `CREATE TABLE` y restricciones (PK, FK). Simula el comportamiento de herramientas de migración profesional como Flyway.
+2. **`data.sql`**: Pobla la base de datos con un conjunto de datos "semilla" (usuarios de prueba, talleres base) para facilitar las pruebas manuales.
 
 ---
 
-#### Consideraciones sobre `ddl-auto`
+#### 2. Modelo de Datos (Diagrama E-R)
 
-Hibernate permite generar automáticamente las tablas usando:
+El siguiente diagrama representa la estructura relacional implementada en la base de datos, reflejando las entidades del dominio y sus cardinalidades.
 
-```properties
-spring.jpa.hibernate.ddl-auto=create-drop
+```mermaid
+erDiagram
+    USUARIOS {
+        bigint id PK
+        string email UK
+        string password
+        string role
+    }
+    
+    ALUMNOS {
+        bigint id PK
+        string nombre
+        string apellidos
+        string dni
+        bigint usuario_id FK
+    }
+
+    PROFESORES {
+        bigint id PK
+        string nombre
+        string apellidos
+        string especialidad
+        bigint usuario_id FK
+    }
+
+    TALLERES {
+        bigint id PK
+        string nombre
+        string descripcion
+        int cupo_maximo
+        bigint profesor_id FK
+    }
+
+    INSCRIPCIONES {
+        bigint id PK
+        date fecha_alta
+        string estado
+        bigint alumno_id FK
+        bigint taller_id FK
+    }
+
+    ASISTENCIAS {
+        bigint id PK
+        date fecha_sesion
+        boolean asistio
+        string observaciones
+        bigint inscripcion_id FK
+    }
+
+    %% Relaciones
+    USUARIOS ||--o| ALUMNOS : "tiene perfil"
+    USUARIOS ||--o| PROFESORES : "tiene perfil"
+    PROFESORES ||--o{ TALLERES : "imparte"
+    ALUMNOS ||--o{ INSCRIPCIONES : "realiza"
+    TALLERES ||--o{ INSCRIPCIONES : "recibe"
+    INSCRIPCIONES ||--o{ ASISTENCIAS : "registra"
+
 ```
-
-Esta opción crea el esquema al iniciar la aplicación y lo elimina al detenerla.
-
-No obstante, en este proyecto se ha optado por **`none`**, con el objetivo de trabajar con un esquema controlado manualmente, simulando de forma más realista un entorno de producción.
 
 ---
 
-#### Bases de datos en entorno de producción
+#### 3. Estrategia de Producción: PostgreSQL
 
-Aunque H2 es ideal para desarrollo, **no está diseñada para entornos productivos**.
-En producción, Spring Data JPA se integra fácilmente con sistemas de bases de datos más robustos como **MySQL** y **PostgreSQL**.
+Para el entorno de producción, la arquitectura está preparada para conmutar a **PostgreSQL**. Esta decisión se basa en la necesidad de persistencia duradera, concurrencia robusta y soporte avanzado de tipos de datos.
 
-* **MySQL**: ampliamente utilizado, buen rendimiento y gran adopción.
-* **PostgreSQL**: destaca por su robustez y características avanzadas (JSON nativo, consultas complejas).
+La transición se gestiona mediante **Perfiles de Spring**. Al activar el perfil `prod`, la aplicación ignora la configuración de H2 y carga la conexión al clúster de base de datos real.
 
-##### Ejemplo de configuración MySQL
+##### Configuración de Producción (Profile: `prod`)
 
 ```properties
-spring.datasource.url=jdbc:mysql://localhost:3306/miapp
-spring.datasource.username=usuario
-spring.datasource.password=contraseña
-spring.jpa.database-platform=org.hibernate.dialect.MySQL8Dialect
-```
+# --- PostgreSQL Configuration (application-prod.properties) ---
+spring.datasource.url=jdbc:postgresql://db-server:5432/artia_prod
+spring.datasource.username=${DB_USER}
+spring.datasource.password=${DB_PASS}
 
-##### Ejemplo de configuración PostgreSQL
-
-```properties
-spring.datasource.url=jdbc:postgresql://localhost:5432/miapp
-spring.datasource.username=usuario
-spring.datasource.password=contraseña
+# Dialecto optimizado para PostgreSQL
 spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
+
+# En producción, nunca se recrea el esquema automáticamente
+spring.jpa.hibernate.ddl-auto=validate
+
 ```
 
+Esta separación garantiza que el entorno de desarrollo sea ágil (H2) mientras que el entorno productivo sea robusto y escalable (PostgreSQL), cumpliendo con los estándares actuales de la industria.
+
 ---
-
-#### Conclusión
-
-El uso de **H2 en desarrollo**, combinado con **Spring Data JPA**, permite un desarrollo rápido, controlado y sin dependencias externas.
-Al mismo tiempo, la arquitectura de la aplicación facilita la migración a bases de datos relacionales más avanzadas en entornos de producción.
 
 [Volver](/README.md)

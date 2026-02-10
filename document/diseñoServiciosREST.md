@@ -1,161 +1,136 @@
 ### Diseño de los servicios REST
 
---- 
+---
 
 #### Introducción al diseño de los servicios REST
 
-El diseño de los servicios REST de la aplicación Aula Creativa sigue principios de uniformidad, simplicidad y extensibilidad. Se ha definido una estructura coherente para todos los recursos, basada en rutas limpias, separación clara de responsabilidades y un formato de respuesta homogéneo.
-Además, el sistema contempla diferentes roles (administración, alumnos, profesores) y expone endpoints específicos para cada uno, garantizando un control de permisos adecuado.
+La arquitectura de comunicación de **Aula Creativa** se fundamenta en un diseño **RESTful** estricto, priorizando la semántica, la escalabilidad y el desacoplamiento entre el cliente (Frontend) y el servidor (Backend).
 
-La API utiliza:
-- Rutas en plural para colecciones.
-- Versionado en la ruta base: **/api/v1.**
-- Respuestas JSON estructuradas.
-- Manejo estandarizado de errores.
-- Fechas en formato ISO 8601.
-- Operaciones representadas por métodos HTTP adecuados **(GET, POST, PUT, DELETE).**
-  
-Con estas pautas, la API es fácil de consumir, mantener y extender, y soporta todas las funcionalidades del sistema actual y futuros módulos.
+Se ha establecido un contrato de interfaz uniforme que garantiza la predictibilidad de las operaciones. El sistema implementa un modelo de seguridad basado en roles (RBAC), exponiendo recursos específicos según el perfil del consumidor (Administrador, Alumno o Profesor).
+
+**Principios de Diseño Adoptados:**
+
+* **Identificación de Recursos:** Uso de sustantivos en plural para las rutas (URIs) que representan colecciones (ej. `/alumnos`, `/talleres`).
+* **Semántica HTTP:** Uso estricto de los verbos HTTP para definir la naturaleza de la operación:
+* **GET:** Recuperación de información (Idempotente).
+* **POST:** Creación de nuevos recursos (No idempotente).
+* **PUT:** Actualización total de un recurso.
+* **DELETE:** Eliminado lógico o físico de un recurso.
 
 
-### Endpoints REST — Aula Creativa
-
-#### 1. Alumnos
-
-- ##### 1.1 CRUD de alumnos
-
-    | Operación        | Método | Endpoint             | Body Ejemplo                                                                                                                           | Código | Ejemplo Respuesta                          | Errores        |
-    |------------------|--------|----------------------|------------------------------------------------------------------------------------------------------------------------------------------|--------|---------------------------------------------|----------------|
-    | Crear alumno     | POST   | /api/v1/alumnos      | { "nombre": "Diego", "apellidos": "Romero", "dni": "12345678A", "email": "diego@example.com" }                                          | 201    | { "idAlumno": 1, "nombre": "Diego" }        | 400,401,409    |
-    | Listar alumnos   | GET    | /api/v1/alumnos      | -                                                                                                                                        | 200    | { "meta": {...}, "data": [] }              | 400,401        |
-    | Ver alumno       | GET    | /api/v1/alumnos/{id} | -                                                                                                                                        | 200    | { "idAlumno": 1, "nombre": "Diego" }       | 404,401        |
-    | Modificar alumno | PUT    | /api/v1/alumnos/{id} | { "nombre": "Diego", "email": "nuevo@example.com" }                                                                                     | 200    | { "idAlumno": 1, "email": "nuevo@example.com" } | 400,404,401 |
-    | Eliminar alumno  | DELETE | /api/v1/alumnos/{id} | -                                                                                                                                        | 204    | -                                           | 404,401,403    |
-
-- ##### 1.2 Funcionalidades del alumno
-
-    ###### Consultar asistencias del alumno
-
-    | Operación               | Método | Endpoint                             | Código | Respuesta Ejemplo                             | Errores |
-    |-------------------------|--------|--------------------------------------|--------|-----------------------------------------------|---------|
-    | Consultar asistencias   | GET    | /api/v1/alumnos/{id}/asistencias     | 200    | { "alumnoId": 1, "asistencias": [] }          | 404,401 |
-
-    ###### Consultar talleres disponibles
-
-    | Operación                     | Método | Endpoint         | Código | Respuesta Ejemplo                                      | Errores |
-    |------------------------------|--------|-------------------|--------|----------------------------------------------------------|---------|
-    | Listar talleres disponibles  | GET    | /api/v1/talleres | 200    | { "data": [ { "idTaller": 10, "cupos": 4 } ] }          | 400,401 |
-
-    ###### Inscribirse en un taller
-
-    | Operación                | Método | Endpoint                           | Body Ejemplo     | Código | Respuesta Ejemplo                               | Errores          |
-    |--------------------------|--------|------------------------------------|------------------|--------|--------------------------------------------------|-------------------|
-    | Inscribirse en taller    | POST   | /api/v1/alumnos/{id}/inscripciones | { "idTaller":10 } | 201    | { "idInscripcion": 101, "estado": "ACTIVA" }    | 400,401,404,409  |
+* **Versionado:** Prefijo `/api/v1` en todas las rutas para facilitar la evolución futura sin romper la compatibilidad.
+* **Formato de Intercambio:** `application/json` tanto para las peticiones como para las respuestas.
+* **Manejo de Errores:** Respuestas estandarizadas con códigos de estado HTTP (4xx, 5xx) y mensajes descriptivos en el cuerpo.
 
 ---
 
-#### 2. Profesores
+#### Estructura de Recursos (Endpoints)
 
-- ##### 2.1 CRUD de profesores
+A continuación, se detalla la especificación técnica de los endpoints disponibles, agrupados por dominio funcional.
 
-    | Operación         | Método | Endpoint                   | Body Ejemplo                                                                                                 | Código | Respuesta Ejemplo                      | Errores        |
-    |-------------------|--------|----------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|--------|-----------------------------------------|----------------|
-    | Crear profesor    | POST   | /api/v1/profesores         | { "nombre": "Laura", "apellidos": "García", "especialidad": "Dibujo", "email": "laura@example.com" }                                                            | 201    | { "idProfesor": 2, "nombre": "Laura" } | 400,401,409    |
-    | Listar profesores | GET    | /api/v1/profesores         | -                                                                                                                                                              | 200    | { "meta": {...}, "data": [] }          | 400,401        |
-    | Ver profesor      | GET    | /api/v1/profesores/{id}    | -                                                                                                                                                              | 200    | { "idProfesor": 2, "nombre": "Laura" } | 404,401        |
-    | Modificar prof.   | PUT    | /api/v1/profesores/{id}    | { "email": "nuevo@example.com" }                                                                                                                               | 200    | { "idProfesor": 2, "email": "nuevo" }  | 400,404,401    |
-    | Eliminar profesor | DELETE | /api/v1/profesores/{id}    | -                                                                                                                                                              | 204    | -                                       | 404,401,403    |
+#### 1. Recurso: Alumnos
 
-- ##### 2.2 Funcionalidades del profesor
+##### 1.1 CRUD de Alumnos (Gestión Administrativa)
 
-    ###### Registrar asistencias
+| Operación | Método | Endpoint (URI) | Body (Payload) | Estado | Respuesta Ejemplo | Errores Posibles |
+| --- | --- | --- | --- | --- | --- | --- |
+| **Crear** | `POST` | `/api/v1/alumnos` | `{"nombre": "Diego", "dni": "12345678A", ...}` | `201` | `{"id": 1, "nombre": "Diego", ...}` | 400, 409 |
+| **Listar** | `GET` | `/api/v1/alumnos` | - | `200` | `[{"id": 1, "nombre": "Diego"}, ...]` | 401, 403 |
+| **Detalle** | `GET` | `/api/v1/alumnos/{id}` | - | `200` | `{"id": 1, "nombre": "Diego", ...}` | 404, 401 |
+| **Editar** | `PUT` | `/api/v1/alumnos/{id}` | `{"nombre": "Diego", "email": "new@mail.com"}` | `200` | `{"id": 1, "email": "new@mail.com"}` | 400, 404 |
+| **Eliminar** | `DELETE` | `/api/v1/alumnos/{id}` | - | `204` | - | 404, 403 |
 
-    | Operación              | Método | Endpoint                                                        | Body Ejemplo                                                               | Código | Respuesta Ejemplo                                      | Errores |
-    |------------------------|--------|------------------------------------------------------------------|----------------------------------------------------------------------------|--------|----------------------------------------------------------|---------|
-    | Registrar asistencias  | POST   | /api/v1/profesores/{id}/talleres/{idTaller}/asistencias         | { "fechaSesion":"2025-11-10","asistencias":[{"idAlumno":1,"asistio":true}] } | 201    | { "mensaje": "Asistencias registradas" }                | 400,401,404 |
+##### 1.2 Funcionalidades Específicas del Alumno
 
-    ###### Ver alumnos inscritos
-
-    | Operación               | Método | Endpoint                                                       | Código | Respuesta Ejemplo                                         | Errores |
-    |-------------------------|--------|----------------------------------------------------------------|--------|-------------------------------------------------------------|---------|
-    | Ver alumnos inscritos   | GET    | /api/v1/profesores/{id}/talleres/{idTaller}/alumnos           | 200    | { "tallerId": 10, "alumnos": [{ "idAlumno":1 }] }          | 400,401,404 |
-
-    ###### Consultar talleres impartidos
-
-    | Operación                     | Método | Endpoint                        | Código | Respuesta Ejemplo                                   | Errores |
-    |-------------------------------|--------|----------------------------------|--------|-------------------------------------------------------|---------|
-    | Consultar talleres impartidos | GET    | /api/v1/profesores/{id}/talleres | 200    | { "profesorId": 2, "talleres": [{ "idTaller":10 }] } | 400,401,404 |
+| Operación | Método | Endpoint (URI) | Descripción | Código | Errores |
+| --- | --- | --- | --- | --- | --- |
+| **Mis Asistencias** | `GET` | `/api/v1/alumnos/{id}/asistencias` | Histórico de asistencia del alumno. | `200` | 404, 401 |
+| **Talleres Disp.** | `GET` | `/api/v1/talleres?estado=abierto` | Lista talleres con cupo disponible. | `200` | 401 |
+| **Inscribirse** | `POST` | `/api/v1/alumnos/{id}/inscripciones` | Solicita plaza en un taller (`{idTaller: 10}`). | `201` | 400, 409 |
 
 ---
 
-#### 3. Talleres
+#### 2. Recurso: Profesores
 
-| Operación        | Método | Endpoint              | Body Ejemplo                                                                             | Código | Respuesta Ejemplo                    | Errores     |
-|------------------|--------|------------------------|------------------------------------------------------------------------------------------|--------|---------------------------------------|-------------|
-| Crear taller     | POST   | /api/v1/talleres       | { "nombre":"Acuarela","descripcion":"Técnicas","idProfesor":2 }                          | 201    | { "idTaller":10,"nombre":"Acuarela"} | 400,401,409 |
-| Listar talleres  | GET    | /api/v1/talleres       | -                                                                                        | 200    | { "meta": {...}, "data": [] }        | 400,401     |
-| Ver taller       | GET    | /api/v1/talleres/{id}  | -                                                                                        | 200    | { "idTaller":10,"nombre":"Acuarela"} | 404,401     |
-| Modificar taller | PUT    | /api/v1/talleres/{id}  | { "nombre":"Acuarela Av.","descripcion":"Nivel medio" }                                 | 200    | { "idTaller":10,"nombre":"Acuarela"} | 400,404,401 |
-| Eliminar taller  | DELETE | /api/v1/talleres/{id}  | -                                                                                        | 204    | -                                     | 404,401,403 |
+##### 2.1 CRUD de Profesores (Gestión Administrativa)
 
----
+| Operación | Método | Endpoint (URI) | Body (Payload) | Estado | Respuesta Ejemplo | Errores Posibles |
+| --- | --- | --- | --- | --- | --- | --- |
+| **Crear** | `POST` | `/api/v1/profesores` | `{"nombre": "Laura", "especialidad": "Arte", ...}` | `201` | `{"id": 2, "nombre": "Laura"}` | 400, 409 |
+| **Listar** | `GET` | `/api/v1/profesores` | - | `200` | `[{"id": 2, "nombre": "Laura"}, ...]` | 401, 403 |
+| **Detalle** | `GET` | `/api/v1/profesores/{id}` | - | `200` | `{"id": 2, "especialidad": "Arte"}` | 404, 401 |
+| **Editar** | `PUT` | `/api/v1/profesores/{id}` | `{"email": "new@example.com"}` | `200` | `{"id": 2, "email": "new@..."}` | 400, 404 |
+| **Eliminar** | `DELETE` | `/api/v1/profesores/{id}` | - | `204` | - | 404, 403 |
 
-#### 4. Inscripciones
+##### 2.2 Funcionalidades Específicas del Profesor
 
-| Operación             | Método | Endpoint                     | Body Ejemplo                                           | Código | Respuesta Ejemplo                              | Errores        |
-|-----------------------|--------|------------------------------|--------------------------------------------------------|--------|------------------------------------------------|----------------|
-| Crear inscripción     | POST   | /api/v1/inscripciones        | { "idAlumno":1, "idTaller":10 }                        | 201    | { "idInscripcion":100,"estado":"ACTIVA" }      | 400,401,409    |
-| Listar inscripciones  | GET    | /api/v1/inscripciones        | -                                                      | 200    | { "meta": {...}, "data": [] }                  | 400,401        |
-| Ver inscripción       | GET    | /api/v1/inscripciones/{id}   | -                                                      | 200    | { "idInscripcion":100,"estado":"ACTIVA" }      | 404,401        |
-| Modificar inscripción | PUT    | /api/v1/inscripciones/{id}   | { "estado":"BAJA" }                                    | 200    | { "idInscripcion":100,"estado":"BAJA" }        | 400,404,401    |
-| Eliminar inscripción  | DELETE | /api/v1/inscripciones/{id}   | -                                                      | 204    | -                                              | 404,401,403    |
+| Operación | Método | Endpoint (URI) | Descripción | Código | Errores |
+| --- | --- | --- | --- | --- | --- |
+| **Pasar Lista** | `POST` | `/api/v1/profesores/{id}/talleres/{idTaller}/asistencias` | Registra un lote de asistencias para una fecha. | `201` | 400, 404 |
+| **Ver Alumnos** | `GET` | `/api/v1/profesores/{id}/talleres/{idTaller}/alumnos` | Listado de matriculados en su taller. | `200` | 403, 404 |
+| **Mis Talleres** | `GET` | `/api/v1/profesores/{id}/talleres` | Talleres impartidos por el profesor. | `200` | 401 |
 
 ---
 
-#### 5. Asistencias
+#### 3. Recurso: Talleres
 
-| Operación             | Método | Endpoint                 | Body Ejemplo                                            | Código | Respuesta Ejemplo                       | Errores          |
-|-----------------------|--------|---------------------------|----------------------------------------------------------|--------|------------------------------------------|-------------------|
-| Crear asistencia      | POST   | /api/v1/asistencias      | { "idInscripcion":100, "fechaSesion":"2025-11-10", "asistio":true } | 201    | { "idAsistencia":500,"asistio":true }   | 400,401,409       |
-| Listar asistencias    | GET    | /api/v1/asistencias      | -                                                        | 200    | { "meta": {...}, "data": [] }           | 400,401           |
-| Ver asistencia        | GET    | /api/v1/asistencias/{id} | -                                                        | 200    | { "idAsistencia":500,"asistio":true }   | 404,401           |
-| Modificar asistencia  | PUT    | /api/v1/asistencias/{id} | { "asistio":false, "observaciones":"Falta justificada"} | 200    | { "idAsistencia":500,"asistio":false }  | 400,404,401       |
-| Eliminar asistencia   | DELETE | /api/v1/asistencias/{id} | -                                                        | 204    | -                                        | 404,401,403       |
-
-
-## Documentación de la API con OpenAPI / Swagger
-
-La API REST de **Aula Creativa** se documenta siguiendo el estándar **OpenAPI**, que permite describir de forma estructurada todos los servicios expuestos por el backend.
-
-Para facilitar la visualización y prueba de los endpoints, se utiliza **Swagger**, que genera una interfaz web interactiva a partir de la definición OpenAPI.
-
-Esta documentación complementa el diseño funcional descrito anteriormente y actúa como contrato entre el backend y los clientes de la aplicación.
+| Operación | Método | Endpoint (URI) | Body (Payload) | Estado | Respuesta Ejemplo | Errores Posibles |
+| --- | --- | --- | --- | --- | --- | --- |
+| **Crear** | `POST` | `/api/v1/talleres` | `{"nombre":"Acuarela", "cupo": 10, "idProfesor":2}` | `201` | `{"id":10, "nombre":"Acuarela"}` | 400, 409 |
+| **Listar** | `GET` | `/api/v1/talleres` | - | `200` | `{"data": [...], "meta": {...}}` | 401 |
+| **Detalle** | `GET` | `/api/v1/talleres/{id}` | - | `200` | `{"id":10, "descripcion":"..."}` | 404, 401 |
+| **Editar** | `PUT` | `/api/v1/talleres/{id}` | `{"nombre":"Acuarela Avanzada"}` | `200` | `{"id":10, "nombre":"..."}` | 400, 404 |
+| **Eliminar** | `DELETE` | `/api/v1/talleres/{id}` | - | `204` | - | 403, 404 |
 
 ---
 
-### Función de OpenAPI
+#### 4. Recurso: Inscripciones (Matrículas)
 
-- Define los endpoints y métodos HTTP.
-- Describe parámetros, cuerpos de petición y respuestas.
-- Documenta los modelos de datos.
-- Facilita el mantenimiento y evolución del sistema.
-
----
-
-### Uso de Swagger
-
-Swagger permite:
-- Consultar la documentación completa de la API.
-- Probar los endpoints directamente desde el navegador.
-- Visualizar ejemplos de peticiones y respuestas.
-- Facilitar el desarrollo y depuración.
+| Operación | Método | Endpoint (URI) | Body (Payload) | Estado | Respuesta Ejemplo | Errores Posibles |
+| --- | --- | --- | --- | --- | --- | --- |
+| **Matricular** | `POST` | `/api/v1/inscripciones` | `{"idAlumno":1, "idTaller":10}` | `201` | `{"id":100, "estado":"ACTIVA"}` | 400, 409 |
+| **Listar** | `GET` | `/api/v1/inscripciones` | - | `200` | `[{"id":100, "taller":"..."}]` | 401 |
+| **Detalle** | `GET` | `/api/v1/inscripciones/{id}` | - | `200` | `{"id":100, "fecha": "2025..."}` | 404, 401 |
+| **Baja/Modif** | `PUT` | `/api/v1/inscripciones/{id}` | `{"estado":"BAJA"}` | `200` | `{"id":100, "estado":"BAJA"}` | 400, 404 |
+| **Borrar** | `DELETE` | `/api/v1/inscripciones/{id}` | - | `204` | - | 403, 404 |
 
 ---
 
-### Ubicación y estado de implementación
+#### 5. Recurso: Asistencias
 
-La documentación Swagger se expone desde el **servidor**, ya que forma parte de la API REST.  
-En el estado actual del proyecto, la API está preparada para ser documentada mediante OpenAPI y Swagger, contemplándose su integración completa como una mejora futura.
+| Operación | Método | Endpoint (URI) | Body (Payload) | Estado | Respuesta Ejemplo | Errores Posibles |
+| --- | --- | --- | --- | --- | --- | --- |
+| **Registrar** | `POST` | `/api/v1/asistencias` | `{"idInscripcion":100, "asistio":true}` | `201` | `{"id":500, "asistio":true}` | 400, 409 |
+| **Listar** | `GET` | `/api/v1/asistencias` | - | `200` | `[{"id":500, "fecha": "..."}]` | 401 |
+| **Detalle** | `GET` | `/api/v1/asistencias/{id}` | - | `200` | `{"id":500, "asistio":true}` | 404 |
+| **Corregir** | `PUT` | `/api/v1/asistencias/{id}` | `{"asistio":false}` | `200` | `{"id":500, "asistio":false}` | 400, 404 |
+| **Borrar** | `DELETE` | `/api/v1/asistencias/{id}` | - | `204` | - | 403, 404 |
+
+---
+
+### Documentación de la API (OpenAPI / Swagger)
+
+Para garantizar la interoperabilidad y facilitar el consumo de los servicios, **Aula Creativa** integra una especificación formal de su API.
+
+#### Estándar OpenAPI
+
+La API se adhiere a la especificación **OpenAPI 3.0**, que actúa como un contrato técnico entre el Backend y cualquier cliente (Frontend Web, App Móvil o servicios de terceros). Este estándar define de forma agnóstica al lenguaje:
+
+* Los endpoints disponibles y sus métodos HTTP.
+* Los esquemas de datos (Modelos) de entrada y salida.
+* Los mecanismos de autenticación requeridos (Bearer Token / JWT).
+
+#### Interfaz Interactiva (Swagger UI)
+
+Como implementación de referencia, el proyecto incluye **Swagger UI**, una herramienta que genera dinámicamente una página web interactiva basada en el código fuente.
+
+**Beneficios para el proyecto:**
+
+1. **Documentación Viva:** La documentación se actualiza automáticamente junto con el código, evitando desincronizaciones.
+2. **Testing en Tiempo Real:** Permite a los desarrolladores y al tribunal probar los endpoints directamente desde el navegador, enviando peticiones reales y visualizando las respuestas JSON.
+3. **Onboarding:** Facilita la comprensión de la lógica de negocio expuesta sin necesidad de leer el código fuente.
+
+*Nota de implementación: La interfaz de Swagger UI está configurada para ser accesible únicamente en los entornos de Desarrollo y Testing, deshabilitándose en Producción por motivos de seguridad.*
 
 ---
 

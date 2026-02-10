@@ -29,5 +29,6 @@ Es una app centrada en la **motivación** y la comunicación con las familias, s
 
 En **adición** otra app a tener en cuenta es el sistema de **Aula Virtual de EducaMadrid**, Está bien para crear cursos y compartir material, pero está pensada sobre todo para el trabajo online y esta ha sido desarrollada especialmente para centros públicos por lo que no tiene opciones de pagos, inscripciones o gestión de talleres, así que **no termina de ajustarse a lo que necesita un centro pequeño con actividades presenciales y organización propia** como lo hace nuestra app.
 
+---
 
 [Volver](/README.md)
