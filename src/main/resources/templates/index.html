@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:text="#{home.page.title}">Panel de Control | Artia</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="stylesheet" th:href="@{/css/estilos.css}">
 </head>
@@ -25,6 +27,12 @@
                 <div class="avatar">A</div>
             </div>
         </div>
+        <nav class="header-right lang-nav">
+            <a th:href="@{/web/home(lang=es)}" title="Español">🇪🇸</a>
+            <a th:href="@{/web/home(lang=en)}" title="English">🇬🇧</a>
+            <a th:href="@{/web/home(lang=ar)}" title="العربية">🇲🇦</a>
+            <a th:href="@{/web/home(lang=it)}" title="Italiano">🇮🇹</a>
+        </nav>
     </header>
 
     <main class="welcome-section">
@@ -39,14 +47,14 @@
             <div class="stat-icon-wrapper purple"><i data-lucide="users"></i></div>
             <div class="stat-content">
                 <span class="stat-label" th:text="#{stats.total.students}">Alumnos</span>
-                <span class="stat-value" th:text="${totalAlumnos} ?: '0'">124</span>
+                <span id="totalAlumnosCount" class="stat-value">124</span>
             </div>
         </div>
         <div class="stat-card">
             <div class="stat-icon-wrapper green"><i data-lucide="palette"></i></div>
             <div class="stat-content">
                 <span class="stat-label" th:text="#{stats.active.workshops}">Talleres</span>
-                <span class="stat-value" th:text="${totalTalleres} ?: '0'">8</span>
+                <span class="stat-value">5</span>
             </div>
         </div>
         <div class="stat-card">
@@ -66,7 +74,8 @@
                 <p th:text="#{menu.students.desc}">Administración de estudiantes.</p>
             </div>
             <div class="menu-footer">
-                <span th:text="#{generic.btn.access}">Acceder</span> <i data-lucide="arrow-right" style="width:16px;"></i>
+                <span th:text="#{generic.btn.access}">Acceder</span> <i data-lucide="arrow-right"
+                    style="width:16px;"></i>
             </div>
         </a>
 
@@ -94,5 +103,36 @@
     </section>
 
     <script>lucide.createIcons();</script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // 1. Definir la URL de tu API REST
+            const API_URL = '/api/v1/alumnos';
+
+            // 2. Hacer la petición (Fetch)
+            fetch(API_URL)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error al obtener alumnos');
+                    }
+                    return response.json(); // Convertir respuesta a JSON
+                })
+                .then(data => {
+                    // 3. 'data' es la lista de alumnos. Usamos .length para contar
+                    const total = data.length;
+
+                    // 4. Actualizar el HTML
+                    const contadorElement = document.getElementById('totalAlumnosCount');
+                    if (contadorElement) {
+                        contadorElement.innerText = total;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error cargando estadísticas:', error);
+                    document.getElementById('totalAlumnosCount').innerText = '-';
+                });
+        });
+    </script>
 </body>
+
 </html>
