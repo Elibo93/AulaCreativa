@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  # Servicio de Base de Datos MySQL
+  db:
+    image: mysql:8.0
+    container_name: artia_mysql_container
+    restart: always
+    environment:
+      MYSQL_DATABASE: artia_db      # Nombre de tu BBDD
+      MYSQL_ROOT_PASSWORD: root     # Contraseña root
+      MYSQL_USER: artia_user        # Usuario específico (opcional, buena práctica)
+      MYSQL_PASSWORD: artia_password
+    ports:
+      - "3306:3306" # Mapeo puerto PC : puerto Contenedor
+    volumes:
+      - artia_mysql_data:/var/lib/mysql # Para que los datos no se borren al apagar docker
+
+  # Servicio Adminer (Visor visual de la BBDD, como sugiere tu profe)
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8090:8080" # Accederás por localhost:8090
+
+volumes:
+  artia_mysql_data:
