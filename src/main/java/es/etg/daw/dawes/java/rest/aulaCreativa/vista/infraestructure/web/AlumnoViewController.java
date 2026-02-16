@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import org.xhtmlrenderer.pdf.ITextRenderer;
@@ -27,9 +28,9 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-//@RequestMapping(WebRoutes.PRODUCTOS_BASE)
+// @RequestMapping(WebRoutes.PRODUCTOS_BASE)
 public class AlumnoViewController {
-    
+
     private final FindAlumnoService findAlumnoService;
     private final CreateAlumnoService createAlumnoService;
     private final DeleteAlumnoService deleteAlumnoService;
@@ -41,7 +42,6 @@ public class AlumnoViewController {
     public String home(Model model) {
         return ThymTemplates.HOME_VIEW.getPath();
     }
-    
 
     // Carga la vista de la lista de alumnos http://localhost:8082/web/alumnos
     @GetMapping(WebRoutes.ALUMNOS_BASE)
@@ -55,8 +55,8 @@ public class AlumnoViewController {
     public String formulario(Model model) {
 
         model.addAttribute(ModelAttribute.SINGLE_ALUMNO.getName(), new Alumno());
-        
-        return ThymTemplates.ALUMNO_FORM.getPath(); //Devuelvo la vista que carga el formulario
+
+        return ThymTemplates.ALUMNO_FORM.getPath(); // Devuelvo la vista que carga el formulario
     }
 
     // Este método crea el alumno y devuelve la vista del mensaje de creado
@@ -68,47 +68,58 @@ public class AlumnoViewController {
             @RequestParam String telefono,
             @RequestParam String direccion,
             @RequestParam String fechaNacimiento,
-            Model model){
-            
-            createAlumnoService.createAlumno(new CreateAlumnoCommand(dni, nombre, apellido, email, telefono, direccion, fechaNacimiento));
-        
+            Model model) {
+
+        createAlumnoService.createAlumno(
+                new CreateAlumnoCommand(dni, nombre, apellido, email, telefono, direccion, fechaNacimiento));
+
         return ThymTemplates.ALUMNO_CREATED.getPath();
     }
 
     // Este método elimina un alumno y devuelve la lista con el alumno eliminado
     @PostMapping(WebRoutes.ALUMNOS_ELIMINAR)
-    public String borrar(@PathVariable Integer id, Model model) {
+    public String borrar(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
+
         deleteAlumnoService.delete(new AlumnoId(id));
+
+        redirectAttributes.addFlashAttribute(
+                "successMessage",
+                "Alumno eliminado correctamente");
+
         return "redirect:" + WebRoutes.ALUMNOS_BASE;
     }
 
-     //Listado de Alumnos http://localhost:8082/web/alumnos/pdf
+    // Listado de Alumnos http://localhost:8082/web/alumnos/pdf
     @GetMapping(WebRoutes.ALUMNOS_PDF)
     public void exportarPDF(HttpServletResponse response) throws Exception {
 
-        //Obtengo los datos
+        // Obtengo los datos
         List<Alumno> alumnos = findAlumnoService.findAll();
 
-        //Preparar el contexto de Thymeleaf
+        // Preparar el contexto de Thymeleaf
         Context context = new Context();
         context.setVariable("alumnos", alumnos);
 
-        //Ya tengo los datos en el contexto de Thymeleaf, ahora le doy la plantilla para que me devuelva
-        //  la plantilla con los datos rellenos (el mismo html que estamos devolviendo al usuario pero ahora lo meto en un String).
+        // Ya tengo los datos en el contexto de Thymeleaf, ahora le doy la plantilla
+        // para que me devuelva
+        // la plantilla con los datos rellenos (el mismo html que estamos devolviendo al
+        // usuario pero ahora lo meto en un String).
         String htmlContent = templateEngine.process(ThymTemplates.ALUMNO_LIST_PDF.getPath(), context);
 
-        //Preparo la respuesta diciendole que voy a devolver un pdf
+        // Preparo la respuesta diciendole que voy a devolver un pdf
         response.setContentType("application/pdf");
         response.setHeader("Content-Disposition", "attachment; filename=alumnos.pdf");
 
-        //Llamo a Flying Saurce y le paso el html para que lo transforme en pdf
-        //  el html tiene que estar bien formado (xhtml) o fallará el proceso, cuidado con la plantilla
+        // Llamo a Flying Saurce y le paso el html para que lo transforme en pdf
+        // el html tiene que estar bien formado (xhtml) o fallará el proceso, cuidado
+        // con la plantilla
         OutputStream outputStream = response.getOutputStream();
         ITextRenderer renderer = new ITextRenderer();
-        renderer.setDocumentFromString(htmlContent); //Le paso además donde están los archivos css (ruta a la carpeta static)
+        renderer.setDocumentFromString(htmlContent); // Le paso además donde están los archivos css (ruta a la carpeta
+                                                     // static)
         renderer.layout();
         renderer.createPDF(outputStream);
-        
+
         outputStream.close();
     }
 }

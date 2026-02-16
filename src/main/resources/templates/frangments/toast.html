@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!-- Fragmento reutilizable -->
+<div th:fragment="toast">
+
+    <div class="toast success"
+         th:if="${successMessage}"
+         th:text="${successMessage}">
+        Operación correcta
+    </div>
+
+    <div class="toast error"
+         th:if="${errorMessage}"
+         th:text="${errorMessage}">
+        Error
+    </div>
+
+</div>
+
+</html>

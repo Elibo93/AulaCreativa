@@ -24,13 +24,13 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-    font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif; /* Fuente moderna añadida */
-    background: var(--bg-gradient);
-    background-attachment: fixed;
+    font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+    background: linear-gradient(180deg,#f8fafc 0%, #eef2ff 100%);
     color: var(--text-main);
-    line-height: 1.5;
-    padding: 40px 20px;
+    line-height: 1.55;
+    padding: 36px 20px;
 }
+
 
 /* Fondo decorativo (Puntos) */
 .bg-dots {
@@ -218,3 +218,73 @@ tbody td:first-child { font-weight: 700; color: var(--primary); }
 .success-icon { margin-bottom: 24px; }
 .confirmation-title { font-size: 1.5rem; color: #1e1b4b; margin-bottom: 12px; }
 .confirmation-text { color: var(--text-muted); margin-bottom: 32px; }
+
+.back-link{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    text-decoration:none;
+}
+
+.back-arrow{
+    font-size:20px;
+    font-weight:600;
+    color:var(--text-muted);
+    transition:0.2s;
+}
+
+.back-link:hover .back-arrow{
+    transform:translateX(-4px);
+    color:var(--primary);
+}
+
+/* =====================
+   TOAST GLOBAL
+===================== */
+
+.toast{
+    position:fixed;
+    top:24px;
+    right:24px;
+    min-width:260px;
+    padding:14px 18px;
+    border-radius:12px;
+    font-size:0.9rem;
+    font-weight:600;
+    color:white;
+    box-shadow:0 20px 25px -5px rgba(0,0,0,0.15);
+    animation:toastFade 4s forwards;
+    z-index:2000;
+}
+
+.toast.success{
+    background:linear-gradient(135deg,#16a34a,#22c55e);
+}
+
+.toast.error{
+    background:linear-gradient(135deg,#dc2626,#ef4444);
+}
+
+@keyframes toastFade{
+    0%{
+        opacity:0;
+        transform:translateY(-18px) scale(0.95);
+    }
+    10%{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+    80%{
+        opacity:1;
+    }
+    99%{
+        opacity:0;
+        transform:translateY(-12px) scale(0.96);
+    }
+    100%{
+        opacity:0;
+        visibility:hidden;
+        pointer-events:none;
+    }
+}
+
