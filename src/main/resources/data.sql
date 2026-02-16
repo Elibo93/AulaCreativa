@@ -1,13 +1,18 @@
+-- =========================
 -- PROFESORES (5)
-INSERT INTO PROFESORES (nombre, apellido, especialidad, email, telefono, created_at) VALUES 
-('Lucía', 'García', 'Dibujo y pintura', 'lucia.garcia@aulacreativa.local', '+34 600111222', CURRENT_TIMESTAMP),
-('Carlos', 'Martín', 'Música - Guitarra', 'carlos.martin@aulacreativa.local', '+34 600222333', CURRENT_TIMESTAMP),
-('Marta', 'López', 'Teatro y expresión', 'marta.lopez@aulacreativa.local', '+34 600333444', CURRENT_TIMESTAMP),
-('Javier', 'Ruiz', 'Escultura', 'javier.ruiz@aulacreativa.local', '+34 600444555', CURRENT_TIMESTAMP),
-('Ana', 'Santos', 'Ilustración digital', 'ana.santos@aulacreativa.local', '+34 600555666', CURRENT_TIMESTAMP);
+-- =========================
+INSERT INTO profesores
+(nombre, apellido, especialidad, email, telefono, created_at)
+VALUES
+('Lucía', 'García', 'Dibujo y pintura', 'lucia.garcia@aulacreativa.local', '+34600111222', NOW()),
+('Carlos', 'Martín', 'Música - Guitarra', 'carlos.martin@aulacreativa.local', '+34600222333', NOW()),
+('Marta', 'López', 'Teatro y expresión', 'marta.lopez@aulacreativa.local', '+34600333444', NOW()),
+('Javier', 'Ruiz', 'Escultura', 'javier.ruiz@aulacreativa.local', '+34600444555', NOW()),
+('Ana', 'Santos', 'Ilustración digital', 'ana.santos@aulacreativa.local', '+34600555666', NOW());
 
 -- TALLERES (5)
-INSERT INTO TALLERES (nombre, descripcion, id_profesor, hora_inicio, hora_fin, aforo_maximo)VALUES 
+INSERT INTO talleres 
+(nombre, descripcion, id_profesor, hora_inicio, hora_fin, aforo_maximo)VALUES 
 ('Taller de Dibujo Básico', 'Introducción al dibujo: líneas, formas y sombreado.', 1, '17:00', '19:00', 12),
 ('Guitarra para Principiantes', 'Acordes básicos, ritmos y primeras canciones.', 2, '18:00', '20:00', 10),
 ('Teatro Infantil', 'Juegos dramáticos y expresión corporal para niños.', 3, '16:30', '18:00', 15),
@@ -15,7 +20,7 @@ INSERT INTO TALLERES (nombre, descripcion, id_profesor, hora_inicio, hora_fin, a
 ('Ilustración Digital Avanzada', 'Técnicas avanzadas en tableta gráfica y retoque.', 5, '19:00', '21:00', 10);
 
 -- ALUMNOS (20)
-INSERT INTO ALUMNOS
+INSERT INTO alumnos
 (dni, nombre, apellido, email, telefono, direccion, fecha_nacimiento, created_at) VALUES
 ('12345678A', 'Diego', 'Romero', 'diego.romero@local', '600000001', 'C/ Sol 1, Madrid', '2001-03-10', NOW()),
 ('23456789B', 'Lucía', 'Martínez', 'lucia.martinez@local', '600000002', 'C/ Luna 2, Sevilla', '2003-07-22', NOW()),
@@ -39,7 +44,7 @@ INSERT INTO ALUMNOS
 ('11112222W', 'Rosa', 'Delgado', 'rosa.delgado@local', '600000020', 'C/ Castaño 20, Granada', '1999-08-18', NOW());
 
 -- TALLERES (30)
-INSERT INTO INSCRIPCIONES (id_alumno, id_taller, created_at) VALUES
+INSERT INTO inscripciones (id_alumno, id_taller, created_at) VALUES
 -- Taller 1 (8 inscripciones)
 (1, 1, NOW()),
 (2, 1, NOW()),
