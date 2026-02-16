@@ -14,3 +14,4 @@ services:
     restart: always
     ports:
       - "8090:8080" # Ojo que no puedes usar el 8080, está reservador para el gateway
+  
