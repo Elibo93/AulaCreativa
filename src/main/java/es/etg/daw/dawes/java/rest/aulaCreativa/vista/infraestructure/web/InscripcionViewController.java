@@ -38,112 +38,121 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class InscripcionViewController {
 
-    private final FindInscripcionService findInscripcionService;
-    private final CreateInscripcionService createInscripcionService;
-    private final DeleteInscripcionService deleteInscripcionService;
-    private final FindAlumnoService findAlumnoService;
-    private final FindTallerService findTallerService;
+        private final FindInscripcionService findInscripcionService;
+        private final CreateInscripcionService createInscripcionService;
+        private final DeleteInscripcionService deleteInscripcionService;
+        private final FindAlumnoService findAlumnoService;
+        private final FindTallerService findTallerService;
 
-    private final TemplateEngine templateEngine; // Motor de Thymeleaf
+        private final TemplateEngine templateEngine; // Motor de Thymeleaf
 
-    @GetMapping(WebRoutes.INSCRIPCIONES_PDF)
-    public void exportarPDF(HttpServletResponse response) throws Exception {
+        @GetMapping(WebRoutes.INSCRIPCIONES_PDF)
+        public void exportarPDF(HttpServletResponse response) throws Exception {
 
-        // Obtengo los datos
-        List<Inscripcion> inscripciones = findInscripcionService.findAll();
+                // Obtengo los datos
+                List<Inscripcion> inscripciones = findInscripcionService.findAll();
 
-        // Preparar el contexto de Thymeleaf
-        Context context = new Context();
-        context.setVariable("inscripciones", inscripciones);
+                // Preparar el contexto de Thymeleaf
+                Context context = new Context();
+                context.setVariable("inscripciones", inscripciones);
 
-        // Mapas para resolver nombres en el PDF
-        java.util.Map<Integer, Alumno> alumnosMap = findAlumnoService
-                .findAll().stream()
-                .collect(java.util.stream.Collectors.toMap(a -> a.getId().getValue(), a -> a));
+                // Mapas para resolver nombres en el PDF
+                java.util.Map<Integer, Alumno> alumnosMap = findAlumnoService
+                                .findAll().stream()
+                                .collect(java.util.stream.Collectors.toMap(a -> a.getId().getValue(), a -> a));
 
-        java.util.Map<Integer, Taller> talleresMap = findTallerService
-                .findAll().stream()
-                .collect(java.util.stream.Collectors.toMap(t -> t.getId().getValue(), t -> t));
+                java.util.Map<Integer, Taller> talleresMap = findTallerService
+                                .findAll().stream()
+                                .collect(java.util.stream.Collectors.toMap(t -> t.getId().getValue(), t -> t));
 
-        context.setVariable("alumnos", alumnosMap);
-        context.setVariable("talleres", talleresMap);
+                context.setVariable("alumnos", alumnosMap);
+                context.setVariable("talleres", talleresMap);
 
-        // Generar el HTML procesado
-        String htmlContent = templateEngine.process(ThymTemplates.INSCRIPCION_LIST_PDF.getPath(), context);
+                // Generar el HTML procesado
+                String htmlContent = templateEngine.process(ThymTemplates.INSCRIPCION_LIST_PDF.getPath(), context);
 
-        // Preparar la respuesta para PDF
-        response.setContentType("application/pdf");
-        response.setHeader("Content-Disposition", "attachment; filename=inscripciones.pdf");
+                // Preparar la respuesta para PDF
+                response.setContentType("application/pdf");
+                response.setHeader("Content-Disposition", "attachment; filename=inscripciones.pdf");
 
-        // Generar el PDF final
-        OutputStream outputStream = response.getOutputStream();
-        ITextRenderer renderer = new ITextRenderer();
-        renderer.setDocumentFromString(htmlContent);
-        renderer.layout();
-        renderer.createPDF(outputStream);
+                // Generar el PDF final
+                OutputStream outputStream = response.getOutputStream();
+                ITextRenderer renderer = new ITextRenderer();
+                renderer.setDocumentFromString(htmlContent);
+                renderer.layout();
+                renderer.createPDF(outputStream);
 
-        outputStream.close();
-    }
-
-    @GetMapping(WebRoutes.INSCRIPCIONES_BASE)
-    public String listar(Model model, @RequestParam(required = false) String successMessage) {
-        model.addAttribute(ModelAttribute.INSCRIPCION_LIST.getName(), findInscripcionService.findAll());
-
-        // Mapas para resolver nombres en la vista desde los IDs
-        java.util.Map<Integer, Alumno> alumnosMap = findAlumnoService
-                .findAll().stream()
-                .collect(java.util.stream.Collectors.toMap(a -> a.getId().getValue(), a -> a));
-
-        java.util.Map<Integer, Taller> talleresMap = findTallerService
-                .findAll().stream()
-                .collect(java.util.stream.Collectors.toMap(t -> t.getId().getValue(), t -> t));
-
-        model.addAttribute("alumnos", alumnosMap);
-        model.addAttribute("talleres", talleresMap);
-
-        // Listas para los desplegables del modal de edición
-        model.addAttribute("listaAlumnos", findAlumnoService.findAll());
-        model.addAttribute("listaTalleres", findTallerService.findAll());
-
-        if (successMessage != null) {
-            model.addAttribute("successMessage", successMessage);
+                outputStream.close();
         }
 
-        return ThymTemplates.INSCRIPCION_LIST.getPath();
-    }
+        @GetMapping(WebRoutes.INSCRIPCIONES_BASE)
+        public String listar(Model model,
+                        @RequestParam(required = false) Integer alumnoId,
+                        @RequestParam(required = false) Integer tallerId,
+                        @RequestParam(required = false) String successMessage) {
 
-    @GetMapping(WebRoutes.INSCRIPCIONES_NUEVA)
-    public String formulario(Model model) {
-        model.addAttribute(ModelAttribute.SINGLE_INSCRIPCION.getName(), Inscripcion.builder().build());
-        model.addAttribute(ModelAttribute.ALUMNO_LIST.getName(), findAlumnoService.findAll());
-        model.addAttribute(ModelAttribute.TALLER_LIST.getName(), findTallerService.findAll());
-        return ThymTemplates.INSCRIPCION_FORM.getPath();
-    }
+                List<Inscripcion> inscripciones = findInscripcionService.findByCriteria(alumnoId, tallerId);
+                model.addAttribute(ModelAttribute.INSCRIPCION_LIST.getName(), inscripciones);
 
-    @PostMapping(WebRoutes.INSCRIPCIONES_NUEVA)
-    public String crearInscripcion(@RequestParam Integer idAlumno,
-            @RequestParam Integer idTaller,
-            RedirectAttributes redirectAttributes) {
+                // Mantener filtros seleccionados
+                model.addAttribute("selectedAlumnoId", alumnoId);
+                model.addAttribute("selectedTallerId", tallerId);
 
-        createInscripcionService.createInscripcion(
-                new CreateInscripcionCommand(new AlumnoId(idAlumno), new TallerId(idTaller)));
+                // Mapas para resolver nombres en la vista desde los IDs
+                java.util.Map<Integer, Alumno> alumnosMap = findAlumnoService
+                                .findAll().stream()
+                                .collect(java.util.stream.Collectors.toMap(a -> a.getId().getValue(), a -> a));
 
-        redirectAttributes.addFlashAttribute(
-                "successMessage",
-                "Inscripcion creada correctamente");
+                java.util.Map<Integer, Taller> talleresMap = findTallerService
+                                .findAll().stream()
+                                .collect(java.util.stream.Collectors.toMap(t -> t.getId().getValue(), t -> t));
 
-        return "redirect:" + WebRoutes.INSCRIPCIONES_BASE;
-    }
+                model.addAttribute("alumnos", alumnosMap);
+                model.addAttribute("talleres", talleresMap);
 
-    @PostMapping(WebRoutes.INSCRIPCIONES_ELIMINAR)
-    public String borrar(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
+                // Listas para los desplegables del modal de edición
+                model.addAttribute("listaAlumnos", findAlumnoService.findAll());
+                model.addAttribute("listaTalleres", findTallerService.findAll());
 
-        deleteInscripcionService.delete(new InscripcionId(id));
+                if (successMessage != null) {
+                        model.addAttribute("successMessage", successMessage);
+                }
 
-        redirectAttributes.addFlashAttribute(
-                "successMessage",
-                "Inscripcion eliminada correctamente");
+                return ThymTemplates.INSCRIPCION_LIST.getPath();
+        }
 
-        return "redirect:" + WebRoutes.INSCRIPCIONES_BASE;
-    }
+        @GetMapping(WebRoutes.INSCRIPCIONES_NUEVA)
+        public String formulario(Model model) {
+                model.addAttribute(ModelAttribute.SINGLE_INSCRIPCION.getName(), Inscripcion.builder().build());
+                model.addAttribute(ModelAttribute.ALUMNO_LIST.getName(), findAlumnoService.findAll());
+                model.addAttribute(ModelAttribute.TALLER_LIST.getName(), findTallerService.findAll());
+                return ThymTemplates.INSCRIPCION_FORM.getPath();
+        }
+
+        @PostMapping(WebRoutes.INSCRIPCIONES_NUEVA)
+        public String crearInscripcion(@RequestParam Integer idAlumno,
+                        @RequestParam Integer idTaller,
+                        RedirectAttributes redirectAttributes) {
+
+                createInscripcionService.createInscripcion(
+                                new CreateInscripcionCommand(new AlumnoId(idAlumno), new TallerId(idTaller)));
+
+                redirectAttributes.addFlashAttribute(
+                                "successMessage",
+                                "Inscripcion creada correctamente");
+
+                return "redirect:" + WebRoutes.INSCRIPCIONES_BASE;
+        }
+
+        @PostMapping(WebRoutes.INSCRIPCIONES_ELIMINAR)
+        public String borrar(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
+
+                deleteInscripcionService.delete(new InscripcionId(id));
+
+                redirectAttributes.addFlashAttribute(
+                                "successMessage",
+                                "Inscripcion eliminada correctamente");
+
+                return "redirect:" + WebRoutes.INSCRIPCIONES_BASE;
+        }
 }

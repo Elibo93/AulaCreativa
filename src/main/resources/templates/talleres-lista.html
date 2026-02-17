@@ -10,44 +10,76 @@
 <body>
 
     <header class="app-header">
-        <div class="header-left">
-            <a th:href="@{/web/home}" class="back-link">
-                <span class="back-arrow">←</span>
+        <div class="header-container">
+            <div class="header-left">
+                <a th:href="@{/web/home}" class="back-link" title="Volver">
+                    <i data-lucide="arrow-left" class="back-arrow" style="width:20px;"></i>
+                </a>
                 <img th:src="@{/images/logo-artia.png}" class="app-logo">
-            </a>
-            <div class="app-brand">
-                <span class="app-name" th:text="#{app.name}">Artia</span>
-                <span class="app-subtitle" th:text="#{app.subtitle}">Gestión</span>
+                <div class="app-brand">
+                    <span class="app-name" th:text="#{app.name}">Artia</span>
+                    <span class="app-subtitle" th:text="#{app.subtitle}">Gestión</span>
+                </div>
             </div>
+            <nav class="header-right lang-nav">
+                <div class="user-profile dropdown-container">
+                    <div class="dropdown-trigger">
+                        <div class="avatar">T</div>
+                        <span class="user-name">Talleres</span>
+                        <i data-lucide="chevron-down" style="width:16px;"></i>
+                    </div>
+                    <div class="dropdown-menu">
+                        <a th:href="@{/web/alumnos}" class="dropdown-item">
+                            <i data-lucide="graduation-cap"></i> Alumnos
+                        </a>
+                        <a th:href="@{/web/profesores}" class="dropdown-item">
+                            <i data-lucide="briefcase"></i> Profesores
+                        </a>
+                        <a th:href="@{/web/talleres}" class="dropdown-item"
+                            style="background:var(--bg-body); color:var(--primary);">
+                            <i data-lucide="palette"></i> Talleres
+                        </a>
+                        <a th:href="@{/web/inscripciones}" class="dropdown-item">
+                            <i data-lucide="file-check"></i> Inscripciones
+                        </a>
+                    </div>
+                </div>
+                <a th:href="@{/web/talleres(lang=es)}" title="Español"
+                    th:classappend="${#locale.language == 'es'} ? 'active'">🇪🇸</a>
+                <a th:href="@{/web/talleres(lang=en)}" title="English"
+                    th:classappend="${#locale.language == 'en'} ? 'active'">🇬🇧</a>
+                <a th:href="@{/web/talleres(lang=ar)}" title="العربية"
+                    th:classappend="${#locale.language == 'ar'} ? 'active'">🇲🇦</a>
+                <a th:href="@{/web/talleres(lang=it)}" title="Italiano"
+                    th:classappend="${#locale.language == 'it'} ? 'active'">🇮🇹</a>
+            </nav>
         </div>
-        <nav class="header-right lang-nav">
-            <div class="user-profile"><span class="user-name">Talleres</span></div>
-            <a th:href="@{/web/talleres(lang=es)}" title="Español">🇪🇸</a>
-            <a th:href="@{/web/talleres(lang=en)}" title="English">🇬🇧</a>
-            <a th:href="@{/web/talleres(lang=ar)}" title="العربية">🇲🇦</a>
-            <a th:href="@{/web/talleres(lang=it)}" title="Italiano">🇮🇹</a>
-        </nav>
     </header>
 
     <!-- TOAST MESSAGES -->
-    <div th:if="${successMessage}" class="toast success toast-popup">
-        ✔ <span th:text="${successMessage}"></span>
+    <div th:if="${successMessage}" class="toast success">
+        <i data-lucide="check-circle" style="width:20px;"></i> <span th:text="${successMessage}"></span>
     </div>
 
-    <div th:if="${errorMessage}" class="toast error toast-popup">
-        ✖ <span th:text="${errorMessage}"></span>
+    <div th:if="${errorMessage}" class="toast error">
+        <i data-lucide="alert-circle" style="width:20px;"></i> <span th:text="${errorMessage}"></span>
     </div>
 
     <main>
-        <div class="table-container">
+        <!-- Removed redundant page-header -->
+
+        <div class="table-wrapper">
             <div class="actions-bar">
-                <h1 class="page-title" style="margin:0; font-size:1.5rem;" th:text="#{workshop.list.title}">Listado de
-                    Talleres</h1>
+                <span class="user-name page" th:text="#{workshop.list.title}">Talleres</span>
                 <div style="display:flex; gap:10px;">
-                    <a class="action-link" th:href="@{/web/talleres/pdf}" target="_blank"
-                        th:text="#{generic.link.export.pdf}">Exportar PDF</a>
-                    <a class="action-link create" th:href="@{/web/talleres/nuevo}" th:text="#{generic.link.create}">+
-                        Nuevo Taller</a>
+                    <a class="btn btn-secondary" th:href="@{/web/talleres/pdf}" target="_blank">
+                        <i data-lucide="file-text" style="width:18px;"></i>
+                        <span th:text="#{generic.link.export.pdf}">Exportar PDF</span>
+                    </a>
+                    <a class="btn btn-primary" th:href="@{/web/talleres/nuevo}">
+                        <i data-lucide="plus" style="width:18px;"></i>
+                        <span th:text="#{generic.link.create}">+ Nuevo</span>
+                    </a>
                 </div>
             </div>
 
@@ -67,31 +99,36 @@
                                  data-profesor=${t.profesor.value}, data-inicio=${t.horaInicio}, data-fin=${t.horaFin}, 
                                  data-aforo=${t.aforoMaximo}">
                         <td th:text="${t.id.value}">1</td>
-                        <td th:text="${t.nombre}">Dibujo</td>
+                        <td style="font-weight: 600; color: var(--primary);" th:text="${t.nombre}">Dibujo</td>
                         <td>
-                            <span th:text="${t.horaInicio}">17:00</span> - <span th:text="${t.horaFin}">19:00</span>
+                            <span class="badge-soon" style="background:#EFF6FF; color:var(--primary); font-weight:500;"
+                                th:text="${t.horaInicio} + ' - ' + ${t.horaFin}">17:00 - 19:00</span>
                         </td>
                         <td th:text="${t.aforoMaximo}">20</td>
-                        <td th:text="${t.descripcion}" style="color:var(--text-muted); font-size:0.85rem;">
+                        <td th:text="${t.descripcion}" style="color:var(--text-muted); font-size:0.9rem;">
                             Descripción...</td>
                         <td style="display:flex; gap:8px;">
-                            <button class="btn-icon trigger-modal"><img th:src="@{/images/editar.png}"
-                                    width="16"></button>
+                            <button class="btn-icon trigger-modal"><i data-lucide="edit-2"
+                                    style="width:16px;"></i></button>
                             <form th:action="@{/web/talleres/{id}/borrar(id=${t.id.value})}" method="post"
                                 onsubmit="return confirm('¿Eliminar taller?');">
-                                <button type="submit" class="btn-icon delete"><img th:src="@{/images/eliminar.png}"
-                                        width="16"></button>
+                                <button type="submit" class="btn-icon delete"><i data-lucide="trash-2"
+                                        style="width:16px;"></i></button>
                             </form>
                         </td>
                     </tr>
                 </tbody>
             </table>
 
-            <div th:if="${#lists.isEmpty(talleres)}" style="text-align:center; padding:20px; color:var(--text-muted);">
-                <span>No hay talleres registrados.</span>
+            <div th:if="${#lists.isEmpty(talleres)}" style="text-align:center; padding:3rem; color:var(--text-muted);">
+                <i data-lucide="inbox" style="width:48px; height:48px; margin-bottom:1rem; opacity:0.5;"></i>
+                <p>No hay talleres registrados.</p>
             </div>
         </div>
     </main>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script th:src="@{/js/scripts.js}"></script>
 
     <div id="modalOverlay" class="modal-overlay" style="display:none;"></div>
     <div id="editModal" class="modal" style="display:none;">
@@ -128,10 +165,10 @@
                 <input type="number" id="editAforo" required>
             </div>
 
-            <div style="display:flex; gap:10px; margin-top:20px;">
-                <button type="button" id="btnCancel" class="btn btn-secondary" style="width:100%"
+            <div class="modal-actions">
+                <button type="button" id="btnCancel" class="btn btn-secondary"
                     th:text="#{generic.btn.cancel}">Cancelar</button>
-                <button type="submit" id="btnSave" class="btn btn-primary" style="width:100%"
+                <button type="submit" id="btnSave" class="btn btn-primary"
                     th:text="#{generic.btn.save}">Guardar</button>
             </div>
         </form>

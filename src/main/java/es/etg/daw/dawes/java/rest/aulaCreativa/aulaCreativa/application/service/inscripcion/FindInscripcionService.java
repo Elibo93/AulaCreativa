@@ -23,4 +23,8 @@ public class FindInscripcionService {
         return findInscripcionUseCase.findById(id);
     }
 
+    public List<Inscripcion> findByCriteria(Integer alumnoId, Integer tallerId) {
+        return findInscripcionUseCase.findByCriteria(alumnoId, tallerId);
+    }
+
 }

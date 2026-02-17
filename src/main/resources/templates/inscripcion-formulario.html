@@ -10,60 +10,64 @@
 <body>
 
     <header class="app-header">
-        <div class="header-left">
-            <a th:href="@{/web/inscripciones}" class="back-link">
-                <span class="back-arrow">←</span>
+        <div class="header-container">
+            <div class="header-left">
+                <a th:href="@{/web/inscripciones}" class="back-link" title="Volver">
+                    <i data-lucide="arrow-left" class="back-arrow" style="width:20px;"></i>
+                </a>
                 <img th:src="@{/images/logo-artia.png}" class="app-logo">
-            </a>
-            <div class="app-brand">
-                <span class="app-name" th:text="#{app.name}">Artia</span>
-                <span class="app-subtitle" th:text="#{enrollment.form.title}">Nueva Inscripción</span>
+                <div class="app-brand">
+                    <span class="app-name" th:text="#{app.name}">Artia</span>
+                    <span class="app-subtitle" th:text="#{app.subtitle}">Gestión</span>
+                </div>
             </div>
         </div>
     </header>
 
     <main>
-        <div class="table-container" style="max-width:600px;">
-            <h1 class="page-title" style="margin-bottom:20px; font-size:1.5rem;" th:text="#{enrollment.form.title}">
-                Registrar Inscripción</h1>
+        <div class="page-header" style="text-align:center;">
+            <h1 class="page-title" th:text="#{enrollment.form.title}">Registrar Inscripción</h1>
+            <p style="color:var(--text-muted); margin-top:0.5rem;">Asocie un alumno a un taller</p>
+        </div>
 
+        <div class="card" style="max-width:600px; margin:0 auto;">
             <form th:action="@{/web/inscripciones/nueva}" method="post" th:object="${inscripcion}">
+                <div class="form-grid" style="grid-template-columns: 1fr;">
+                    <div class="form-group">
+                        <label th:text="#{enrollment.field.student}">Alumno</label>
+                        <select name="idAlumno" required>
+                            <option value="" disabled selected th:text="#{form.select.student}">Seleccione un alumno...
+                            </option>
+                            <option th:each="a : ${alumnos}" th:value="${a.id.value}"
+                                th:text="${a.nombre} + ' ' + ${a.apellido} + ' (DNI: ' + ${a.dni} + ')'">
+                            </option>
+                        </select>
+                    </div>
 
-                <div class="form-group">
-                    <label th:text="#{enrollment.field.student}">Alumno</label>
-                    <select name="idAlumno" class="form-control"
-                        style="width:100%; padding:10px; border-radius:8px; border:1px solid #d1d5db;" required>
-                        <option value="" disabled selected th:text="#{form.select.student}">Seleccione un alumno...
-                        </option>
-                        <option th:each="a : ${alumnos}" th:value="${a.id.value}"
-                            th:text="${a.nombre} + ' ' + ${a.apellido} + ' (DNI: ' + ${a.dni} + ')'">
-                        </option>
-                    </select>
+                    <div class="form-group">
+                        <label th:text="#{enrollment.field.workshop}">Taller</label>
+                        <select name="idTaller" required>
+                            <option value="" disabled selected th:text="#{form.select.workshop}">Seleccione un taller...
+                            </option>
+                            <option th:each="t : ${talleres}" th:value="${t.id.value}"
+                                th:text="${t.nombre} + ' (' + ${t.horaInicio} + '-' + ${t.horaFin} + ')'">
+                            </option>
+                        </select>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label th:text="#{enrollment.field.workshop}">Taller</label>
-                    <select name="idTaller" class="form-control"
-                        style="width:100%; padding:10px; border-radius:8px; border:1px solid #d1d5db;" required>
-                        <option value="" disabled selected th:text="#{form.select.workshop}">Seleccione un taller...
-                        </option>
-                        <option th:each="t : ${talleres}" th:value="${t.id.value}"
-                            th:text="${t.nombre} + ' (' + ${t.horaInicio} + '-' + ${t.horaFin} + ')'">
-                        </option>
-                    </select>
-                </div>
-
-                <div style="margin-top:30px; display:flex; gap:15px;">
-                    <a th:href="@{/web/inscripciones}" class="btn btn-secondary" style="flex:1; text-align:center;"
+                <div class="modal-actions" style="margin-top:2rem;">
+                    <a th:href="@{/web/inscripciones}" class="btn btn-secondary" style="justify-content:center;"
                         th:text="#{generic.btn.cancel}">Cancelar</a>
-                    <button type="submit" class="btn btn-primary" style="flex:1;" th:text="#{generic.btn.save}">Guardar
-                        Inscripción</button>
+                    <button type="submit" class="btn btn-primary" style="justify-content:center;"
+                        th:text="#{generic.btn.save}">Guardar Inscripción</button>
                 </div>
-
             </form>
         </div>
     </main>
 
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script th:src="@{/js/scripts.js}"></script>
 </body>
 
 </html>
