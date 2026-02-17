@@ -18,9 +18,12 @@ import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.application.command.
 import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.application.service.alumnos.CreateAlumnoService;
 import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.application.service.alumnos.DeleteAlumnoService;
 import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.application.service.alumnos.FindAlumnoService;
+<<<<<<< HEAD
 import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.application.service.inscripcion.FindInscripcionService;
 import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.application.service.profesor.FindProfesorService;
 import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.application.service.taller.FindTallerService;
+=======
+>>>>>>> b6c4f72755f56a8ae5b6a6747dde0cc72486db31
 import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.domain.model.alumno.Alumno;
 import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.domain.model.alumno.AlumnoId;
 import es.etg.daw.dawes.java.rest.aulaCreativa.vista.infraestructure.web.constants.WebRoutes;
@@ -40,14 +43,28 @@ public class AlumnoViewController {
 
     private final TemplateEngine templateEngine; // Motor de Thymeleaf
 
+<<<<<<< HEAD
     // Carga la vista de la lista de alumnos http://localhost:8080/web/alumnos
+=======
+    // Carga la vista de la pagina principal http://localhost:8082/web/home
+    @GetMapping(WebRoutes.HOME)
+    public String home(Model model) {
+        return ThymTemplates.HOME_VIEW.getPath();
+    }
+
+    // Carga la vista de la lista de alumnos http://localhost:8082/web/alumnos
+>>>>>>> b6c4f72755f56a8ae5b6a6747dde0cc72486db31
     @GetMapping(WebRoutes.ALUMNOS_BASE)
     public String listar(Model model) {
         model.addAttribute(ModelAttribute.ALUMNO_LIST.getName(), findAlumnoService.findAll());
         return ThymTemplates.ALUMNO_LIST.getPath(); // Busca alumnos-lista.html
     }
 
+<<<<<<< HEAD
     // Carga la vista del formulario http://localhost:8080/web/alumnos/nuevo
+=======
+    // Carga la vista del formulario http://localhost:8082/web/alumnos/nuevo
+>>>>>>> b6c4f72755f56a8ae5b6a6747dde0cc72486db31
     @GetMapping(WebRoutes.ALUMNOS_NUEVO)
     public String formulario(Model model) {
 
@@ -86,7 +103,11 @@ public class AlumnoViewController {
         return "redirect:" + WebRoutes.ALUMNOS_BASE;
     }
 
+<<<<<<< HEAD
     // Listado de Alumnos http://localhost:8080/web/alumnos/pdf
+=======
+    // Listado de Alumnos http://localhost:8082/web/alumnos/pdf
+>>>>>>> b6c4f72755f56a8ae5b6a6747dde0cc72486db31
     @GetMapping(WebRoutes.ALUMNOS_PDF)
     public void exportarPDF(HttpServletResponse response) throws Exception {
 

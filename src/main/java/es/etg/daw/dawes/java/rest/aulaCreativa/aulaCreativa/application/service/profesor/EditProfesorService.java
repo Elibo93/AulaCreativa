@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class EditProfesorService {
 
-    //Atributos
+    // Atributos
     private final EditProfesorUseCase editProfesorUseCase;
 
     public Profesor update(EditProfesorCommand command) {

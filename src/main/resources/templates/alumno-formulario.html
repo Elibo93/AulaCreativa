@@ -20,7 +20,6 @@
 
     <div class="table-container" style="max-width:800px;">
         <h1 class="page-title" style="margin-bottom:30px;" th:text="#{alumno.form.title}">Crear Alumno</h1>
-
         <form th:action="@{/web/alumnos/nuevo}" th:object="${alumno}" method="POST">
             <div class="form-grid">
                 <div class="form-group">
@@ -50,7 +49,6 @@
                     <input type="date" th:field="*{fechaNacimiento}">
                 </div>
             </div>
-
             <div class="form-group">
                 <label th:text="#{alumno.field.address}">Dirección</label>
                 <input type="text" th:field="*{direccion}">

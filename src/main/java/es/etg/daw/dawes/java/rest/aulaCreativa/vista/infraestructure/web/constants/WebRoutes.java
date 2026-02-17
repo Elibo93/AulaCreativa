@@ -31,5 +31,4 @@ public interface WebRoutes {
     public static final String INSCRIPCIONES_NUEVA = "/web/inscripciones/nueva";
     public static final String INSCRIPCIONES_ELIMINAR = "/web/inscripciones/{id}/borrar";
     public static final String INSCRIPCIONES_PDF = "/web/inscripciones/pdf";
-
 }

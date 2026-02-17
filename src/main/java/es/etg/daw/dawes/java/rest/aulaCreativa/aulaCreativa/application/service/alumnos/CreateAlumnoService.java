@@ -16,7 +16,7 @@ public class CreateAlumnoService {
     public Alumno createAlumno(CreateAlumnoCommand comando) {
         Alumno alumno = createAlumnoUseCase.create(comando);
         return alumno;
-        
+
     }
 
 }

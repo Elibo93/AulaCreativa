@@ -7,7 +7,7 @@ public abstract class Identificador {
     private final Integer value;
 
     protected Identificador(Integer value) {
-        if (value == null ) {
+        if (value == null) {
             throw new IllegalArgumentException("El identificador no puede ser nulo");
         }
         this.value = value;

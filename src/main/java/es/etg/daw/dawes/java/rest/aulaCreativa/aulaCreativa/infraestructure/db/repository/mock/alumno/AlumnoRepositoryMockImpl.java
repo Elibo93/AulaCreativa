@@ -26,19 +26,18 @@ public class AlumnoRepositoryMockImpl implements AlumnoRepository {
         return t;
     }
 
-    private int obtenerSiguienteId(){
+    private int obtenerSiguienteId() {
         AlumnoId ultimo = null;
-        if(!Alumnos.isEmpty()){
+        if (!Alumnos.isEmpty()) {
             Collection<Alumno> lista = Alumnos.values();
-            
+
             for (Alumno p : lista) {
                 ultimo = p.getId();
             }
 
         }
-        return ultimo.getValue()+1;
+        return ultimo.getValue() + 1;
     }
-
 
     @Override
     public List<Alumno> getAll() {

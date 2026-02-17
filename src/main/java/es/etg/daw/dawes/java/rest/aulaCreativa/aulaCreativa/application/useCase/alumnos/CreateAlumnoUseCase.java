@@ -24,7 +24,7 @@ public class CreateAlumnoUseCase {
                 .createdAt(LocalDateTime.now())
                 .build();
         return alumnoRepository.save(alumno);
-        
+
     }
 
 }

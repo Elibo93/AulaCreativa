@@ -22,7 +22,8 @@ public class ProfesorConfig {
 
     private final ProfesorEntityJpaRepository profesorRepository;
 
-    // Creo por configuración la instalacia que me interesa del productoRepository (desde jpa)
+    // Creo por configuración la instalacia que me interesa del productoRepository
+    // (desde jpa)
     @Bean
     public ProfesorRepository profesorRepository() {
         return new ProfesorJpaRepositoryImpl(profesorRepository);

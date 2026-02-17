@@ -27,7 +27,7 @@ public class AlumnoConfig {
     public AlumnoRepository alumnoRepository() {
         return new AlumnoJpaRepositoryImpl(alumnoRepository);
     }
-    
+
     // POST
     @Bean
     public CreateAlumnoUseCase createAlumnoUseCase() {

@@ -2,9 +2,9 @@ package es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.domain.error;
 
 import es.etg.daw.dawes.java.rest.aulaCreativa.common.domain.error.EntityNotFoundException;
 
-public class AlumnoNotFoundException extends EntityNotFoundException{
+public class AlumnoNotFoundException extends EntityNotFoundException {
 
-    //Atributos
+    // Atributos
     public static final String ENTIDAD = "alumno";
 
     public AlumnoNotFoundException() {
@@ -16,4 +16,3 @@ public class AlumnoNotFoundException extends EntityNotFoundException{
     }
 
 }
-

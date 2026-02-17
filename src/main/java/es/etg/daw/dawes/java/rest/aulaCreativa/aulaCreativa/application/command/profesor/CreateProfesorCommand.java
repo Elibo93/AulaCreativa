@@ -9,11 +9,11 @@ import lombok.experimental.Accessors;
 @Accessors(fluent = true)
 public class CreateProfesorCommand {
 
-    //Atributos
+    // Atributos
     private String nombre;
-	private String apellido;
+    private String apellido;
     private String especialidad;
-	private String email;
-	private String telefono;
-    
+    private String email;
+    private String telefono;
+
 }

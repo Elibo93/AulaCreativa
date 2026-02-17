@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 public class Alumno {
-	
+
 	// Atributos
 	private AlumnoId id;
 	private String dni;
@@ -23,5 +23,5 @@ public class Alumno {
 	private String direccion;
 	private String fechaNacimiento;
 	private LocalDateTime createdAt;
-	
+
 }

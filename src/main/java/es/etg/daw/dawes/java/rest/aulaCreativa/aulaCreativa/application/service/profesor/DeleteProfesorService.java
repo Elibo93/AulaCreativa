@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class DeleteProfesorService {
 
-    //Atributos
+    // Atributos
     private final DeleteProfesorUseCase deleteProfesorUseCase;
 
     public void delete(ProfesorId id) {

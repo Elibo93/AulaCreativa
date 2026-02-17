@@ -10,8 +10,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Service
 public class CreateProfesorService {
-    
-    //Atributos
+
+    // Atributos
     private final CreateProfesorUseCase createProfesorUseCase;
 
     public Profesor createProfesor(CreateProfesorCommand command) {
