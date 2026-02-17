@@ -9,9 +9,25 @@ services:
     ports:
       - "3306:3306"
 
-  adminer: # Interfaz gráfica para ver la base de datos
+  adminer:
+    # Interfaz gráfica para ver la base de datos
     image: adminer
     restart: always
     ports:
       - "8090:8080" # Ojo que no puedes usar el 8080, está reservador para el gateway
-  
+
+  aula-creativa:
+    image: srromer0/aulacreativa:v1
+    container_name: aula-creativa-container
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db # Indica que debe arrancar después de la base de datos
+    environment:
+      # Sobrescribimos la URL para apuntar al servicio 'db' en lugar de localhost
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/artia_db?allowPublicKeyRetrieval=true&useSSL=false
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      # Opcional: Si usas JPA/Hibernate para que cree las tablas si no existen
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
