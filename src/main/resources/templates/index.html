@@ -123,26 +123,21 @@
         </div>
 
     </main>
+
     <!-- Stats Grid -->
     <div class="stats-grid">
         <div class="stat-card">
             <div class="stat-icon-wrapper purple"><i data-lucide="users"></i></div>
             <div class="stat-content">
                 <span class="stat-label" th:text="#{stats.total.students}">Alumnos</span>
-                <<<<<<< HEAD <span class="stat-value" th:text="${alumnos != null ? #lists.size(alumnos) : 0}">124</span>
-                    =======
-                    <span id="totalAlumnosCount" class="stat-value">124</span>
-                    >>>>>>> b6c4f72755f56a8ae5b6a6747dde0cc72486db31
+                <span class="stat-value" th:text="${alumnos != null ? #lists.size(alumnos) : 0}">124</span>
             </div>
         </div>
         <div class="stat-card">
             <div class="stat-icon-wrapper green"><i data-lucide="palette"></i></div>
             <div class="stat-content">
                 <span class="stat-label" th:text="#{stats.active.workshops}">Talleres</span>
-                <<<<<<< HEAD <span class="stat-value" th:text="${talleres != null ? #lists.size(talleres) : 0}">5</span>
-                    =======
-                    <span class="stat-value">5</span>
-                    >>>>>>> b6c4f72755f56a8ae5b6a6747dde0cc72486db31
+                <span class="stat-value" th:text="${talleres != null ? #lists.size(talleres) : 0}">5</span>
             </div>
         </div>
         <div class="stat-card">
@@ -152,88 +147,49 @@
                 <span class="stat-value text-primary">+5</span>
             </div>
         </div>
-        <<<<<<< HEAD </div>
+    </div>
 
-            <!-- Quick Actions -->
-            <div class="menu-grid" style="margin-top: 40px;">
-                =======
-                </section>
+    <!-- Quick Actions -->
+    <div class="menu-grid" style="margin-top: 40px;">
+        <section class="menu-grid">
+            <a th:href="@{/web/alumnos}" class="menu-card primary-card">
+                <div class="menu-content">
+                    <i data-lucide="graduation-cap" class="menu-icon"></i>
+                    <h3 th:text="#{menu.students.title}">Gestión Alumnos</h3>
+                    <p th:text="#{menu.students.desc}">Administración de estudiantes.</p>
+                </div>
+                <div class="menu-footer">
+                    <span th:text="#{generic.btn.access}">Acceder</span> <i data-lucide="arrow-right"
+                        style="width:16px;"></i>
+                </div>
+            </a>
 
-                <section class="menu-grid">
-                    >>>>>>> b6c4f72755f56a8ae5b6a6747dde0cc72486db31
-                    <a th:href="@{/web/alumnos}" class="menu-card primary-card">
-                        <div class="menu-content">
-                            <i data-lucide="graduation-cap" class="menu-icon"></i>
-                            <h3 th:text="#{menu.students.title}">Gestión Alumnos</h3>
-                            <p th:text="#{menu.students.desc}">Administración de estudiantes.</p>
-                        </div>
-                        <div class="menu-footer">
-                            <span th:text="#{generic.btn.access}">Acceder</span> <i data-lucide="arrow-right"
-                                style="width:16px;"></i>
-                        </div>
-                    </a>
+            <a th:href="@{/web/alumnos/nuevo}" class="menu-card">
+                <div class="menu-content">
+                    <i data-lucide="user-plus" class="menu-icon"></i>
+                    <h3 th:text="#{menu.create.title}">Nuevo Alumno</h3>
+                    <p th:text="#{menu.create.desc}">Alta rápida.</p>
+                </div>
+                <div class="menu-footer">
+                    <span th:text="#{generic.btn.create}">Crear</span> <i data-lucide="plus" style="width:16px;"></i>
+                </div>
+            </a>
 
-                    <a th:href="@{/web/alumnos/nuevo}" class="menu-card">
-                        <div class="menu-content">
-                            <i data-lucide="user-plus" class="menu-icon"></i>
-                            <h3 th:text="#{menu.create.title}">Nuevo Alumno</h3>
-                            <p th:text="#{menu.create.desc}">Alta rápida.</p>
-                        </div>
-                        <div class="menu-footer">
-                            <span th:text="#{generic.btn.create}">Crear</span> <i data-lucide="plus"
-                                style="width:16px;"></i>
-                        </div>
-                    </a>
+            <div class="menu-card disabled-card">
+                <div class="menu-content">
+                    <i data-lucide="file-bar-chart" class="menu-icon"></i>
+                    <h3 th:text="#{menu.reports.title}">Informes</h3>
+                    <p th:text="#{menu.reports.desc}">Estadísticas avanzadas.</p>
+                </div>
+                <div class="menu-footer">
+                    <span class="badge-soon" th:text="#{generic.badge.soon}">Pronto</span>
+                </div>
+            </div>
+        </section>
+    </div>
 
-                    <div class="menu-card disabled-card">
-                        <div class="menu-content">
-                            <i data-lucide="file-bar-chart" class="menu-icon"></i>
-                            <h3 th:text="#{menu.reports.title}">Informes</h3>
-                            <p th:text="#{menu.reports.desc}">Estadísticas avanzadas.</p>
-                        </div>
-                        <div class="menu-footer">
-                            <span class="badge-soon" th:text="#{generic.badge.soon}">Pronto</span>
-                        </div>
-                    </div>
-                    <<<<<<< HEAD </div>
+    <script>lucide.createIcons();</script>
 
-                        <script>lucide.createIcons();</script>
-
-                        =======
-                </section>
-
-                <script>lucide.createIcons();</script>
-
-                <script>
-                    document.addEventListener("DOMContentLoaded", () => {
-                        // 1. Definir la URL de tu API REST
-                        const API_URL = '/api/v1/alumnos';
-
-                        // 2. Hacer la petición (Fetch)
-                        fetch(API_URL)
-                            .then(response => {
-                                if (!response.ok) {
-                                    throw new Error('Error al obtener alumnos');
-                                }
-                                return response.json(); // Convertir respuesta a JSON
-                            })
-                            .then(data => {
-                                // 3. 'data' es la lista de alumnos. Usamos .length para contar
-                                const total = data.length;
-
-                                // 4. Actualizar el HTML
-                                const contadorElement = document.getElementById('totalAlumnosCount');
-                                if (contadorElement) {
-                                    contadorElement.innerText = total;
-                                }
-                            })
-                            .catch(error => {
-                                console.error('Error cargando estadísticas:', error);
-                                document.getElementById('totalAlumnosCount').innerText = '-';
-                            });
-                    });
-                </script>
-                >>>>>>> b6c4f72755f56a8ae5b6a6747dde0cc72486db31
 </body>
 
 </html>
