@@ -39,8 +39,11 @@ public class AlumnoViewController {
 
     // Carga la vista de la lista de alumnos http://localhost:8080/web/alumnos
     @GetMapping(WebRoutes.ALUMNOS_BASE)
-    public String listar(Model model) {
+    public String listar(Model model, @RequestParam(required = false) String successMessage) {
         model.addAttribute(ModelAttribute.ALUMNO_LIST.getName(), findAlumnoService.findAll());
+        if (successMessage != null) {
+            model.addAttribute("successMessage", successMessage);
+        }
         return ThymTemplates.ALUMNO_LIST.getPath(); // Busca alumnos-lista.html
     }
 

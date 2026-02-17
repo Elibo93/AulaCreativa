@@ -9,4 +9,5 @@ import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.infraestructure.db.j
 public interface AlumnoEntityJpaRepository extends JpaRepository<AlumnoEntity, Integer> {
 
     public AlumnoEntity findByNombre(String nombre);
+
 }

@@ -16,6 +16,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.application.service.taller.DeleteTallerService;
+import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.domain.model.taller.TallerId;
+import org.springframework.web.bind.annotation.PathVariable;
+
 import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.application.command.taller.CreateTallerCommand;
 import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.application.service.profesor.FindProfesorService;
 import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.application.service.taller.CreateTallerService;
@@ -33,13 +37,19 @@ public class TallerViewController {
 
     private final FindTallerService findTallerService;
     private final CreateTallerService createTallerService;
+    private final DeleteTallerService deleteTallerService;
     private final FindProfesorService findProfesorService; // Para el desplegable de profesores
 
     private final TemplateEngine templateEngine; // Motor de Thymeleaf
 
     @GetMapping(WebRoutes.TALLERES_BASE)
-    public String listar(Model model) {
+    public String listar(Model model, @RequestParam(required = false) String successMessage) {
         model.addAttribute(ModelAttribute.TALLER_LIST.getName(), findTallerService.findAll());
+        // Pasamos la lista de profesores para el modal de edición
+        model.addAttribute(ModelAttribute.PROFESOR_LIST.getName(), findProfesorService.findAll());
+        if (successMessage != null) {
+            model.addAttribute("successMessage", successMessage);
+        }
         return ThymTemplates.TALLER_LIST.getPath();
     }
 
@@ -67,6 +77,18 @@ public class TallerViewController {
         redirectAttributes.addFlashAttribute(
                 "successMessage",
                 "Taller creado correctamente");
+
+        return "redirect:" + WebRoutes.TALLERES_BASE;
+    }
+
+    @PostMapping(WebRoutes.TALLERES_ELIMINAR)
+    public String borrar(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
+
+        deleteTallerService.delete(new TallerId(id));
+
+        redirectAttributes.addFlashAttribute(
+                "successMessage",
+                "Taller eliminado correctamente");
 
         return "redirect:" + WebRoutes.TALLERES_BASE;
     }

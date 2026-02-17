@@ -74,6 +74,12 @@ public class AlumnoController {
 
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<AlumnoResponse> findAlumnoById(@PathVariable int id) {
+        Alumno alumno = findAlumnoService.findById(new AlumnoId(id));
+        return ResponseEntity.ok(AlumnoMapper.toResponse(alumno));
+    }
+
     @Operation(summary = "Elimina un alumno", description = "Elimina un alumno de la base de datos dado un id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Sin cuerpo, Alumno eliminado correctamente"),

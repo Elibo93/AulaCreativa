@@ -30,7 +30,7 @@ public class TallerEntity {
     @Column(name = "nombre", nullable = false, length = 255)
     private String nombre;
 
-    @Basic(optional=true)
+    @Basic(optional = true)
     @Column(name = "descripcion", length = 1000)
     private String descripcion;
 
@@ -48,4 +48,6 @@ public class TallerEntity {
     @Column(name = "aforo_maximo", nullable = false)
     private int aforoMaximo;
 
+    @jakarta.persistence.OneToMany(mappedBy = "taller", cascade = jakarta.persistence.CascadeType.ALL, orphanRemoval = true)
+    private java.util.List<InscripcionEntity> inscripciones;
 }

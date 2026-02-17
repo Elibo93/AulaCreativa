@@ -162,8 +162,11 @@
                     method: 'PUT', headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(data)
                 });
-                if (resp.ok) location.reload(); // Recargar para ver cambios simple
-                else alert("Error al guardar");
+                if (resp.ok) {
+                    window.location.href = window.location.pathname + '?successMessage=Alumno modificado correctamente';
+                } else {
+                    alert("Error al guardar");
+                }
             } catch (e) { console.error(e); }
             btn.textContent = 'Guardar';
         });

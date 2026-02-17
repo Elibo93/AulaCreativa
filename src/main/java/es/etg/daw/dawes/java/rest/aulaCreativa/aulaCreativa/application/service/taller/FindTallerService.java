@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.application.useCase.taller.FindTallerUseCase;
 import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.domain.model.taller.Taller;
+import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.domain.model.taller.TallerId;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -16,5 +17,9 @@ public class FindTallerService {
 
     public List<Taller> findAll() {
         return findTallerUseCase.findAll();
+    }
+
+    public Taller findById(TallerId id) {
+        return findTallerUseCase.findById(id);
     }
 }

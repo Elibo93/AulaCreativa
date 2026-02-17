@@ -4,6 +4,7 @@ import java.util.List;
 
 import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.domain.error.TallerNotFoundException;
 import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.domain.model.taller.Taller;
+import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.domain.model.taller.TallerId;
 import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.domain.repository.TallerRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -19,5 +20,9 @@ public class FindTallerUseCase {
             throw new TallerNotFoundException();
         }
         return talleres;
+    }
+
+    public Taller findById(TallerId id) {
+        return tallerRepository.getById(id).orElseThrow(() -> new TallerNotFoundException());
     }
 }

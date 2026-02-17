@@ -23,9 +23,11 @@ import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.application.service.
 import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.application.service.inscripcion.DeleteInscripcionService;
 import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.application.service.inscripcion.FindInscripcionService;
 import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.application.service.taller.FindTallerService;
+import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.domain.model.alumno.Alumno;
 import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.domain.model.alumno.AlumnoId;
 import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.domain.model.inscripcion.Inscripcion;
 import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.domain.model.inscripcion.InscripcionId;
+import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.domain.model.taller.Taller;
 import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.domain.model.taller.TallerId;
 import es.etg.daw.dawes.java.rest.aulaCreativa.vista.infraestructure.web.constants.WebRoutes;
 import es.etg.daw.dawes.java.rest.aulaCreativa.vista.infraestructure.web.enums.ModelAttribute;
@@ -54,6 +56,18 @@ public class InscripcionViewController {
         Context context = new Context();
         context.setVariable("inscripciones", inscripciones);
 
+        // Mapas para resolver nombres en el PDF
+        java.util.Map<Integer, Alumno> alumnosMap = findAlumnoService
+                .findAll().stream()
+                .collect(java.util.stream.Collectors.toMap(a -> a.getId().getValue(), a -> a));
+
+        java.util.Map<Integer, Taller> talleresMap = findTallerService
+                .findAll().stream()
+                .collect(java.util.stream.Collectors.toMap(t -> t.getId().getValue(), t -> t));
+
+        context.setVariable("alumnos", alumnosMap);
+        context.setVariable("talleres", talleresMap);
+
         // Generar el HTML procesado
         String htmlContent = templateEngine.process(ThymTemplates.INSCRIPCION_LIST_PDF.getPath(), context);
 
@@ -72,8 +86,29 @@ public class InscripcionViewController {
     }
 
     @GetMapping(WebRoutes.INSCRIPCIONES_BASE)
-    public String listar(Model model) {
+    public String listar(Model model, @RequestParam(required = false) String successMessage) {
         model.addAttribute(ModelAttribute.INSCRIPCION_LIST.getName(), findInscripcionService.findAll());
+
+        // Mapas para resolver nombres en la vista desde los IDs
+        java.util.Map<Integer, Alumno> alumnosMap = findAlumnoService
+                .findAll().stream()
+                .collect(java.util.stream.Collectors.toMap(a -> a.getId().getValue(), a -> a));
+
+        java.util.Map<Integer, Taller> talleresMap = findTallerService
+                .findAll().stream()
+                .collect(java.util.stream.Collectors.toMap(t -> t.getId().getValue(), t -> t));
+
+        model.addAttribute("alumnos", alumnosMap);
+        model.addAttribute("talleres", talleresMap);
+
+        // Listas para los desplegables del modal de edición
+        model.addAttribute("listaAlumnos", findAlumnoService.findAll());
+        model.addAttribute("listaTalleres", findTallerService.findAll());
+
+        if (successMessage != null) {
+            model.addAttribute("successMessage", successMessage);
+        }
+
         return ThymTemplates.INSCRIPCION_LIST.getPath();
     }
 

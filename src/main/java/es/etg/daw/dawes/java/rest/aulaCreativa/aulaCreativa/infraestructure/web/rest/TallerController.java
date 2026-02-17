@@ -10,16 +10,22 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import org.springframework.web.bind.annotation.PutMapping;
+
 import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.application.command.taller.CreateTallerCommand;
+import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.application.command.taller.EditTallerCommand;
 import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.application.service.taller.CreateTallerService;
+import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.application.service.taller.EditTallerService;
 import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.application.service.taller.FindTallerService;
 import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.domain.model.taller.Taller;
+import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.domain.model.taller.TallerId;
 import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.infraestructure.mapper.TallerMapper;
 import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.infraestructure.web.dto.taller.TallerRequest;
 import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.infraestructure.web.dto.taller.TallerResponse;
@@ -31,16 +37,25 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TallerController {
 
-    //Atributos
+    // Atributos
     private final CreateTallerService createTallerService;
     private final FindTallerService findTallerService;
+    private final EditTallerService editTallerService;
 
     @PostMapping
-    public ResponseEntity<TallerResponse> createTaller(@Valid@RequestBody TallerRequest tallerRequest) {
+    public ResponseEntity<TallerResponse> createTaller(@Valid @RequestBody TallerRequest tallerRequest) {
         System.out.println("DEBUG Controller - DTO horaInicio = '" + tallerRequest.horaInicio() + "'");
         CreateTallerCommand comando = TallerMapper.toCommand(tallerRequest);
         Taller taller = createTallerService.createTaller(comando);
         return ResponseEntity.status(HttpStatus.CREATED).body(TallerMapper.toResponse(taller));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<TallerResponse> updateTaller(@PathVariable Integer id,
+            @Valid @RequestBody TallerRequest tallerRequest) {
+        EditTallerCommand comando = TallerMapper.toEditCommand(new TallerId(id), tallerRequest);
+        Taller taller = editTallerService.update(comando);
+        return ResponseEntity.ok(TallerMapper.toResponse(taller));
     }
 
     @GetMapping
@@ -52,6 +67,11 @@ public class TallerController {
                 // de Respuesta (ProductoResponse)
                 .toList(); // Lo devuelve como una lista.
 
+    }
+
+    @GetMapping("/{id}")
+    public TallerResponse getTallerById(@PathVariable Integer id) {
+        return TallerMapper.toResponse(findTallerService.findById(new TallerId(id)));
     }
 
     // Gestión de validaciones

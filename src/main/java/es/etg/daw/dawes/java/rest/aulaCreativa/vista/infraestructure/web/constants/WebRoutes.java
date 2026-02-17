@@ -25,6 +25,7 @@ public interface WebRoutes {
     public static final String TALLERES_BASE = "/web/talleres";
     public static final String TALLERES_NUEVO = "/web/talleres/nuevo";
     public static final String TALLERES_PDF = "/web/talleres/pdf";
+    public static final String TALLERES_ELIMINAR = "/web/talleres/{id}/borrar";
 
     // Inscripciones
     public static final String INSCRIPCIONES_BASE = "/web/inscripciones";
