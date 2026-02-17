@@ -3,6 +3,8 @@ services:
     image: mysql:8.0
     container_name: mysql_artia
     restart: always
+    # ESTA LÍNEA ES CRUCIAL: Fuerza al servidor a usar UTF-8
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     environment:
       MYSQL_DATABASE: artia_db
       MYSQL_ROOT_PASSWORD: root
@@ -10,11 +12,10 @@ services:
       - "3306:3306"
 
   adminer:
-    # Interfaz gráfica para ver la base de datos
     image: adminer
     restart: always
     ports:
-      - "8090:8080" # Ojo que no puedes usar el 8080, está reservador para el gateway
+      - "8090:8080"
 
   aula-creativa:
     image: srromer0/aulacreativa:v1
@@ -23,11 +24,16 @@ services:
     ports:
       - "8080:8080"
     depends_on:
-      - db # Indica que debe arrancar después de la base de datos
+      - db
     environment:
-      # Sobrescribimos la URL para apuntar al servicio 'db' en lugar de localhost
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/artia_db?allowPublicKeyRetrieval=true&useSSL=false
+      # 1. Base de datos con comillas y parámetros extra
+      SPRING_DATASOURCE_URL: "jdbc:mysql://db:3306/artia_db?allowPublicKeyRetrieval=true&useSSL=false&useUnicode=true&characterEncoding=UTF-8&connectionCollation=utf8mb4_unicode_ci"
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
-      # Opcional: Si usas JPA/Hibernate para que cree las tablas si no existen
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      
+      # 2. Asegurar que los scripts SQL de inicio se lean bien
+      SPRING_SQL_INIT_ENCODING: UTF-8
+      
+      # 3. Forzar respuesta HTTP en UTF-8
+      SERVER_SERVLET_ENCODING_CHARSET: UTF-8
+      SERVER_SERVLET_ENCODING_FORCE: true
