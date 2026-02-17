@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Profesores | Aula Creativa</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+
+<body>
+
+    <header class="app-header">
+        <div class="header-left">
+            <a th:href="@{/web/home}" class="back-link">
+                <span class="back-arrow">←</span>
+                <img th:src="@{/images/logo-artia.png}" class="app-logo">
+            </a>
+            <div class="app-brand">
+                <span class="app-name" th:text="#{app.name}">Artia</span>
+                <span class="app-subtitle" th:text="#{app.subtitle}">Gestión</span>
+            </div>
+        </div>
+        <nav class="header-right lang-nav">
+            <div class="user-profile"><span class="user-name">Profesores</span></div>
+            <a th:href="@{/web/profesores(lang=es)}" title="Español">🇪🇸</a>
+            <a th:href="@{/web/profesores(lang=en)}" title="English">🇬🇧</a>
+            <a th:href="@{/web/profesores(lang=ar)}" title="العربية">🇲🇦</a>
+            <a th:href="@{/web/profesores(lang=it)}" title="Italiano">🇮🇹</a>
+        </nav>
+    </header>
+
+    <!-- TOAST MESSAGES -->
+    <div th:if="${successMessage}" class="toast success toast-popup">
+        ✔ <span th:text="${successMessage}"></span>
+    </div>
+
+    <div th:if="${errorMessage}" class="toast error toast-popup">
+        ✖ <span th:text="${errorMessage}"></span>
+    </div>
+
+    <main>
+        <div class="table-container">
+            <div class="actions-bar">
+                <h1 class="page-title" style="margin:0; font-size:1.5rem;" th:text="#{professor.list.title}">Listado de
+                    Profesores</h1>
+                <div style="display:flex; gap:10px;">
+                    <a class="action-link" th:href="@{/web/profesores/pdf}" target="_blank"
+                        th:text="#{generic.link.export.pdf}">Exportar PDF</a>
+                    <a class="action-link create" th:href="@{/web/profesores/nuevo}" th:text="#{generic.link.create}">+
+                        Nuevo</a>
+                </div>
+            </div>
+
+            <table id="tablaProfesores">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Especialidad</th>
+                        <th>Email</th>
+                        <th>Tlf</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="p : ${profesores}" th:id="'row-' + ${p.id.value}"
+                        th:attr="data-id=${p.id.value}, data-nombre=${p.nombre}, data-apellido=${p.apellido}, data-esp=${p.especialidad}, data-email=${p.email}, data-tlf=${p.telefono}">
+
+                        <td th:text="${p.id.value}">1</td>
+                        <td th:text="${p.nombre}">Juan</td>
+                        <td th:text="${p.apellido}">Pérez</td>
+                        <td th:text="${p.especialidad}">Música</td>
+                        <td th:text="${p.email}">juan@mail.com</td>
+                        <td th:text="${p.telefono}">600...</td>
+                        <td style="display:flex; gap:8px;">
+                            <button class="btn-icon trigger-modal"><img th:src="@{/images/editar.png}"
+                                    width="16"></button>
+                            <form th:action="@{/web/profesores/{id}/borrar(id=${p.id.value})}" method="post"
+                                onsubmit="return confirm('¿Eliminar profesor?');">
+                                <button type="submit" class="btn-icon delete"><img th:src="@{/images/eliminar.png}"
+                                        width="16"></button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div th:if="${#lists.isEmpty(profesores)}"
+                style="text-align:center; padding:20px; color:var(--text-muted);">
+                <span>No hay profesores registrados.</span>
+            </div>
+        </div>
+    </main>
+
+    <!-- EDIT MODAL -->
+    <div id="modalOverlay" class="modal-overlay" style="display:none;"></div>
+    <div id="editModal" class="modal" style="display:none;">
+        <h3>Editar Profesor</h3>
+        <form id="editForm" method="post" action="#">
+            <input type="hidden" id="editId" name="id">
+
+            <!-- We handle the POST via traditional form submit to a specific URL, but here we can use JS to change action -->
+            <!-- Or simpler: just use JS fetch like in Alumnos. But Alumnos used Fetch API, let's stick to consistent pattern.
+                 Alumnos pattern: PUT call to API. BUT I created a Controller that handles POST /editar.
+                 Let's use the POST controller I created for implementation simplicity.
+            -->
+
+            <div class="form-grid" style="display:block;">
+                <div class="form-group">
+                    <label>Nombre</label>
+                    <input type="text" id="editNombre" name="nombre" required>
+                </div>
+                <div class="form-group">
+                    <label>Apellido</label>
+                    <input type="text" id="editApellido" name="apellido" required>
+                </div>
+                <div class="form-group">
+                    <label>Especialidad</label>
+                    <input type="text" id="editEspecialidad" name="especialidad" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="editEmail" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label>Teléfono</label>
+                    <input type="text" id="editTlf" name="telefono">
+                </div>
+            </div>
+
+            <div style="display:flex; gap:10px; margin-top:20px;">
+                <button type="button" id="btnCancel" class="btn btn-secondary" style="width:100%">Cancelar</button>
+                <button type="submit" class="btn btn-primary" style="width:100%">Guardar</button>
+            </div>
+        </form>
+    </div>
+
+    <script th:inline="javascript">
+        const modal = document.getElementById('editModal');
+        const overlay = document.getElementById('modalOverlay');
+        const form = document.getElementById('editForm');
+
+        // Abrir Modal
+        document.querySelectorAll('.trigger-modal').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const tr = e.target.closest('tr');
+                const id = tr.dataset.id;
+
+                // Set form action dynamically
+                form.action = '/web/profesores/' + id + '/editar';
+
+                document.getElementById('editId').value = id;
+                document.getElementById('editNombre').value = tr.dataset.nombre;
+                document.getElementById('editApellido').value = tr.dataset.apellido;
+                document.getElementById('editEspecialidad').value = tr.dataset.esp;
+                document.getElementById('editEmail').value = tr.dataset.email;
+                document.getElementById('editTlf').value = tr.dataset.tlf;
+
+                modal.style.display = 'block'; overlay.style.display = 'block';
+            });
+        });
+
+        // Cerrar
+        const close = () => { modal.style.display = 'none'; overlay.style.display = 'none'; };
+        document.getElementById('btnCancel').addEventListener('click', close);
+
+    </script>
+</body>
+
+</html>

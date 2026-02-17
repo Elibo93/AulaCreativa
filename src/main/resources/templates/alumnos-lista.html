@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{alumno.list.page.title}">Listado</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+
+<body>
+
+    <header class="app-header">
+        <div class="header-left">
+            <a th:href="@{/web/home}" class="back-link">
+                <span class="back-arrow">←</span>
+                <img th:src="@{/images/logo-artia.png}" class="app-logo">
+            </a>
+            <div class="app-brand">
+                <span class="app-name" th:text="#{app.name}">Artia</span>
+                <span class="app-subtitle" th:text="#{app.subtitle}">Gestión</span>
+            </div>
+        </div>
+        <nav class="header-right lang-nav">
+            <div class="user-profile"><span class="user-name">Alumnos</span></div>
+            <a th:href="@{/web/alumnos(lang=es)}" title="Español">🇪🇸</a>
+            <a th:href="@{/web/alumnos(lang=en)}" title="English">🇬🇧</a>
+            <a th:href="@{/web/alumnos(lang=ar)}" title="العربية">🇲🇦</a>
+            <a th:href="@{/web/alumnos(lang=it)}" title="Italiano">🇮🇹</a>
+        </nav>
+    </header>
+
+    <!-- TOAST SUCCESS -->
+    <div th:if="${successMessage}" class="toast success toast-popup">
+        ✔ <span th:text="${successMessage}"></span>
+    </div>
+
+    <div th:if="${errorMessage}" class="toast error toast-popup">
+        ✖ <span th:text="${errorMessage}"></span>
+    </div>
+
+
+
+    <main>
+        <div class="table-container">
+            <div class="actions-bar">
+                <h1 class="page-title" style="margin:0; font-size:1.5rem;" th:text="#{alumno.list.title}">Listado de
+                    Alumnos</h1>
+                <div>
+                    <a class="action-link pdf" th:href="@{/web/alumnos/pdf}" target="_blank"
+                        th:text="#{generic.link.export.pdf}">Exportar PDF</a>
+                    <a class="action-link create" th:href="@{/web/alumnos/nuevo}" th:text="#{generic.link.create}">+
+                        Nuevo Alumno</a>
+                </div>
+            </div>
+
+            <table id="tablaAlumnos">
+                <thead>
+                    <tr>
+                        <th th:text="#{alumno.table.header.id}">ID</th>
+                        <th th:text="#{alumno.table.header.name}">Nombre</th>
+                        <th th:text="#{alumno.table.header.apellido}">Apellido</th>
+                        <th th:text="#{alumno.table.header.dni}">DNI</th>
+                        <th th:text="#{alumno.table.header.email}">Email</th>
+                        <th th:text="#{alumno.table.header.telefono}">Tlf</th>
+                        <th th:text="#{alumno.table.header.action}">Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="a : ${alumnos}" th:id="'row-' + ${a.id.value}"
+                        th:attr="data-id=${a.id.value}, data-email=${a.email}, data-tlf=${a.telefono}, data-dir=${a.direccion}">
+
+                        <td th:text="${a.id.value}">1</td>
+                        <td th:text="${a.nombre}">Juan</td>
+                        <td th:text="${a.apellido}">Pérez</td>
+                        <td th:text="${a.dni}">12345678A</td>
+                        <td class="col-email" th:text="${a.email}">juan@mail.com</td>
+                        <td class="col-tlf" th:text="${a.telefono}">600...</td>
+                        <td style="display:flex; gap:8px;">
+                            <button class="btn-icon trigger-modal"><img th:src="@{/images/editar.png}"
+                                    width="16"></button>
+                            <form th:action="@{/web/alumnos/{id}/borrar(id=${a.id.value})}" method="post"
+                                onsubmit="return confirm('¿Eliminar alumno?');">
+                                <button type="submit" class="btn-icon delete"><img th:src="@{/images/eliminar.png}"
+                                        width="16"></button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div th:if="${#lists.isEmpty(alumnos)}" style="text-align:center; padding:20px; color:var(--text-muted);">
+                <span th:text="#{alumno.list.empty}">No hay datos</span>
+            </div>
+        </div>
+    </main>
+
+    <div id="modalOverlay" class="modal-overlay" style="display:none;"></div>
+    <div id="editModal" class="modal" style="display:none;">
+        <h3 th:text="#{alumno.modal.edit.title}">Editar</h3>
+        <form id="editForm">
+            <input type="hidden" id="editId">
+            <div class="form-group">
+                <label th:text="#{alumno.field.email}">Email</label>
+                <input type="email" id="editEmail" required>
+            </div>
+            <div class="form-group">
+                <label th:text="#{alumno.field.phone}">Teléfono</label>
+                <input type="text" id="editTlf">
+            </div>
+            <div class="form-group">
+                <label th:text="#{alumno.field.address}">Dirección</label>
+                <input type="text" id="editDir">
+            </div>
+            <div id="formFeedback" class="form-feedback"></div>
+            <div style="display:flex; gap:10px; margin-top:20px;">
+                <button type="button" id="btnCancel" class="btn btn-secondary" style="width:100%"
+                    th:text="#{generic.btn.cancel}">C</button>
+                <button type="submit" id="btnSave" class="btn btn-primary" style="width:100%"
+                    th:text="#{generic.btn.save}">G</button>
+            </div>
+        </form>
+    </div>
+
+    <script th:inline="javascript">
+        const API_URL = /*[[@{/api/v1/alumnos}]]*/ '/api/v1/alumnos';
+        const modal = document.getElementById('editModal');
+        const overlay = document.getElementById('modalOverlay');
+        const form = document.getElementById('editForm');
+
+        // Abrir Modal
+        document.querySelectorAll('.trigger-modal').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const tr = e.target.closest('tr');
+                document.getElementById('editId').value = tr.dataset.id;
+                document.getElementById('editEmail').value = tr.dataset.email;
+                document.getElementById('editTlf').value = tr.dataset.tlf;
+                document.getElementById('editDir').value = tr.dataset.dir;
+                modal.style.display = 'block'; overlay.style.display = 'block';
+            });
+        });
+
+        // Cerrar
+        const close = () => { modal.style.display = 'none'; overlay.style.display = 'none'; };
+        document.getElementById('btnCancel').addEventListener('click', close);
+
+        // Guardar AJAX
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('btnSave');
+            btn.textContent = '...';
+
+            const id = document.getElementById('editId').value;
+            const data = {
+                id: Number(id),
+                email: document.getElementById('editEmail').value,
+                telefono: document.getElementById('editTlf').value,
+                direccion: document.getElementById('editDir').value
+            };
+
+            try {
+                const resp = await fetch(`${API_URL}/${id}`, {
+                    method: 'PUT', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                if (resp.ok) location.reload(); // Recargar para ver cambios simple
+                else alert("Error al guardar");
+            } catch (e) { console.error(e); }
+            btn.textContent = 'Guardar';
+        });
+    </script>
+</body>
+
+</html>

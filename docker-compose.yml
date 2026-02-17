@@ -1,0 +1,17 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: mysql_artia
+    restart: always
+    environment:
+      MYSQL_DATABASE: artia_db
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+
+  adminer: # Interfaz gráfica para ver la base de datos
+    image: adminer
+    restart: always
+    ports:
+      - "8090:8080" # Ojo que no puedes usar el 8080, está reservador para el gateway
+  

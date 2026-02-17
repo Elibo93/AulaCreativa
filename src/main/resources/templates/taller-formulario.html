@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Nuevo Taller | Aula Creativa</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+
+<body>
+
+    <header class="app-header">
+        <div class="header-left">
+            <a th:href="@{/web/talleres}" class="back-link">
+                <span class="back-arrow">←</span>
+                <img th:src="@{/images/logo-artia.png}" class="app-logo">
+            </a>
+            <div class="app-brand">
+                <span class="app-name" th:text="#{app.name}">Artia</span>
+                <span class="app-subtitle" th:text="#{workshop.form.title}">Nuevo Taller</span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="table-container" style="max-width:600px;">
+            <h1 class="page-title" style="margin-bottom:20px; font-size:1.5rem;" th:text="#{workshop.form.title}">Crear
+                Taller</h1>
+
+            <form th:action="@{/web/talleres/nuevo}" method="post" th:object="${taller}">
+
+                <div class="form-group">
+                    <label th:text="#{workshop.field.name}">Nombre del Taller</label>
+                    <input type="text" name="nombre" th:field="*{nombre}" required placeholder="Ej: Pintura al óleo">
+                </div>
+
+                <div class="form-group">
+                    <label th:text="#{workshop.field.professor}">Profesor Responsable</label>
+                    <select name="idProfesor" class="form-control"
+                        style="width:100%; padding:10px; border-radius:8px; border:1px solid #d1d5db;" required>
+                        <option value="" disabled selected th:text="#{form.select.professor}">Seleccione un profesor...
+                        </option>
+                        <option th:each="p : ${profesores}" th:value="${p.id.value}"
+                            th:text="${p.nombre} + ' ' + ${p.apellido} + ' (' + ${p.especialidad} + ')'">
+                        </option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label th:text="#{workshop.field.description}">Descripción</label>
+                    <input type="text" name="descripcion" th:field="*{descripcion}" required
+                        placeholder="Breve descripción">
+                </div>
+
+                <div style="display:flex; gap:15px;">
+                    <div class="form-group" style="flex:1;">
+                        <label th:text="#{workshop.field.start_time}">Hora Inicio</label>
+                        <input type="time" name="horaInicio" th:field="*{horaInicio}" required>
+                    </div>
+                    <div class="form-group" style="flex:1;">
+                        <label th:text="#{workshop.field.end_time}">Hora Fin</label>
+                        <input type="time" name="horaFin" th:field="*{horaFin}" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label th:text="#{workshop.field.capacity}">Aforo Máximo</label>
+                    <input type="number" name="aforoMaximo" th:field="*{aforoMaximo}" required min="1" max="100">
+                </div>
+
+                <div style="margin-top:30px; display:flex; gap:15px;">
+                    <a th:href="@{/web/talleres}" class="btn btn-secondary" style="flex:1; text-align:center;"
+                        th:text="#{generic.btn.cancel}">Cancelar</a>
+                    <button type="submit" class="btn btn-primary" style="flex:1;" th:text="#{generic.btn.save}">Guardar
+                        Taller</button>
+                </div>
+
+            </form>
+        </div>
+    </main>
+
+</body>
+
+</html>

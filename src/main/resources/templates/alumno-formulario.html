@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{alumno.form.page.title}">Nuevo</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+
+<body>
+    <header class="app-header">
+        <div class="header-left">
+            <a th:href="@{/web/home}" class="back-link">
+                <span class="back-arrow">←</span>
+                <img th:src="@{/images/logo-artia.png}" class="app-logo">
+            </a>
+            <div class="app-brand"><span class="app-name" th:text="#{app.name}">Artia</span></div>
+        </div>
+    </header>
+
+    <div class="table-container" style="max-width:800px;">
+        <h1 class="page-title" style="margin-bottom:30px;" th:text="#{alumno.form.title}">Crear Alumno</h1>
+
+        <form th:action="@{/web/alumnos/nuevo}" th:object="${alumno}" method="POST">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label th:text="#{alumno.field.dni}">DNI</label>
+                    <input type="text" th:field="*{dni}" th:placeholder="#{alumno.placeholder.dni}" required>
+                    <span th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}"
+                        style="color:var(--danger); font-size:0.8rem;"></span>
+                </div>
+                <div class="form-group">
+                    <label th:text="#{alumno.field.name}">Nombre</label>
+                    <input type="text" th:field="*{nombre}" required>
+                </div>
+                <div class="form-group">
+                    <label th:text="#{alumno.field.surname}">Apellidos</label>
+                    <input type="text" th:field="*{apellido}" required>
+                </div>
+                <div class="form-group">
+                    <label th:text="#{alumno.field.email}">Email</label>
+                    <input type="email" th:field="*{email}">
+                </div>
+                <div class="form-group">
+                    <label th:text="#{alumno.field.phone}">Teléfono</label>
+                    <input type="text" th:field="*{telefono}">
+                </div>
+                <div class="form-group">
+                    <label th:text="#{alumno.field.birthdate}">Fecha Nac</label>
+                    <input type="date" th:field="*{fechaNacimiento}">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label th:text="#{alumno.field.address}">Dirección</label>
+                <input type="text" th:field="*{direccion}">
+            </div>
+
+            <div style="margin-top:30px; display:flex; gap:15px;">
+                <button type="submit" class="btn btn-primary" th:text="#{generic.btn.save}">Guardar</button>
+                <a th:href="@{/web/alumnos}" class="btn btn-secondary" th:text="#{generic.btn.cancel}">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
