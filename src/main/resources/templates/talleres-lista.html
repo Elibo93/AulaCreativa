@@ -22,28 +22,33 @@
                 </div>
             </div>
             <nav class="header-right lang-nav">
-                <div class="user-profile dropdown-container">
-                    <div class="dropdown-trigger">
-                        <div class="avatar">T</div>
-                        <span class="user-name">Talleres</span>
-                        <i data-lucide="chevron-down" style="width:16px;"></i>
+                <!-- Dropdown Menu -->
+                <div class="dropdown-container">
+                    <div class="dropdown-trigger user-profile">
+                        <div class="avatar">A</div>
+                        <span class="user-name" th:text="#{menu.dropdown.title}">Menu</span>
+                        <i data-lucide="chevron-down" style="width:16px; height:16px;"></i>
                     </div>
                     <div class="dropdown-menu">
                         <a th:href="@{/web/alumnos}" class="dropdown-item">
-                            <i data-lucide="graduation-cap"></i> Alumnos
+                            <i data-lucide="graduation-cap"></i>
+                            <span th:text="#{menu.students.card.title}">Alumnos</span>
                         </a>
                         <a th:href="@{/web/profesores}" class="dropdown-item">
-                            <i data-lucide="briefcase"></i> Profesores
+                            <i data-lucide="briefcase"></i>
+                            <span th:text="#{menu.professors.card.title}">Profesores</span>
                         </a>
-                        <a th:href="@{/web/talleres}" class="dropdown-item"
-                            style="background:var(--bg-body); color:var(--primary);">
-                            <i data-lucide="palette"></i> Talleres
+                        <a th:href="@{/web/talleres}" class="dropdown-item">
+                            <i data-lucide="palette"></i>
+                            <span th:text="#{menu.workshops.card.title}">Talleres</span>
                         </a>
                         <a th:href="@{/web/inscripciones}" class="dropdown-item">
-                            <i data-lucide="file-check"></i> Inscripciones
+                            <i data-lucide="file-check"></i>
+                            <span th:text="#{menu.enrollments.card.title}">Inscripciones</span>
                         </a>
                     </div>
                 </div>
+
                 <a th:href="@{/web/talleres(lang=es)}" title="Español"
                     th:classappend="${#locale.language == 'es'} ? 'active'">🇪🇸</a>
                 <a th:href="@{/web/talleres(lang=en)}" title="English"
