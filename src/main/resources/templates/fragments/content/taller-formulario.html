@@ -1,30 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="es">
-
 <head>
     <meta charset="UTF-8">
-    <title>Nuevo Taller | Aula Creativa</title>
-    <link rel="stylesheet" th:href="@{/css/estilos.css}">
 </head>
-
 <body>
+    <div th:fragment="content">
 
-    <header class="app-header">
-        <div class="header-container">
-            <div class="header-left">
-                <a th:href="@{/web/talleres}" class="back-link" title="Volver">
-                    <i data-lucide="arrow-left" class="back-arrow" style="width:20px;"></i>
-                </a>
-                <img th:src="@{/images/logo-artia.png}" class="app-logo">
-                <div class="app-brand">
-                    <span class="app-name" th:text="#{app.name}">Artia</span>
-                    <span class="app-subtitle" th:text="#{app.subtitle}">Gestión</span>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <main>
         <div class="page-header" style="text-align:center;">
             <h1 class="page-title" th:text="#{workshop.form.title}">Crear Taller</h1>
             <p style="color:var(--text-muted); margin-top:0.5rem;">Configure los detalles del nuevo taller</p>
@@ -82,10 +63,8 @@
                 </div>
             </form>
         </div>
-    </main>
+    
 
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script th:src="@{/js/scripts.js}"></script>
+    </div>
 </body>
-
 </html>

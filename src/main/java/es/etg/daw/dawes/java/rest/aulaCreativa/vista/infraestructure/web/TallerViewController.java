@@ -7,13 +7,16 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import org.xhtmlrenderer.pdf.ITextRenderer;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.application.service.taller.DeleteTallerService;
@@ -29,6 +32,7 @@ import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.domain.model.taller.
 import es.etg.daw.dawes.java.rest.aulaCreativa.vista.infraestructure.web.constants.WebRoutes;
 import es.etg.daw.dawes.java.rest.aulaCreativa.vista.infraestructure.web.enums.ModelAttribute;
 import es.etg.daw.dawes.java.rest.aulaCreativa.vista.infraestructure.web.enums.ThymTemplates;
+import es.etg.daw.dawes.java.rest.aulaCreativa.vista.infraestructure.web.enums.FragmentoContenido;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -38,27 +42,27 @@ public class TallerViewController {
     private final FindTallerService findTallerService;
     private final CreateTallerService createTallerService;
     private final DeleteTallerService deleteTallerService;
-    private final FindProfesorService findProfesorService; // Para el desplegable de profesores
+    private final FindProfesorService findProfesorService;
 
-    private final TemplateEngine templateEngine; // Motor de Thymeleaf
+    private final TemplateEngine templateEngine;
 
     @GetMapping(WebRoutes.TALLERES_BASE)
     public String listar(Model model, @RequestParam(required = false) String successMessage) {
         model.addAttribute(ModelAttribute.TALLER_LIST.getName(), findTallerService.findAll());
-        // Pasamos la lista de profesores para el modal de edición
         model.addAttribute(ModelAttribute.PROFESOR_LIST.getName(), findProfesorService.findAll());
         if (successMessage != null) {
             model.addAttribute("successMessage", successMessage);
         }
-        return ThymTemplates.TALLER_LIST.getPath();
+        model.addAttribute(ModelAttribute.FRAGMENTO_CONTENIDO.getName(), FragmentoContenido.TALLER_LIST.getPath());
+        return ThymTemplates.MAIN_LAYOUT.getPath();
     }
 
     @GetMapping(WebRoutes.TALLERES_NUEVO)
     public String formulario(Model model) {
         model.addAttribute(ModelAttribute.SINGLE_TALLER.getName(), Taller.builder().build());
-        // Pasamos la lista de profesores para asignar responsable
         model.addAttribute(ModelAttribute.PROFESOR_LIST.getName(), findProfesorService.findAll());
-        return ThymTemplates.TALLER_FORM.getPath();
+        model.addAttribute(ModelAttribute.FRAGMENTO_CONTENIDO.getName(), FragmentoContenido.TALLER_FORM.getPath());
+        return ThymTemplates.MAIN_LAYOUT.getPath();
     }
 
     @PostMapping(WebRoutes.TALLERES_NUEVO)
@@ -82,35 +86,33 @@ public class TallerViewController {
     }
 
     @PostMapping(WebRoutes.TALLERES_ELIMINAR)
-    public String borrar(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
+    @ResponseBody
+    public ResponseEntity<String> borrar(@PathVariable Integer id, RedirectAttributes redirectAttributes,
+            HttpServletRequest request) {
 
         deleteTallerService.delete(new TallerId(id));
+
+        if ("true".equals(request.getHeader("HX-Request"))) {
+            return ResponseEntity.ok("");
+        }
 
         redirectAttributes.addFlashAttribute(
                 "successMessage",
                 "Taller eliminado correctamente");
 
-        return "redirect:" + WebRoutes.TALLERES_BASE;
+        return ResponseEntity.status(302)
+                .header("Location", WebRoutes.TALLERES_BASE)
+                .build();
     }
 
     @GetMapping(WebRoutes.TALLERES_PDF)
     public void exportarPDF(HttpServletResponse response) throws Exception {
-
-        // Obtengo los datos
         List<Taller> talleres = findTallerService.findAll();
-
-        // Preparar el contexto de Thymeleaf
         Context context = new Context();
         context.setVariable("talleres", talleres);
-
-        // Generar el HTML procesado
         String htmlContent = templateEngine.process(ThymTemplates.TALLER_LIST_PDF.getPath(), context);
-
-        // Preparar la respuesta para PDF
         response.setContentType("application/pdf");
         response.setHeader("Content-Disposition", "attachment; filename=talleres.pdf");
-
-        // Generar el PDF final
         OutputStream outputStream = response.getOutputStream();
         ITextRenderer renderer = new ITextRenderer();
         renderer.setDocumentFromString(htmlContent);

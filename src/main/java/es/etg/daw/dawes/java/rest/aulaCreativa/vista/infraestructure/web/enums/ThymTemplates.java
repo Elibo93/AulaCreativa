@@ -24,6 +24,7 @@ public enum ThymTemplates {
     INSCRIPCION_FORM("inscripcion-formulario"),
 
     HOME_VIEW("index"),
+    MAIN_LAYOUT("main-layout"),
     ERROR_GENERIC("error/error-general");
 
     private final String path;

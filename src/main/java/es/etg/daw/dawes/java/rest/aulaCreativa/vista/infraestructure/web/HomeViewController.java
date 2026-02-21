@@ -12,6 +12,7 @@ import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.application.service.
 import es.etg.daw.dawes.java.rest.aulaCreativa.vista.infraestructure.web.constants.WebRoutes;
 import es.etg.daw.dawes.java.rest.aulaCreativa.vista.infraestructure.web.enums.ModelAttribute;
 import es.etg.daw.dawes.java.rest.aulaCreativa.vista.infraestructure.web.enums.ThymTemplates;
+import es.etg.daw.dawes.java.rest.aulaCreativa.vista.infraestructure.web.enums.FragmentoContenido;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -30,6 +31,7 @@ public class HomeViewController {
         model.addAttribute(ModelAttribute.TALLER_LIST.getName(), findTallerService.findAll());
         model.addAttribute(ModelAttribute.PROFESOR_LIST.getName(), findProfesorService.findAll());
         model.addAttribute(ModelAttribute.INSCRIPCION_LIST.getName(), findInscripcionService.findAll());
-        return ThymTemplates.HOME_VIEW.getPath();
+        model.addAttribute(ModelAttribute.FRAGMENTO_CONTENIDO.getName(), FragmentoContenido.HOME_VIEW.getPath());
+        return ThymTemplates.MAIN_LAYOUT.getPath();
     }
 }

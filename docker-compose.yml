@@ -22,7 +22,7 @@ services:
     container_name: aula-creativa-container
     restart: always
     ports:
-      - "8080:8080"
+      - "8443:8443"
     depends_on:
       - db
     environment:

@@ -17,6 +17,8 @@ public enum ModelAttribute {
     SINGLE_TALLER("taller"),
     SINGLE_INSCRIPCION("inscripcion"),
 
+    FRAGMENTO_CONTENIDO("content"),
+
     ERROR_MESSAGE("errorMsg"),
     SUCCESS_MESSAGE("successMsg");
 
