@@ -18,7 +18,7 @@ services:
       - "8090:8080"
 
   aula-creativa:
-    image: srromer0/aulacreativa:v2
+    image: elisabethbargallo/aulacreativa:v2
     container_name: aula-creativa-container
     restart: always
     ports:
