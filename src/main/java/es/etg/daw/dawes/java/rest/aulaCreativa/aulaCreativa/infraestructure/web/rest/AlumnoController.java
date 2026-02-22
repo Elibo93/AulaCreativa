@@ -30,10 +30,10 @@ import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.domain.model.alumno.
 import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.infraestructure.mapper.AlumnoMapper;
 import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.infraestructure.web.dto.alumno.AlumnoRequest;
 import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.infraestructure.web.dto.alumno.AlumnoResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
-
-
-
 
 @RestController
 @RequestMapping("api/v1/alumnos") // La url para los alumnos será api/v1/alumnos

@@ -2,21 +2,21 @@
 
 ---
 
-#### Reutilización de Componentes de Interfaz
+#### Reutilización en la Arquitectura Frontend (Thymeleaf + HTMX)
 
-Para garantizar la consistencia visual y reducir la duplicidad de código en la capa de presentación, se ha implementado una estrategia de composición de vistas basada en el motor de plantillas **Thymeleaf**.
+La interfaz gráfica del proyecto se ha desarrollado buscando simplicidad, reactividad y mantenibilidad. Para reducir la duplicidad de código y garantizar la consistencia visual, se combinan el renderizado del servidor (**Thymeleaf**) con interacciones dinámicas (**HTMX**), potenciando la reutilización a dos niveles:
 
-##### Sistema de Plantillas (Layout Decorator)
-Se utiliza un patrón de diseño de "Página Maestra" (`layout.html`) que define la estructura HTML base común para todas las pantallas del sistema.
-* **Heredabilidad:** Todas las vistas individuales (listados, formularios) inyectan su contenido específico dentro de este contenedor maestro.
-* **Recursos Globales:** La carga de librerías CSS (estilos), fuentes y scripts JavaScript se realiza una única vez en el layout, asegurando que cualquier actualización de estilos se propague automáticamente a toda la aplicación.
+##### Sistema de Layouts y Fragmentos (Thymeleaf)
+La construcción de la interfaz se basa en el principio de herencia y composición, lo que permite reciclar elementos de diseño comunes en todas las vistas:
+* **Layout Principal:** Un archivo base (`main-layout.html`) define la estructura general de la página (SPA). Recursos como librerías CSS, fuentes y scripts se cargan una única vez aquí, aplicándose al instante en toda la aplicación.
+* **Fragmentos Aislados y Sustitución Dinámica:** Elementos que se repiten (cabecera, menú, pie de página, notificaciones, alertas) se separan en fragmentos independientes. Mediante etiquetas como `th:replace`, el controlador inyecta el fragmento específico correspondiente al área "content" en el espacio principal, reutilizándolos allá donde hagan falta.
 
-##### Fragmentos Reutilizables (Fragments)
-Los elementos de interfaz que se repiten en múltiples contextos se han encapsulado en fragmentos independientes para ser invocados mediante `th:replace` o `th:insert`:
-* **Navegación Global:** La barra de menú (`header`) y el pie de página (`footer`) son componentes aislados.
-* **Componentes de Feedback:** Se ha diseñado un único componente para la visualización de alertas (éxito/error) y ventanas modales de confirmación, que es reutilizado por todos los módulos funcionales (Alumnos, Profesores, Talleres).
+##### Interactividad Reactiva Reutilizable (HTMX)
+La inclusión de HTMX reduce enormemente la adición de librerías JS o peticiones nativas fetch en la capa cliente, haciendo que los pedazos de interfaz sean directamente reutilizables:
+* **Respuestas Reutilizables:** Los fragmentos de Thymeleaf no solo construyen la vista inicial, sino que se enrutan y reutilizan como respuesta del servidor ante peticiones asíncronas de HTMX. Esto evita tener que picar la vista por un lado (frontend) y una lógica paralela en JSON por otro (backend).
+* **Componentes Reactivos Declarativos:** Los hipervínculos y formularios emplean atributos como `hx-get`, `hx-post`, `hx-target` y `hx-swap` para realizar solicitudes y actualizar fragmentos del DOM. Estos patrones asíncronos son reutilizados para transiciones y acciones en toda la aplicación, comportándose como una app SPA que consume muy pocos recursos locales.
 
-Esta arquitectura de frontend facilita el mantenimiento: si es necesario cambiar el logo, el color del menú o la librería de iconos, la modificación se realiza en un único archivo y se aplica instantáneamente a todo el sistema.
+En conclusión, este ecosistema minimiza el código duplicado global: un cambio en un área (como el visual de una alerta o un cambio en el menú) se modifica en un lugar y se propaga automáticamente por toda la arquitectura.
 
 ---
 
