@@ -3,7 +3,7 @@ services:
     image: mysql:8.0
     container_name: mysql_artia
     restart: always
-    # ESTA LÍNEA ES CRUCIAL: Fuerza al servidor a usar UTF-8
+    # Fuerza al servidor a usar UTF-8
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     environment:
       MYSQL_DATABASE: artia_db

@@ -112,29 +112,42 @@ erDiagram
 
 ---
 
-#### 3. Estrategia de Producción: PostgreSQL
+#### 3. Estrategia de Producción: MySQL
 
-Para el entorno de producción, la arquitectura está preparada para conmutar a **PostgreSQL**. Esta decisión se basa en la necesidad de persistencia duradera, concurrencia robusta y soporte avanzado de tipos de datos.
+Para el entorno de producción, la arquitectura está preparada para conmutar a **MySQL**. Esta decisión se basa en la necesidad de persistencia duradera, concurrencia robusta y soporte avanzado de tipos de datos.
 
 La transición se gestiona mediante **Perfiles de Spring**. Al activar el perfil `prod`, la aplicación ignora la configuración de H2 y carga la conexión al clúster de base de datos real.
 
 ##### Configuración de Producción (Profile: `prod`)
 
 ```properties
-# --- PostgreSQL Configuration (application-prod.properties) ---
-spring.datasource.url=jdbc:postgresql://db-server:5432/artia_prod
-spring.datasource.username=${DB_USER}
-spring.datasource.password=${DB_PASS}
+# --- MySQL Configuration (application-prod.properties) ---
+spring.datasource.url=jdbc:mysql://db:3306/artia_db
+spring.datasource.username=root
+spring.datasource.password=root
 
-# Dialecto optimizado para PostgreSQL
-spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
+# Dialecto optimizado para MySQL
+spring.jpa.database-platform=org.hibernate.dialect.MySQLDialect
 
 # En producción, nunca se recrea el esquema automáticamente
 spring.jpa.hibernate.ddl-auto=validate
 
 ```
 
-Esta separación garantiza que el entorno de desarrollo sea ágil (H2) mientras que el entorno productivo sea robusto y escalable (PostgreSQL), cumpliendo con los estándares actuales de la industria.
+Esta separación garantiza que el entorno de desarrollo sea ágil (H2) mientras que el entorno productivo sea robusto y escalable (MySQL), cumpliendo con los estándares actuales de la industria.
+
+---
+
+#### 5. Aislamiento y Contenerización de la Infraestructura
+
+Para garantizar un despliegue seguro, reproducible y mantenible, la base de datos de producción no se ejecutará en el mismo entorno que la aplicación ni compartirá recursos directamente con ella. En su lugar, el sistema de persistencia estará completamente aislado dentro de su propio contenedor Docker.
+
+La orquestación de esta infraestructura se gestionará íntegramente a través de **Docker Compose**. Mediante la definición de los servicios en un archivo `docker-compose.yml`, la inicialización del entorno se realizará de forma automatizada mediante el comando `docker compose up`.
+
+Este enfoque proporciona ventajas críticas para el entorno de producción:
+
+* **Aislamiento de red:** El contenedor de MySQL y el contenedor de la aplicación (backend) se desplegarán dentro de una red privada virtual creada por Docker. Esto permite que la aplicación resuelva la conexión a través del nombre del servicio (host `db`), mientras que la base de datos permanece oculta y protegida de accesos externos no autorizados.
+* **Desacoplamiento:** La separación en contenedores distintos asegura que los ciclos de vida de la aplicación y la base de datos sean independientes, facilitando actualizaciones, respaldos y el escalado horizontal del backend sin afectar la integridad del almacenamiento.
 
 ---
 
