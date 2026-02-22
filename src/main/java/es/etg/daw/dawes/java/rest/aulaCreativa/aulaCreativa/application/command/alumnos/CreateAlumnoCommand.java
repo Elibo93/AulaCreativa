@@ -15,5 +15,5 @@ public class CreateAlumnoCommand {
     private String telefono;
     private String direccion;
     private String fechaNacimiento;
-    
+
 }

@@ -1,15 +1,23 @@
 ### Reutilización
+
 ---
-La aplicación hace uso de la reutilización de componentes principalmente en la capa de presentación mediante Thymeleaf. Se utilizan fragmentos reutilizables para elementos comunes de la interfaz, como:
 
-Cabecera de la aplicación (header)
+#### Reutilización de Componentes de Interfaz
 
-Pie de página (footer)
+Para garantizar la consistencia visual y reducir la duplicidad de código en la capa de presentación, se ha implementado una estrategia de composición de vistas basada en el motor de plantillas **Thymeleaf**.
 
-Estructura base de las páginas (layout común)
+##### Sistema de Plantillas (Layout Decorator)
+Se utiliza un patrón de diseño de "Página Maestra" (`layout.html`) que define la estructura HTML base común para todas las pantallas del sistema.
+* **Heredabilidad:** Todas las vistas individuales (listados, formularios) inyectan su contenido específico dentro de este contenedor maestro.
+* **Recursos Globales:** La carga de librerías CSS (estilos), fuentes y scripts JavaScript se realiza una única vez en el layout, asegurando que cualquier actualización de estilos se propague automáticamente a toda la aplicación.
 
-Esta reutilización permite mantener una coherencia visual en toda la aplicación y facilita el mantenimiento, ya que los cambios en elementos comunes se realizan en un único lugar.
+##### Fragmentos Reutilizables (Fragments)
+Los elementos de interfaz que se repiten en múltiples contextos se han encapsulado en fragmentos independientes para ser invocados mediante `th:replace` o `th:insert`:
+* **Navegación Global:** La barra de menú (`header`) y el pie de página (`footer`) son componentes aislados.
+* **Componentes de Feedback:** Se ha diseñado un único componente para la visualización de alertas (éxito/error) y ventanas modales de confirmación, que es reutilizado por todos los módulos funcionales (Alumnos, Profesores, Talleres).
 
-Además, a nivel de backend, se reutilizan servicios y componentes siguiendo el principio de responsabilidad única, evitando duplicación de lógica de negocio.
+Esta arquitectura de frontend facilita el mantenimiento: si es necesario cambiar el logo, el color del menú o la librería de iconos, la modificación se realiza en un único archivo y se aplica instantáneamente a todo el sistema.
+
+---
 
 [Volver](/README.md)

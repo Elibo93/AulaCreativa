@@ -6,8 +6,8 @@ import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.domain.model.profeso
 import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.domain.model.profesor.ProfesorId;
 import es.etg.daw.dawes.java.rest.aulaCreativa.common.domain.repository.CRUDRepository;
 
-public interface ProfesorRepository extends CRUDRepository<Profesor,ProfesorId>{
+public interface ProfesorRepository extends CRUDRepository<Profesor, ProfesorId> {
 
     public Optional<Profesor> getByName(String name);
-    
+
 }

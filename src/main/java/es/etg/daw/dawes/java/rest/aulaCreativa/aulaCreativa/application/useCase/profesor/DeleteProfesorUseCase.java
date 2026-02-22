@@ -7,11 +7,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class DeleteProfesorUseCase {
 
-    //Atributos
+    // Atributos
     private final ProfesorRepository profesorRepository;
 
     public void delete(ProfesorId id) {
         profesorRepository.deleteById(id);
     }
-    
+
 }

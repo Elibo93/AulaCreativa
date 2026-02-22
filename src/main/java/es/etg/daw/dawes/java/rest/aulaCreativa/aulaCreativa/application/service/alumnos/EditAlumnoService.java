@@ -12,10 +12,9 @@ import lombok.RequiredArgsConstructor;
 public class EditAlumnoService {
   private final EditAlumnoUseCase editAlumnoUseCase;
 
-  
-    public Alumno update(EditAlumnoCommand comando) {
-        Alumno alumno = editAlumnoUseCase.update(comando);
-        return alumno;
-    }  
+  public Alumno update(EditAlumnoCommand comando) {
+    Alumno alumno = editAlumnoUseCase.update(comando);
+    return alumno;
+  }
 
 }

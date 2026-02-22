@@ -10,10 +10,10 @@ import lombok.experimental.Accessors;
 @Accessors(fluent = true)
 public class EditProfesorCommand {
 
-    //Atributos
+    // Atributos
     private ProfesorId id;
     private String especialidad;
-	private String email;
-	private String telefono;
+    private String email;
+    private String telefono;
 
 }

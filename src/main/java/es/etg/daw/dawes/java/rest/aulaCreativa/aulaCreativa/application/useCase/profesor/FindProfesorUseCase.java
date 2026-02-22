@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class FindProfesorUseCase {
 
-    //Atributos
+    // Atributos
     private final ProfesorRepository profesorRepository;
 
     public List<Profesor> findAll() {

@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Service
 public class DeleteAlumnoService {
-    
+
     private final DeleteAlumnoUseCase deleteAlumnoUseCase;
 
     public void delete(AlumnoId id) {
@@ -17,5 +17,3 @@ public class DeleteAlumnoService {
     }
 
 }
-
-

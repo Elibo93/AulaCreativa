@@ -49,17 +49,29 @@
         <thead>
             <tr>
                 <th th:text="#{pdf.column.id}">ID</th>
-                <th th:text="#{pdf.column.studentId}">ID Alumno</th>
-                <th th:text="#{pdf.column.workshopId}">ID Taller</th>
+                <th th:text="#{pdf.column.studentId}">Alumno</th>
+                <th th:text="#{pdf.column.workshopId}">Taller</th>
                 <th th:text="#{pdf.column.date}">Fecha</th>
             </tr>
         </thead>
         <tbody>
             <tr th:each="i : ${inscripciones}">
                 <td th:text="${i.id.value}"></td>
-                <td th:text="${i.alumnoId.value}"></td>
-                <td th:text="${i.tallerId.value}"></td>
-                <td th:if="${i.createdAt != null}" th:text="${#temporals.format(i.createdAt, 'dd/MM/yyyy')}"></td>
+                <td>
+                    <span th:if="${alumnos.containsKey(i.alumnoId.value)}"
+                        th:text="${alumnos.get(i.alumnoId.value).nombre} + ' ' + ${alumnos.get(i.alumnoId.value).apellido}">
+                    </span>
+                    <span th:unless="${alumnos.containsKey(i.alumnoId.value)}" th:text="'ID: ' + ${i.alumnoId.value}">
+                    </span>
+                </td>
+                <td>
+                    <span th:if="${talleres.containsKey(i.tallerId.value)}"
+                        th:text="${talleres.get(i.tallerId.value).nombre}">
+                    </span>
+                    <span th:unless="${talleres.containsKey(i.tallerId.value)}" th:text="'ID: ' + ${i.tallerId.value}">
+                    </span>
+                </td>
+                <td th:text="${i.createdAt != null} ? ${#temporals.format(i.createdAt, 'dd/MM/yyyy')} : '-'"></td>
             </tr>
         </tbody>
     </table>

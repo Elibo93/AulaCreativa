@@ -2,14 +2,14 @@
 ---
 #### Diego
 
-El desarrollo de **Artia – Aula Creativa** ha sido una experiencia muy enriquecedora y formativa, tanto a nivel técnico como personal. A lo largo de este proyecto he podido comprobar de primera mano que desarrollar una aplicación web va mucho más allá de escribir código, ya que también implica planificación, toma de decisiones y resolución constante de problemas.
+#### Conclusiones - Diego
 
-Durante el proceso de desarrollo me he encontrado con distintas dificultades, especialmente relacionadas con el uso de herramientas como **Git y GitHub**. En muchos momentos fue necesario aprender a gestionar errores, entender mejor los comandos y organizar el trabajo de una forma más ordenada. Aunque al principio resultó complicado, estos problemas han servido para mejorar mi forma de trabajar y entender la importancia del control de versiones en proyectos reales.
+El desarrollo de este proyecto ha sido un proceso intenso en el que, para ser honesto, muchas veces he sentido la frustración de no entender lo que estaba haciendo. Enfrentarse a una arquitectura tan estructurada o a tecnologías nuevas no es fácil, y hubo momentos de bloqueo. Sin embargo, con el paso del curso y dedicándole su debido tiempo, empecé a "hacer clic" y a ver cosas que antes no veía, entendiendo por fin el porqué de muchas decisiones técnicas.
 
-Uno de los aspectos más complejos ha sido dar forma a la idea de la aplicación. Pasar de una idea inicial a una aplicación coherente, con sentido y pensada para resolver una necesidad real, ha requerido reflexión y varios cambios a lo largo del desarrollo. Este proceso me ha permitido entender que una buena planificación y un diseño previo son tan importantes como la implementación técnica.
+Sinceramente, todavía me siento muy "verde" con respecto a mis conocimientos como desarrollador web. Soy consciente de todo lo que me falta por aprender. Me gustaría haber podido dedicarle aún más tiempo al proyecto para sentir la satisfacción plena de haber hecho todo lo que estaba en mi mano y haber presentado algo realmente increíble. Lastimosamente, por falta de tiempo o experiencia, no ha podido ser así y me queda esa espinita de saber que podría haber llegado más lejos.
 
-Aunque la aplicación no está completamente finalizada, su evolución demuestra cómo, poco a poco, la idea inicial ha ido tomando forma hasta convertirse en un proyecto funcional y con una base sólida. A medida que se ha ido desarrollando, la aplicación ha ganado estructura y claridad, lo que demuestra el aprendizaje progresivo adquirido durante el proyecto.
+A pesar de ello, no me voy con las manos vacías. Me llevo la experiencia real de enfrentarme a problemas complejos y, sobre todo, las ganas de seguir creciendo. Este proyecto es solo un paso más para llegar a ser ese profesional del que mi yo del pasado pueda estar orgulloso.
 
-En conclusión, el desarrollo de **Artia – Aula Creativa** ha sido una experiencia muy positiva que me ha permitido afianzar conocimientos adquiridos durante el ciclo, mejorar mis habilidades como desarrollador web y obtener una visión más realista de lo que supone crear una aplicación desde cero. Este proyecto supone un buen punto de partida para seguir aprendiendo y mejorando en futuros desarrollos.
+---
 
 [Volver](/README.md)

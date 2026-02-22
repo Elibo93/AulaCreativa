@@ -6,26 +6,19 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
 public record AlumnoRequest(
-    @NotBlank(message = "{Alumno.valid.dni.no_vacio}")
-    String dni,
+        @NotBlank(message = "{Alumno.valid.dni.no_vacio}") String dni,
 
-    @NotBlank(message = "{Alumno.valid.nombre.no_vacio}")@NombradoAlumno(message = "{producto.valid.nombre.nombrado_validation}")
-    String nombre,
+        @NotBlank(message = "{Alumno.valid.nombre.no_vacio}") @NombradoAlumno(message = "{producto.valid.nombre.nombrado_validation}") String nombre,
 
-    @NotBlank(message = "{Alumno.valid.apellido.no_vacio}")
-    String apellido,
+        @NotBlank(message = "{Alumno.valid.apellido.no_vacio}") String apellido,
 
-    @Email(message = "{Alumno.valid.email.valido}")
-    String email,
+        @Email(message = "{Alumno.valid.email.valido}") String email,
 
-    @NotBlank(message = "{Alumno.valid.telefono.no_vacio}")
-    String telefono,
+        @NotBlank(message = "{Alumno.valid.telefono.no_vacio}") String telefono,
 
-    @NotBlank(message = "{Alumno.valid.direccion.no_vacio}")
-    String direccion,
+        String direccion,
 
-    @NotBlank(message = "{Alumno.valid.fechaNacimiento.no_vacio}")
-    String fechaNacimiento
+        String fechaNacimiento
 
 
     
@@ -41,7 +34,6 @@ public record AlumnoRequest(
                 p.getEmail(),
                 p.getTelefono(),
                 p.getDireccion(),
-                p.getFechaNacimiento()
-        );
+                p.getFechaNacimiento());
     }
 }

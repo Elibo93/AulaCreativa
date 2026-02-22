@@ -23,20 +23,20 @@ public class AlumnoMapper {
                 req.telefono(),
                 req.direccion(),
                 req.fechaNacimiento()
-               
+
         );
     }
 
     // REQUEST -> EDIT COMMAND
-   public static EditAlumnoCommand toCommand(int id, AlumnoRequest req) {
-    return new EditAlumnoCommand(
-            new AlumnoId(id),
-            req.email(),
-            req.telefono(),
-            req.direccion()
-            
-    );
-}
+    public static EditAlumnoCommand toCommand(int id, AlumnoRequest req) {
+        return new EditAlumnoCommand(
+                new AlumnoId(id),
+                req.email(),
+                req.telefono(),
+                req.direccion()
+
+        );
+    }
 
     // DOMAIN -> RESPONSE
     public static AlumnoResponse toResponse(Alumno alumno) {
@@ -49,10 +49,8 @@ public class AlumnoMapper {
                 alumno.getTelefono(),
                 alumno.getDireccion(),
                 alumno.getFechaNacimiento(),
-                alumno.getCreatedAt()
-        );
+                alumno.getCreatedAt());
     }
-
 
     // DOMAIN -> ENTITY
     public static AlumnoEntity toEntity(Alumno a) {

@@ -2,7 +2,7 @@ package es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.domain.model.profes
 
 import es.etg.daw.dawes.java.rest.aulaCreativa.common.domain.model.Identificador;
 
-public class ProfesorId extends Identificador{
+public class ProfesorId extends Identificador {
 
     public ProfesorId(Integer value) {
         super(value);

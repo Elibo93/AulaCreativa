@@ -44,6 +44,11 @@ public class AlumnoController {
     private final DeleteAlumnoService deleteAlumnoService;
     private final EditAlumnoService editAlumnoService;
 
+    @Operation(summary = "Crea un Alumno", description = "Crea un Alumno dados sus datos")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Alumno creado correctamente"),
+            @ApiResponse(responseCode = "400", description = "Datos introducidos inválidos")
+    })
     @PostMapping // Método Post
     public ResponseEntity<AlumnoResponse> createAlumno(@RequestBody AlumnoRequest alumnoRequest) {
         CreateAlumnoCommand comando = AlumnoMapper.toCommand(alumnoRequest);
@@ -51,6 +56,11 @@ public class AlumnoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(AlumnoMapper.toResponse(alumno));
     }
 
+    @Operation(summary = "Obtiene el listado de Alumnos", description = "Busca en la base de datos todos los Alumnos y sus detalles")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Listado de alumnos generado"),
+            @ApiResponse(responseCode = "404", description = "No hay alumnos en la base de datos")
+    })
     @GetMapping // Método Get
     public List<AlumnoResponse> allAlumnos() {
 
@@ -62,12 +72,28 @@ public class AlumnoController {
 
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<AlumnoResponse> findAlumnoById(@PathVariable int id) {
+        Alumno alumno = findAlumnoService.findById(new AlumnoId(id));
+        return ResponseEntity.ok(AlumnoMapper.toResponse(alumno));
+    }
+
+    @Operation(summary = "Elimina un alumno", description = "Elimina un alumno de la base de datos dado un id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Sin cuerpo, Alumno eliminado correctamente"),
+            @ApiResponse(responseCode = "404", description = "Alumno no encontrado")
+    })
     @DeleteMapping("/{id}") // Método Delete
     public ResponseEntity<?> deleteAlumno(@PathVariable int id) {
         deleteAlumnoService.delete(new AlumnoId(id));
         return ResponseEntity.noContent().build(); // Devolvemos una respuesta vacía.
     }
 
+    @Operation(summary = "Edita un alumno", description = "Edita los datos de un alumno dado su id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Alumno editado correctamente"),
+            @ApiResponse(responseCode = "400", description = "Datos introducidos inválidos")
+    })
     @PutMapping("/{id}") // Método Put
     public AlumnoResponse editAlumno(@PathVariable int id, @RequestBody AlumnoRequest alumnoRequest) {
         EditAlumnoCommand comando = AlumnoMapper.toCommand(id, alumnoRequest);

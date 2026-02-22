@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <div th:fragment="content">
+
+        <section class="welcome-section">
+            <h1 class="welcome-title"><span th:text="#{home.hello}">Hola,</span> <span class="text-primary">Admin</span>
+                👋
+            </h1>
+            <p class="welcome-subtitle" th:text="#{home.welcome.text}">Bienvenido al sistema de gestión académica.</p>
+        </section>
+
+        
+        <div class="dashboard-grid">
+            <div class="card">
+                <div class="card-icon icon-purple"><i data-lucide="users"></i></div>
+                <h3 class="card-title" th:text="#{stats.total.students}">Alumnos</h3>
+                <span class="stat-value" th:text="${alumnos != null ? #lists.size(alumnos) : 0}">0</span>
+            </div>
+            <div class="card">
+                <div class="card-icon icon-green"><i data-lucide="palette"></i></div>
+                <h3 class="card-title" th:text="#{stats.active.workshops}">Talleres</h3>
+                <span class="stat-value" th:text="${talleres != null ? #lists.size(talleres) : 0}">0</span>
+            </div>
+            <div class="card">
+                <div class="card-icon icon-orange"><i data-lucide="trending-up"></i></div>
+                <h3 class="card-title" th:text="#{stats.new.registrations}">Altas Mes</h3>
+                <span class="stat-value text-primary">+5</span>
+            </div>
+        </div>
+
+        <section class="page-header">
+            <h2 class="page-title" style="margin-bottom:1.5rem;" th:text="#{home.quick.actions}">Accesos Directos</h2>
+        </section>
+
+        
+        <div class="dashboard-grid">
+
+            
+            <a th:href="@{/web/alumnos}" class="card">
+                <div class="card-icon icon-blue">
+                    <i data-lucide="graduation-cap"></i>
+                </div>
+                <h3 class="card-title" th:text="#{menu.students.card.title}">Alumnos</h3>
+                <p class="card-desc" th:text="#{menu.students.card.desc}">Gestión integral de estudiantes.</p>
+                <div class="card-footer">
+                    <span th:text="#{generic.btn.access}">Acceder</span>
+                    <i data-lucide="arrow-right" style="width:16px;"></i>
+                </div>
+            </a>
+
+            
+            <a th:href="@{/web/profesores}" class="card">
+                <div class="card-icon icon-green">
+                    <i data-lucide="briefcase"></i>
+                </div>
+                <h3 class="card-title" th:text="#{menu.professors.card.title}">Profesores</h3>
+                <p class="card-desc" th:text="#{menu.professors.card.desc}">Claustro y especialidades.</p>
+                <div class="card-footer">
+                    <span th:text="#{generic.btn.access}">Acceder</span>
+                    <i data-lucide="arrow-right" style="width:16px;"></i>
+                </div>
+            </a>
+
+            
+            <a th:href="@{/web/talleres}" class="card">
+                <div class="card-icon icon-orange">
+                    <i data-lucide="palette"></i>
+                </div>
+                <h3 class="card-title" th:text="#{menu.workshops.card.title}">Talleres</h3>
+                <p class="card-desc" th:text="#{menu.workshops.card.desc}">Oferta académica y horarios.</p>
+                <div class="card-footer">
+                    <span th:text="#{generic.btn.access}">Acceder</span>
+                    <i data-lucide="arrow-right" style="width:16px;"></i>
+                </div>
+            </a>
+
+            
+            <a th:href="@{/web/inscripciones}" class="card">
+                <div class="card-icon icon-purple">
+                    <i data-lucide="file-check"></i>
+                </div>
+                <h3 class="card-title" th:text="#{menu.enrollments.card.title}">Inscripciones</h3>
+                <p class="card-desc" th:text="#{menu.enrollments.card.desc}">Matriculaciones activas.</p>
+                <div class="card-footer">
+                    <span th:text="#{generic.btn.access}">Acceder</span>
+                    <i data-lucide="arrow-right" style="width:16px;"></i>
+                </div>
+            </a>
+
+        </div>
+
+    
+
+    </div>
+</body>
+</html>

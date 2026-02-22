@@ -17,7 +17,7 @@ public class InscripcionRepositoryMockImpl implements InscripcionRepository {
     @Override
     public Inscripcion save(Inscripcion i) {
 
-        // create
+        // Crear
         if (i.getId() == null)
             i.setId(new InscripcionId(obtenerSiguienteId()));
 
@@ -57,53 +57,80 @@ public class InscripcionRepositoryMockImpl implements InscripcionRepository {
 
     // @Override
     // public List<Inscripcion> getByAlumnoId(AlumnoId alumnoId) {
-    //     List<Inscripcion> result = new ArrayList<>();
+    // List<Inscripcion> result = new ArrayList<>();
 
-    //     for (Inscripcion i : inscripciones.values()) {
-    //         if (i.getAlumnoId().equals(alumnoId)) {
-    //             result.add(i);
-    //         }
-    //     }
+    // for (Inscripcion i : inscripciones.values()) {
+    // if (i.getAlumnoId().equals(alumnoId)) {
+    // result.add(i);
+    // }
+    // }
 
-    //     return result;
+    // return result;
     // }
 
     // @Override
     // public List<Inscripcion> getByTallerId(TallerId tallerId) {
-    //     List<Inscripcion> result = new ArrayList<>();
+    // List<Inscripcion> result = new ArrayList<>();
 
-    //     for (Inscripcion i : inscripciones.values()) {
-    //         if (i.getTallerId().equals(tallerId)) {
-    //             result.add(i);
-    //         }
-    //     }
+    // for (Inscripcion i : inscripciones.values()) {
+    // if (i.getTallerId().equals(tallerId)) {
+    // result.add(i);
+    // }
+    // }
 
-    //     return result;
+    // return result;
     // }
 
     // @Override
-    // public Optional<Inscripcion> getByAlumnoAndTaller(AlumnoId alumnoId, TallerId tallerId) {
+    // public Optional<Inscripcion> getByAlumnoAndTaller(AlumnoId alumnoId, TallerId
+    // tallerId) {
 
-    //     for (Inscripcion i : inscripciones.values()) {
-    //         if (i.getAlumnoId().equals(alumnoId) &&
-    //             i.getTallerId().equals(tallerId)) {
-    //             return Optional.of(i);
-    //         }
-    //     }
+    // for (Inscripcion i : inscripciones.values()) {
+    // if (i.getAlumnoId().equals(alumnoId) &&
+    // i.getTallerId().equals(tallerId)) {
+    // return Optional.of(i);
+    // }
+    // }
 
-    //     return Optional.empty();
+    // return Optional.empty();
     // }
 
     // @Override
-    // public boolean existsByAlumnoAndTaller(AlumnoId alumnoId, TallerId tallerId) {
+    // public boolean existsByAlumnoAndTaller(AlumnoId alumnoId, TallerId tallerId)
+    // {
 
-    //     for (Inscripcion i : inscripciones.values()) {
-    //         if (i.getAlumnoId().equals(alumnoId) &&
-    //             i.getTallerId().equals(tallerId)) {
-    //             return true;
-    //         }
-    //     }
-
-    //     return false;
+    // for (Inscripcion i : inscripciones.values()) {
+    // if (i.getAlumnoId().equals(alumnoId) &&
+    // i.getTallerId().equals(tallerId)) {
+    // return true;
     // }
+    // }
+
+    // return false;
+    // }
+    @Override
+    public List<Inscripcion> getByAlumnoId(Integer alumnoId) {
+        List<Inscripcion> result = new ArrayList<>();
+
+        for (Inscripcion i : inscripciones.values()) {
+            if (i.getAlumnoId().getValue().equals(alumnoId)) {
+                result.add(i);
+            }
+        }
+
+        return result;
+    }
+
+    @Override
+    public List<Inscripcion> getByTallerId(Integer tallerId) {
+        List<Inscripcion> result = new ArrayList<>();
+
+        for (Inscripcion i : inscripciones.values()) {
+            if (i.getTallerId().getValue().equals(tallerId)) {
+                result.add(i);
+            }
+        }
+
+        return result;
+    }
 }

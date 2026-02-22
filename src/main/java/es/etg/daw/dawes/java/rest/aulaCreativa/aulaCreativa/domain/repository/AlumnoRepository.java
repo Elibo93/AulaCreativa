@@ -6,7 +6,7 @@ import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.domain.model.alumno.
 import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.domain.model.alumno.AlumnoId;
 import es.etg.daw.dawes.java.rest.aulaCreativa.common.domain.repository.CRUDRepository;
 
-public interface AlumnoRepository extends CRUDRepository<Alumno,AlumnoId> {
+public interface AlumnoRepository extends CRUDRepository<Alumno, AlumnoId> {
 
     public Optional<Alumno> getByName(String name);
 

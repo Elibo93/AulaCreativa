@@ -9,7 +9,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class EditProfesorUseCase {
 
-    //Atributos
+    // Atributos
     private final ProfesorRepository profesorRepository;
 
     public Profesor update(EditProfesorCommand command) {

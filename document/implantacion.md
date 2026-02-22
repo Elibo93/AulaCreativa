@@ -1,115 +1,74 @@
-### Implantación/Puesta en producción
+### Estrategia de Implantación y Puesta en Producción
+
 ---
 
-A continuación se describen los componentes utilizados en el proyecto **AulaCreativa** y por qué se usan dentro del proceso de implantación y puesta en producción.
+Este apartado define la metodología y las herramientas seleccionadas para garantizar que el paso del código desde el entorno local hasta el entorno productivo sea fluido, reproducible y libre de errores. La estrategia se basa en la **inmutabilidad de la infraestructura** y la **estandarización de entornos**.
 
-#### Contenedorización con Docker
+---
 
-La aplicación AulaCreativa está diseñada para ser ejecutada dentro de un contenedor Docker, lo que permite encapsular todo el entorno necesario para su ejecución (Java, dependencias y configuración).
+#### Contenedorización (Docker)
 
-**Por qué se usa:**
+La arquitectura de despliegue de **AulaCreativa** se fundamenta en el uso de contenedores Docker. Esto permite empaquetar la aplicación junto con su entorno de ejecución, librerías y configuraciones en una unidad desplegable autocontenida.
 
-- Garantiza que la aplicación se ejecute de forma idéntica en cualquier entorno.
-- Evita problemas derivados de diferencias entre sistemas operativos.
-- Facilita la puesta en producción y el despliegue futuro.
-- Permite escalar o migrar la aplicación fácilmente a otros servidores.
+**Justificación técnica:**
 
-#### DevContainer
-Un entorno de desarrollo reproducible basado en Docker que se configura automáticamente al abrir el proyecto en VS Code.
+* **Paridad de Entornos:** Garantiza el principio de *"Build once, run anywhere"*. El mismo contenedor que se prueba en local es el que se despliega en producción, eliminando discrepancias de sistema operativo.
+* **Aislamiento:** La aplicación corre en su propio espacio de usuario, sin conflictos con otras aplicaciones del servidor.
+* **Escalabilidad:** Facilita el despliegue horizontal; si la carga aumenta, se pueden levantar réplicas idénticas del contenedor en segundos.
 
-**Por qué se usa:**
+---
 
-- Para que todos los desarrolladores tengan la misma versión de Java y Maven.
+#### Estandarización del Desarrollo (DevContainers)
 
-- Evita problemas de “en mi máquina funciona”.
+Para mitigar el clásico problema de *"en mi máquina funciona"*, se ha implementado la especificación de **Development Containers**. Al abrir el proyecto en VS Code, este detecta la configuración y levanta un entorno Docker completo con las herramientas exactas que necesita el proyecto.
 
-- No requiere configurar Java ni Maven en el equipo local.
+**Beneficios en la implantación:**
 
-- Asegura que el entorno de desarrollo y el de producción sean similares.
+* **Determinismo:** Todos los desarrolladores (y el servidor de CI/CD) utilizan exactamente la misma versión del JDK y Maven, definida como código (`Dockerfile`).
+* **Onboarding Inmediato:** No es necesario instalar ni configurar Java en la máquina host; el entorno está listo para compilar y desplegar desde el primer minuto.
 
-#### Java + Maven (carpetas pom.xml, src, .mvn, mvnw)
+---
 
+#### Gestión del Ciclo de Vida (Java + Maven)
 
-El proyecto está construido con Java y usa Maven como gestor de dependencias y herramienta de construcción.
+El proyecto utiliza **Apache Maven** no solo para la gestión de dependencias, sino como herramienta de orquestación del ciclo de vida de la construcción (*Build Lifecycle*).
 
-**Por qué se usa:**
+**Rol en la puesta en producción:**
 
-- Maven permite compilar, ejecutar y empaquetar el proyecto de forma automática.
+* **Empaquetado:** Maven se encarga de generar el artefacto final (Fat JAR) en la carpeta `target/`. Este archivo `.jar` contiene todas las dependencias necesarias para ejecutarse de forma autónoma (`java -jar app.jar`).
+* **Wrapper (`mvnw`):** Se incluye el Maven Wrapper para asegurar que el proyecto se construya siempre con la versión correcta de Maven, independientemente de la que esté instalada en el sistema operativo del servidor.
 
-- Las dependencias quedan centralizadas en pom.xml.
+---
 
-- Genera el archivo .jar de producción dentro de target/.
+#### Entorno de Construcción (VS Code + Extensiones)
 
-#### VS Code + Extensiones
+Visual Studio Code actúa como el orquestador del entorno de desarrollo y despliegue. Su elección no es meramente por preferencias de edición, sino por su integración nativa con el ecosistema de contenedores.
 
-Visual Studio Code es el editor principal utilizado para el desarrollo del proyecto. Se eligió porque es ligero, multiplataforma y tiene soporte integrado para entornos de desarrollo basados en contenedores (DevContainers), Git y Java.
+**Extensiones críticas para el despliegue:**
 
+* **Maven for Java:** Permite ejecutar los *goals* de ciclo de vida (`clean`, `install`, `package`) de forma visual, asegurando que el artefacto generado es válido para producción.
+* **Dev Containers:** Es el puente que conecta el editor con el motor de Docker, permitiendo desarrollar *dentro* del contenedor que simula el entorno productivo.
 
-**Por qué se usa:**
+---
 
-- Permite trabajar dentro del DevContainer, asegurando que todos los desarrolladores utilicen el mismo entorno.
+#### Estrategia de Versionado (GitFlow)
 
-- Tiene extensiones específicas para Java y Maven, necesarias para el proyecto.
+Para asegurar un despliegue ordenado y minimizar riesgos en producción, se utiliza **GitFlow**. Esta metodología de ramificación permite separar claramente el desarrollo de nuevas funcionalidades de la estabilidad del producto final.
 
-- Ofrece integración nativa con Git, simplificando el control de versiones.
+**Estructura de Ramas:**
 
-- Facilita la depuración, ejecución e inspección del código de forma sencilla.
+| Rama | Propósito | Política de Despliegue |
+| --- | --- | --- |
+| **`main`** | **Entorno de Producción.** Contiene estrictamente código estable, probado y listo para el usuario final. | Solo recibe cambios mediante *Merges* desde ramas de `release` o `hotfix`. Cada commit aquí es una versión etiquetada (v1.0, v1.1). |
+| **`develop`** | **Entorno de Integración.** Es la rama donde convergen todas las nuevas funcionalidades. | Aquí se realizan las pruebas de integración. Es el paso previo a preparar una release. |
+| **`feature/*`** | **Desarrollo.** Ramas efímeras para nuevas características. | Nacen de `develop` y mueren al integrarse de nuevo en ella. Nunca llegan a producción directamente. |
 
-#### Extensiones
+**Beneficios para la producción:**
 
-**Maven for java**
+* **Estabilidad:** Protege la rama `main` de errores humanos o código incompleto.
+* **Trazabilidad:** Permite saber exactamente qué cambios incluye cada versión desplegada.
+* **Hotfixes:** Permite corregir errores críticos en producción (`main`) sin tener que desplegar funcionalidades de `develop` que aún no están terminadas.
 
-Extensión específicamente diseñada para trabajar con proyectos Maven.
-
-- Permite compilar, limpiar y empaquetar el proyecto con un solo clic.
-
-- Facilita la gestión de dependencias definidas en pom.xml.
-
-- Genera el archivo .jar necesario para la puesta en producción.
-
-**Dev Containers**
-
-Extensión que permite a VS Code ejecutar el proyecto dentro de un contenedor configurado en .devcontainer/.
-
-- Asegura que todos los desarrolladores trabajen con la misma versión de Java, Maven y librerías.
-
-- Evita errores por diferencias entre equipos.
-
-- Aporta un entorno idéntico al de producción, aumentando la estabilidad del despliegue.
-
-
-#### GitFlow
-
-GitFlow es la metodología de control de versiones usada para organizar el ciclo de desarrollo y asegurar que la puesta en producción sea estable.
-
-Es una estrategia basada en ramas que divide el trabajo en fases claras.
-
-**Ramas principales**
-
-**Main**
-
-- Contiene la versión estable y lista para producción.
-
-- Solo recibe cambios tras una release finalizada.
-
-**Develop**
-
-- Contiene la versión estable y lista para producción.
-
-- Solo recibe cambios tras una release finalizada.
-
-**Por qué se usa:**
-
-- Mantiene estabilidad en producción al proteger la rama main.
-
-- Facilita el trabajo en equipo evitando conflictos de código.
-
-- Aclara cuándo se está desarrollando, corrigiendo o publicando.
-
-- Permite realizar despliegues controlados y seguros.
-
-- Se adapta muy bien a ciclos de entrega continuos (CI/CD).
-
-
+---
 
 [Volver](/README.md)

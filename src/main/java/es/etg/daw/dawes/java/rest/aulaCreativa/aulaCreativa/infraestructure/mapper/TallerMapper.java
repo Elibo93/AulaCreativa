@@ -24,6 +24,18 @@ public class TallerMapper {
                 tallerRequest.aforoMaximo());
     }
 
+    public static es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.application.command.taller.EditTallerCommand toEditCommand(
+            TallerId id, TallerRequest tallerRequest) {
+        return new es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.application.command.taller.EditTallerCommand(
+                id,
+                tallerRequest.nombre(),
+                tallerRequest.descripcion(),
+                new ProfesorId(tallerRequest.profesorId()),
+                tallerRequest.horaInicio(),
+                tallerRequest.horaFin(),
+                tallerRequest.aforoMaximo());
+    }
+
     public static TallerResponse toResponse(Taller taller) {
         return new TallerResponse(
                 taller.getId().getValue(),
@@ -35,11 +47,10 @@ public class TallerMapper {
                 taller.getAforoMaximo());
     }
 
-
     // DOMAIN -> ENTITY
     public static TallerEntity toEntity(Taller t) {
 
-        //Defino el profesor
+        // Defino el profesor
         ProfesorEntity profesor = new ProfesorEntity();
         profesor.setId(t.getProfesor().getValue());
 

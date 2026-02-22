@@ -4,8 +4,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.application.service.taller.CreateTallerService;
+import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.application.service.taller.DeleteTallerService;
+import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.application.service.taller.EditTallerService;
 import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.application.service.taller.FindTallerService;
 import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.application.useCase.taller.CreateTallerUseCase;
+import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.application.useCase.taller.DeleteTallerUseCase;
+import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.application.useCase.taller.EditTallerUseCase;
 import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.application.useCase.taller.FindTallerUseCase;
 import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.domain.repository.TallerRepository;
 import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.infraestructure.db.jpa.repository.taller.TallerEntityJpaRepository;
@@ -18,7 +22,8 @@ public class TallerConfig {
 
     private final TallerEntityJpaRepository tallerRepository;
 
-    // Creo por configuración la instalacia que me interesa del productoRepository (desde jpa)
+    // Creo por configuración la instalacia que me interesa del productoRepository
+    // (desde jpa)
     @Bean
     public TallerRepository tallerRepository() {
         return new TallerJpaRepositoryImpl(tallerRepository);
@@ -44,5 +49,25 @@ public class TallerConfig {
     @Bean
     public FindTallerService findTallerService() {
         return new FindTallerService(findTallerUseCase());
+    }
+
+    @Bean
+    public DeleteTallerUseCase deleteTallerUseCase() {
+        return new DeleteTallerUseCase(tallerRepository());
+    }
+
+    @Bean
+    public DeleteTallerService deleteTallerService() {
+        return new DeleteTallerService(deleteTallerUseCase());
+    }
+
+    @Bean
+    public EditTallerUseCase editTallerUseCase() {
+        return new EditTallerUseCase(tallerRepository());
+    }
+
+    @Bean
+    public EditTallerService editTallerService() {
+        return new EditTallerService(editTallerUseCase());
     }
 }

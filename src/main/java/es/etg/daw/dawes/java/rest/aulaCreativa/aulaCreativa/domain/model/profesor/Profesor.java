@@ -10,7 +10,7 @@ import lombok.Data;
 @AllArgsConstructor
 @Builder
 public class Profesor {
-	
+
 	// Atributos
 	private ProfesorId id;
 	private String nombre;

@@ -13,7 +13,7 @@ public class EditAlumnoUseCase {
     public Alumno update(EditAlumnoCommand command) {
         return alumnoRepository.getById(command.id())
                 .map(p -> { // Actualizamos los atributos del objeto
-                   
+
                     p.setEmail(command.email());
                     return alumnoRepository.save(p);
                 })

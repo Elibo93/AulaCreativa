@@ -14,7 +14,8 @@ import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.infraestructure.web.
 public class ProfesorMapper {
 
     public static CreateProfesorCommand toCommand(ProfesorRequest profesorRequest) {
-        return new CreateProfesorCommand(profesorRequest.nombre(), profesorRequest.apellido(), profesorRequest.email(),profesorRequest.telefono(), profesorRequest.especialidad());
+        return new CreateProfesorCommand(profesorRequest.nombre(), profesorRequest.apellido(), profesorRequest.email(),
+                profesorRequest.telefono(), profesorRequest.especialidad());
     }
 
     public static ProfesorResponse toResponse(Profesor profesor) {
@@ -25,9 +26,10 @@ public class ProfesorMapper {
                 profesor.getCreatedAt());
     }
 
-    public static EditProfesorCommand toCommand(int id, ProfesorRequest profesorRequest){
-		return new EditProfesorCommand(new ProfesorId(id), profesorRequest.especialidad(), profesorRequest.email(),profesorRequest.telefono());
-	}
+    public static EditProfesorCommand toCommand(int id, ProfesorRequest profesorRequest) {
+        return new EditProfesorCommand(new ProfesorId(id), profesorRequest.especialidad(), profesorRequest.email(),
+                profesorRequest.telefono());
+    }
 
     // DOMAIN -> ENTITY
     public static ProfesorEntity toEntity(Profesor a) {

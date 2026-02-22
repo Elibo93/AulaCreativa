@@ -1,11 +1,11 @@
 ### Requisitos no funcionales (NF)
 ---
 
-#### Requisitos No Funcionales (RNF) de Arquitectura y Mantenibilidad
-
 <p align="center">
-  <img src="/img/rnf.png" width="450">
+  <img src="/img/rnf.png" width="600">
 </p>
+
+#### Requisitos No Funcionales (RNF) de Arquitectura y Mantenibilidad
 
 ##### Adherencia Estricta a la Arquitectura Hexagonal
 
@@ -45,5 +45,49 @@ Aunque el desarrollo inicial y las pruebas utilicen una base de datos en memoria
 
 * **Aislamiento JPA/Hibernate:** El uso de JPA/Hibernate (o cualquier *framework* ORM) debe actuar como el adaptador, **abstraído** del Dominio mediante el patrón *Repository* de la Arquitectura Hexagonal.
 * **Portabilidad de Datos:** El cambio a una base de datos de producción (como **PostgreSQL** o **MySQL**) debe ser un proceso de **configuración pura**. Solo debe requerir modificar las propiedades de conexión dentro del archivo `application.properties` y ajustar las dependencias del *driver* en Maven/Gradle, **sin necesidad de realizar cambios** en el código fuente de Java.
+
+---
+
+#### Requisitos No Funcionales (RNF) - Internacionalización
+
+La aplicación **AulaCreativa** está preparada para incorporar soporte multilenguaje mediante los mecanismos de internacionalización proporcionados por **Spring Boot** y **Thymeleaf**.
+
+El objetivo de esta funcionalidad es permitir que la interfaz de usuario pueda mostrarse en distintos idiomas sin necesidad de modificar las vistas ni la lógica de negocio.
+
+- ##### Enfoque de internacionalización
+
+  La internacionalización se basa en el uso de archivos de propiedades (`.properties`) que contienen las traducciones de los textos mostrados en la interfaz.
+
+  Cada idioma dispone de su propio archivo, por ejemplo:
+
+  - `messages_es.properties` – Español
+  - `messages_en.properties` – Inglés
+  - `messages_it.properties` – Italiano
+  - `messages_ar.properties` – Arabe
+
+  Estos archivos permiten asociar claves de texto con sus traducciones correspondientes.
+
+- ##### Integración con Spring Boot y Thymeleaf
+
+  Spring Boot proporciona soporte nativo para internacionalización mediante el uso de un `MessageSource`. Thymeleaf permite acceder a estos mensajes directamente desde las vistas utilizando expresiones específicas.
+
+  Ejemplo conceptual de uso en una vista Thymeleaf:
+
+  ```html
+  <h1 th:text="#{alumnos.titulo}"></h1>
+  ```
+---
+
+#### Requisitos No Funcionales (NF) - Seguridad
+
+Este apartado establece las restricciones de calidad relacionadas con la protección de la información y el acceso al sistema.
+
+* **RNF-SEG-01 (Estándar de Seguridad):** El sistema debe delegar la gestión de la seguridad en un framework de mercado consolidado y robusto para el ecosistema Java, evitando implementaciones criptográficas propias.
+* **RNF-SEG-02 (Autenticación):** El acceso a las funcionalidades privadas requerirá la identificación previa del usuario mediante credenciales (usuario y contraseña).
+* **RNF-SEG-03 (Autorización RBAC):** El sistema debe restringir el acceso a recursos y operaciones basándose en los Roles asignados al usuario (Principio de mínimo privilegio).
+* **RNF-SEG-04 (Confidencialidad):** Las contraseñas de los usuarios no deben ser visibles ni almacenadas en texto plano en la base de datos bajo ninguna circunstancia.
+* **RNF-SEG-05 (Protección Web):** La aplicación debe incluir mecanismos de defensa contra ataques web comunes, asegurando que las peticiones provengan de formularios legítimos.
+
+---
   
 [Volver](/README.md)

@@ -1,56 +1,58 @@
 ### Anexos
+
 ---
 
-En este apartado se incluyen una serie de materiales complementarios que sirven de apoyo a la documentación principal del proyecto **Artia – Aula Creativa**. Los anexos no forman parte directa del desarrollo teórico, pero aportan contexto adicional, ejemplos técnicos y evidencias del trabajo realizado durante la creación de la aplicación.
+Este apartado recopila material técnico complementario, ficheros de configuración y documentación de soporte que, por su extensión o nivel de detalle, dificultarían la lectura del cuerpo principal de la memoria. Estos anexos sirven como evidencia técnica del trabajo realizado y facilitan la reproducibilidad del proyecto **Artia – Aula Creativa**.
 
-#### Anexo A. Diagramas del sistema
-Se incluyen los diferentes diagramas utilizados durante la fase de diseño de la aplicación, tales como:
-- Diagramas de casos de uso.
-- Diagramas de componentes.
+#### Anexo A. Manual de Despliegue Rápido
 
-Estos diagramas han servido como herramienta de apoyo para comprender la estructura del sistema, la relación entre componentes y el papel de cada actor dentro de la aplicación.
+Guía técnica para poner en marcha la aplicación en un entorno local utilizando la infraestructura contenerizada.
 
-#### Anexo B. Modelo de datos y entidades
-En este anexo se recoge información relacionada con el modelo de datos de la aplicación, incluyendo:
-- Descripción de las principales entidades (Alumno, Profesor, Taller e Inscripción).
-- Relación entre entidades.
-- Ejemplos de tablas y esquemas utilizados en la base de datos.
+* **Pre-requisitos:** Docker y Git.
+* **Comandos de ejecución:** Instrucciones para clonar el repositorio y ejecutar el script `docker-compose up`.
+* **Credenciales por defecto:** Usuarios de prueba (Admin/Profesor/Alumno) generados por los scripts de inicialización (`data.sql`).
 
-Este apartado ayuda a entender cómo se organiza y persiste la información dentro del sistema.
+#### Anexo B. Diccionario de Datos y Scripts SQL
 
-#### Anexo C. Endpoints de la API
-Se incluyen tablas descriptivas con los endpoints implementados en la aplicación, detallando:
-- Verbo HTTP utilizado.
-- Endpoint.
-- Ejemplo de petición.
-- Respuesta esperada.
-- Posibles errores.
+Documentación detallada de la capa de persistencia a nivel de base de datos.
 
-Este anexo permite visualizar de forma clara cómo se comunican el cliente y el servidor dentro de la aplicación.
+* **Script DDL (`schema.sql`):** Código SQL utilizado para la creación de las tablas, restricciones de integridad (Foreign Keys) e índices.
+* **Diccionario de Datos:** Tabla descriptiva de cada campo de la base de datos (tipo de dato, longitud, restricciones `NOT NULL`, `UNIQUE`), complementando el diagrama E-R presentado en el apartado de Diseño.
 
-#### Anexo D. Configuración y fragmentos de código
-Este apartado recoge ejemplos relevantes de configuración y código, entre ellos:
-- Configuración de la base de datos H2.
-- Fragmentos de configuración de Spring Boot.
-- Ejemplos representativos de entidades JPA y controladores REST.
+#### Anexo C. Especificación OpenAPI (Swagger JSON)
 
-Los fragmentos incluidos tienen un carácter ilustrativo y sirven para apoyar la explicación realizada en los apartados principales del documento.
+Referencia técnica completa de la interfaz de comunicación.
 
-#### Anexo E. Recursos gráficos
-Se incluyen imágenes y recursos gráficos utilizados en la documentación, tanto aquellos obtenidos a través de búsquedas en Google con fines educativos como los generados mediante herramientas de Inteligencia Artificial. Estos recursos se han empleado exclusivamente como apoyo visual para facilitar la comprensión del proyecto.
+* Se adjunta o referencia el archivo `swagger.json` o `openapi.yaml` generado por la aplicación.
+* Este archivo define formalmente el contrato de la API, permitiendo la generación automática de clientes y la integración con herramientas de terceros.
 
-#### Anexo F. Herramientas y tecnologías utilizadas
-En este anexo se recopilan las principales herramientas empleadas durante el desarrollo del proyecto, tales como:
-- IDEs utilizados.
-- Sistemas de control de versiones.
-- Herramientas para el diseño de diagramas.
-- Bases de datos y frameworks empleados.
+#### Anexo D. Snippets de Configuración Clave
 
-Esta información complementa la visión global del entorno de desarrollo utilizado.
+Fragmentos de código esenciales que demuestran la configuración de la infraestructura del proyecto.
 
-### Observación final
+* **`application.properties`:** Configuración de los perfiles de Spring (`dev` vs `prod`).
+* **`SecurityConfig.java`:** Configuración de las cadenas de filtros de seguridad (`SecurityFilterChain`) y reglas CORS.
+* **`Dockerfile`:** Definición de la imagen de construcción basada en Alpine Linux y JDK 17.
 
-Los anexos presentados permiten ampliar la información expuesta a lo largo de la documentación y aportan evidencias prácticas del trabajo realizado. Su inclusión facilita una comprensión más completa del proyecto y refuerza el proceso de diseño y desarrollo llevado a cabo en **Artia – Aula Creativa**.
+#### Anexo E. Glosario de Términos
 
+Definición de conceptos técnicos y acrónimos utilizados a lo largo del documento para facilitar su comprensión por lectores no especializados en el stack tecnológico específico.
+
+* **Términos:** *Clean Architecture, Hexagonal, Vertical Slicing, Endpoint, Docker Container, RESTful, Fat JAR, ORM, DTO, UUID, etc.*
+
+#### Anexo F. Índice de Recursos Gráficos
+
+Relación de las figuras, diagramas e ilustraciones incluidas en la memoria, indicando su fuente:
+
+* **Elaboración propia:** Diagramas UML (Clases, Secuencia, Casos de Uso) diseñados con Mermaid/PlantUML.
+* **Fuentes externas:** Referencia a logotipos oficiales de tecnologías (Spring, Docker, Java) utilizados con fines educativos e ilustrativos.
+
+---
+
+### Observación Final
+
+La documentación presentada en estos anexos, junto con el código fuente alojado en el repositorio del proyecto, constituye el **paquete de entrega técnica** de **Artia – Aula Creativa**. Su objetivo es garantizar que el sistema sea auditables, mantenible y extensible por futuros equipos de desarrollo.
+
+---
 
 [Volver](/README.md)

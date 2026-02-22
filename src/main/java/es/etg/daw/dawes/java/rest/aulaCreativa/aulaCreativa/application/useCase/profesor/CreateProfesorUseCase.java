@@ -10,10 +10,10 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class CreateProfesorUseCase {
 
-    //Atributos
+    // Atributos
     private final ProfesorRepository profesorRepository;
 
-    //Metodo para crear un profesor
+    // Metodo para crear un profesor
     public Profesor create(CreateProfesorCommand comando) {
 
         Profesor profesor = Profesor.builder()

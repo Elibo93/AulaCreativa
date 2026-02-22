@@ -25,4 +25,24 @@ public class FindInscripcionUseCase {
     public Inscripcion findById(InscripcionId id) {
         return inscripcionRepository.getById(id).orElseThrow(() -> new InscripcionNotFoundException(id.getValue()));
     }
+
+    public List<Inscripcion> findByCriteria(Integer alumnoId, Integer tallerId) {
+        if (alumnoId != null && tallerId != null) {
+            // Intersección
+            List<Inscripcion> porAlumno = inscripcionRepository.getByAlumnoId(alumnoId);
+            return porAlumno.stream()
+                    .filter(i -> i.getTallerId().getValue().equals(tallerId))
+                    .collect(java.util.stream.Collectors.toList());
+        }
+
+        if (alumnoId != null) {
+            return inscripcionRepository.getByAlumnoId(alumnoId);
+        }
+
+        if (tallerId != null) {
+            return inscripcionRepository.getByTallerId(tallerId);
+        }
+
+        return findAll();
+    }
 }

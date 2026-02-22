@@ -1,6 +1,6 @@
 package es.etg.daw.dawes.java.rest.aulaCreativa.common.domain.error;
 
-public class EntityNotFoundException extends RuntimeException{
+public class EntityNotFoundException extends RuntimeException {
 
     public EntityNotFoundException(String entity) {
         super("%s no encontrado".formatted(entity));

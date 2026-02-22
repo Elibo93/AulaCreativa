@@ -45,31 +45,14 @@ public class InscripcionJpaRepositoryImpl implements InscripcionRepository {
         repository.deleteById(id.getValue());
     }
 
-    // @Override
-    // public List<Inscripcion> getByAlumnoId(AlumnoId alumnoId) {
-    //     return InscripcionMapper.toDomain(repository.findByIdAlumno(alumnoId.getValue()));
-    // }
+    @Override
+    public List<Inscripcion> getByAlumnoId(Integer alumnoId) {
+        return InscripcionMapper.toDomain(repository.findByAlumnoId(alumnoId));
+    }
 
-    // @Override
-    // public List<Inscripcion> getByTallerId(TallerId tallerId) {
-    //     return InscripcionMapper.toDomain(repository.findByIdTaller(tallerId.getValue()));
-    // }
-
-    // @Override
-    // public Optional<Inscripcion> getByAlumnoAndTaller(AlumnoId alumnoId, TallerId tallerId) {
-    //     InscripcionEntity entity = repository.findByIdAlumnoAndIdTaller(alumnoId.getValue(), tallerId.getValue());
-
-    //     if (entity == null) {
-    //         return Optional.empty();
-    //     }
-
-    //     return Optional.of(InscripcionMapper.toDomain(entity));
-    // }
-
-    // @Override
-    // public boolean existsByAlumnoAndTaller(AlumnoId alumnoId, TallerId tallerId) {
-    //     // TODO Auto-generated method stub
-    //     throw new UnsupportedOperationException("Unimplemented method 'existsByAlumnoAndTaller'");
-    // }
+    @Override
+    public List<Inscripcion> getByTallerId(Integer tallerId) {
+        return InscripcionMapper.toDomain(repository.findByTallerId(tallerId));
+    }
 
 }
