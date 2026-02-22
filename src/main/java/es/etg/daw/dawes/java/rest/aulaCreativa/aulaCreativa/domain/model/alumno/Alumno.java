@@ -5,12 +5,10 @@ import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @Builder
-@NoArgsConstructor
 public class Alumno {
 	
 	// Atributos
@@ -23,5 +21,4 @@ public class Alumno {
 	private String direccion;
 	private String fechaNacimiento;
 	private LocalDateTime createdAt;
-	
 }

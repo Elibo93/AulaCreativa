@@ -1,77 +1,69 @@
-### Ejecución de las Pruebas y Validación
-
+### Ejecución de las pruebas
 ---
 
-La fase de ejecución tiene como propósito validar que los endpoints de la API REST expuestos cumplen con los requisitos funcionales, verificando tanto el comportamiento correcto (Happy Path) como la gestión de errores y excepciones.
+La ejecución de pruebas tiene como propósito validar que todos los endpoints de la API funcionan conforme a los requisitos especificados en el Plan de Pruebas, verificando las respuestas correctas, los errores esperados y la coherencia en la lógica de negocio.
 
-#### Metodología de Ejecución
+#### Metodología de ejecución
 
-Para la validación funcional de extremo a extremo (E2E), se ha seguido una metodología manual sistemática utilizando **Postman** como cliente HTTP.
+Las pruebas se ejecutaron de manera manual utilizando:
 
-* **Entorno:** Base de datos H2 (perfil `dev`) reiniciada antes de cada bloque de pruebas para garantizar el aislamiento.
-* **Herramientas:** Colección de Postman organizada por recursos (`/alumnos`, `/profesores`, `/talleres`).
-* **Criterio de Aceptación:** El test se considera "PASSED" si el Código HTTP y el cuerpo de la respuesta (JSON) coinciden con la especificación OpenAPI.
+- Postman para realizar peticiones HTTP.
 
----
+- Base de datos aislada para evitar alteración de datos reales.
 
-#### 1. Módulo: Alumnos
+- Colección organizada por módulos (Alumnos, Profesores, Talleres e Inscripciones ).
 
-| ID Caso | Operación / Método | Descripción | Datos de Entrada | Resultado Esperado | Estado |
-| --- | --- | --- | --- | --- | --- |
-| **CP-A1** | `GET findAll()` | Obtener listado general. | Sin parámetros. | `200 OK` + Lista JSON `[]` o con datos. | ✔ PASS |
-| **CP-A2** | `GET findById()` | Búsqueda por ID existente. | ID: `1` | `200 OK` + JSON del alumno solicitado. | ✔ PASS |
-| **CP-A3** | `GET findById()` | Búsqueda por ID inexistente. | ID: `999` | `404 Not Found` + Mensaje de error. | ✔ PASS |
-| **CP-A4** | `POST create()` | Crear alumno válido. | JSON con nombre, apellidos, email. | `201 Created` + JSON con nuevo ID. | ✔ PASS |
-| **CP-A5** | `PUT update()` | Modificar email del alumno. | ID: `1`, Body: `{ "email": "nuevo@test.com" }` | `200 OK` + JSON actualizado. | ✔ PASS |
-| **CP-A6** | `DELETE delete()` | Eliminar alumno existente. | ID: `1` | `204 No Content`. | ✔ PASS |
+Para cada test se registró:
 
----
+1. Entrada enviada
+2. Respuesta esperada
+3. Código HTTP devuelto
+4. Resultado: *Correcto / Fallido*
 
-#### 2. Módulo: Profesores
+#### Alumnos
 
-| ID Caso | Operación / Método | Descripción | Datos de Entrada | Resultado Esperado | Estado |
-| --- | --- | --- | --- | --- | --- |
-| **CP-P1** | `GET findAll()` | Verificar listado completo. | Datos iniciales (`data.sql`). | `200 OK` + Lista de profesores. | ✔ PASS |
-| **CP-P2** | `GET findById()` | Recuperar profesor específico. | ID: `2` | `200 OK` + Datos del profesor. | ✔ PASS |
-| **CP-P3** | `POST create()` | Crear profesor con DNI duplicado. | JSON con DNI ya existente en BD. | `409 Conflict` o `400 Bad Request`. | ✔ PASS |
-| **CP-P4** | `POST create()` | Crear profesor válido. | JSON correcto sin ID. | `201 Created` + ID autogenerado. | ✔ PASS |
-| **CP-P5** | `PUT update()` | Actualizar especialidad. | ID: `2`, Body: `{ "especialidad": "Óleo" }` | `200 OK` + Datos actualizados. | ✔ PASS |
-| **CP-P6** | `DELETE delete()` | Eliminar profesor. | ID: `2` | `204 No Content`. | ✔ PASS |
+| **Caso** | **Método de prueba** | **Descripción**                                        | **Datos utilizados**                       | **Resultado esperado**                        | **Estado** |
+|----------|----------------------|--------------------------------------------------------|--------------------------------------------|-----------------------------------------------|------------|
+| CP-A1    | findAll()            | Verificar que existen alumnos y la lista no está vacía | BD con datos iniciales o insertados        | Lista no nula y con elementos                 | ✔ Correcto |
+| CP-A2    | findById()           | Búsqueda correcta por ID                               | Alumno generado con AlumnoFactory.create() | Alumno encontrado con ID y nombre coincidente | ✔ Correcto |
+| CP-A3    | findByNombre()       | Comprobar búsqueda por nombre                          | Nombre del alumno creado                   | Objeto no nulo y coincidencia exacta          | ✔ Correcto |
+| CP-A4    | create()             | Crear un alumno con datos válidos                      | Alumno mapeado sin ID                      | ID generado + coincidencia de datos           | ✔ Correcto |
+| CP-A5    | update()             | Actualizar un alumno existente                         | Alumno generado y guardado                 | Persistencia exitosa y campos actualizados    | ✔ Correcto |
+| CP-A6    | delete()             | Eliminar alumno por ID                                 | ID existente                               | findById() devuelve vacío                     | ✔ Correcto |
 
----
 
-#### 3. Módulo: Talleres
+#### Profesores
 
-| ID Caso | Operación / Método | Descripción | Datos de Entrada | Resultado Esperado | Estado |
-| --- | --- | --- | --- | --- | --- |
-| **CP-T1** | `GET findAll()` | Listar oferta formativa. | BD con talleres cargados. | `200 OK` + Lista de talleres. | ✔ PASS |
-| **CP-T2** | `GET findById()` | Detalle de un taller. | ID: `10` | `200 OK` + JSON Taller + Profesor asignado. | ✔ PASS |
-| **CP-T3** | `POST create()` | Crear taller nuevo. | Nombre, Cupo: `15`, ID Profesor: `2`. | `201 Created` + Recurso creado. | ✔ PASS |
-| **CP-T4** | `PUT update()` | Modificar cupo máximo. | ID: `10`, Cupo: `20`. | `200 OK` + Cupo actualizado. | ✔ PASS |
-| **CP-T5** | `DELETE delete()` | Eliminar taller activo. | ID: `10` | `204 No Content`. | ✔ PASS |
+| **Caso** | **Método de prueba** | **Descripción**            | **Datos utilizados**      | **Resultado esperado**                      | **Estado** |
+|----------|----------------------|----------------------------|---------------------------|---------------------------------------------|------------|
+| CP-P1    | findAll()            | Verificar listado completo | Datos iniciales           | Lista no nula y con elementos               | ✔ Correcto |
+| CP-P2    | findById()           | Recuperar profesor por ID  | Profesor generado         | Profesor no nulo + ID coincide              | ✔ Correcto |
+| CP-P3    | findByNombre()       | Buscar profesor por nombre | Nombre de ProfesorFactory | Devuelve el profesor correcto               | ✔ Correcto |
+| CP-P4    | create()             | Crear profesor nuevo       | Datos válidos sin ID      | ID generado + sincronización con la entidad | ✔ Correcto |
+| CP-P5    | update()             | Actualizar profesor        | Profesor guardado         | Datos actualizados correctamente            | ✔ Correcto |
+| CP-P6    | delete()             | Eliminar profesor          | ID existente              | Registro eliminado correctamente            | ✔ Correcto |
 
----
+#### Talleres
 
-#### 4. Módulo: Inscripciones (Procesos de Negocio)
+| **Caso** | **Método de prueba** | **Descripción**            | **Datos utilizados**   | **Resultado esperado**           | **Estado** |
+|----------|----------------------|----------------------------|------------------------|----------------------------------|------------|
+| CP-T1    | findAll()            | Listar talleres existentes | BD con talleres        | Lista no vacía                   | ✔ Correcto |
+| CP-T2    | findById()           | Buscar taller por ID       | TallerFactory.create() | Coincidencia de ID y nombre      | ✔ Correcto |
+| CP-T3    | create()             | Crear taller               | Datos correctos        | ID generado + campos correctos   | ✔ Correcto |
+| CP-T4    | update()             | Actualizar taller          | Taller guardado        | Valores actualizados             | ✔ Correcto |
+| CP-T5    | delete()             | Eliminar taller            | ID existente           | Eliminación exitosa              | ✔ Correcto |
+| CP-T5    | delete()             | Eliminar profesor          | ID existente           | Registro eliminado correctamente | ✔ Correcto |
 
-| ID Caso | Operación / Método | Descripción | Datos de Entrada | Resultado Esperado | Estado |
-| --- | --- | --- | --- | --- | --- |
-| **CP-I1** | `POST create()` | Matricular alumno (Caso OK). | `idAlumno: 1`, `idTaller: 10`. | `201 Created` + Estado `ACTIVA`. | ✔ PASS |
-| **CP-I2** | `POST create()` | Matricular en taller lleno. | Alumno X en Taller sin cupo. | `409 Conflict` + "Cupo excedido". | ✔ PASS |
-| **CP-I3** | `GET findAll()` | Listar inscripciones. | - | `200 OK` + Lista general. | ✔ PASS |
-| **CP-I4** | `GET findById()` | Consultar matrícula. | ID Inscripción generado. | `200 OK` + Detalle completo. | ✔ PASS |
-| **CP-I5** | `PUT update()` | Cancelar matrícula. | Body: `{ "estado": "BAJA" }`. | `200 OK` + Estado actualizado. | ✔ PASS |
-| **CP-I6** | `DELETE delete()` | Eliminar registro de inscripción. | ID existente. | `204 No Content`. | ✔ PASS |
+#### Inscripciones
 
----
+| **Caso** | **Método de prueba** | **Descripción**          | **Datos utilizados**           | **Resultado esperado**            | **Estado** |
+|----------|----------------------|--------------------------|--------------------------------|-----------------------------------|------------|
+| CP-I1    | findAll()            | Listar inscripciones     | BD inicial                     | Lista con elementos               | ✔ Correcto |
+| CP-I2    | findById()           | Recuperar inscripción    | Inscripción creada             | ID válido y relación cargada      | ✔ Correcto |
+| CP-I3    | create()             | Crear inscripción válida | alumnoId + tallerId existentes | Relación persistida correctamente | ✔ Correcto |
+| CP-I4    | update()             | Modificar inscripción    | Cambiar taller o fecha         | Objeto actualizado                | ✔ Correcto |
+| CP-I5    | delete()             | Eliminar inscripción     | ID existente                   | Eliminación confirmada            | ✔ Correcto |
+| CP-I6    | delete()             | Eliminar profesor        | ID existente                   | Registro eliminado correctamente  | ✔ Correcto |
 
-#### Resumen de Resultados
-
-Tras la ejecución de la batería de pruebas manuales, se obtuvieron los siguientes métricas de calidad:
-
-* **Total de Casos Ejecutados:** 24
-* **Pruebas Exitosas (Passed):** 24
-* **Pruebas Fallidas (Failed):** 0
-* **Cobertura Funcional:** 100% de los endpoints críticos verificados.
-
+                  
 [Volver](/README.md)

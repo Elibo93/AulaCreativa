@@ -11,6 +11,4 @@ La documentación también fue un reto importante. A veces resultó complicada p
 
 #### Elisabeth
 
----
-
 [Volver](/README.md)

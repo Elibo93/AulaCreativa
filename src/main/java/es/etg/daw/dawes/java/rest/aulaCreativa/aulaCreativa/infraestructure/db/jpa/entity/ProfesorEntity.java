@@ -18,11 +18,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "profesores")
+@Table(name = "PROFESORES")
 public class ProfesorEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     @Column(nullable = false, length = 255)
@@ -37,7 +37,7 @@ public class ProfesorEntity {
     @Column(nullable = false, length = 255)
     private String email;
 
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false, length = 9)
     private String telefono;
 
     @Column(name = "created_at", nullable = false)

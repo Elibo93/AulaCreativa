@@ -1,48 +1,70 @@
 ### Información sobre la versión de las herramientas utilizadas
-
 ---
 
-Para garantizar la reproducibilidad y estabilidad del proyecto **AulaCreativa**, se ha definido una arquitectura de software basada en versiones con Soporte a Largo Plazo y estándares de la industria.
+Para el desarrollo y las pruebas del proyecto AulaCreativa, se utilizaron diversas herramientas y tecnologías del ecosistema Java y Spring Boot. A continuación se detallan las versiones empleadas.
 
-La gestión de versiones se centraliza principalmente a través del **Spring Boot Starter Parent**, que orquesta la compatibilidad entre el framework, el ORM y las librerías de utilidades.
+#### Java Development Kit (JDK)
+- Versión utilizada:Java 17
+- Motivo de uso:versión de soporte extendido, estable y compatible con Spring Boot 3.5.7
 
----
+#### Spring Boot
+- Versión utilizada:3.5.7
+- Motivo de uso:simplifica la configuración de la aplicación, proporciona autoconfiguración y un servidor embebido, y se integra con Spring Data JPA y H2 sin configuración adicional.
 
-#### 1. Matriz de Tecnologías del Núcleo (Core)
+#### Spring Framework
+- Versión utilizada:Incluida dentro de Spring Boot 3.5.7.
+  (Spring Boot incorpora automáticamente la versión adecuada del framework)
+- Motivo de uso:Proporciona los módulos fundamentales como:
 
-| Tecnología | Versión | Artefacto Maven | Justificación Técnica |
-| --- | --- | --- | --- |
-| **Java JDK** | **17 (LTS)** | - | Versión de soporte extendido que introduce mejoras de rendimiento, *Records* y *Pattern Matching*, siendo el estándar actual para Spring Boot 3.x. |
-| **Spring Boot** | **3.5.7** | `spring-boot-starter-parent` | Framework base que provee autoconfiguración, servidor embebido (Tomcat) y gestión unificada de dependencias. |
-| **Spring Framework** | *Gest. por Spring Boot* | `spring-core` | Núcleo del sistema. Provee el contenedor de Inversión de Control (IoC), Inyección de Dependencias (DI) y el contexto de aplicación. |
-| **Maven** | **3.8+** | - | Herramienta de automatización de construcción (*Build Tool*). Gestiona el ciclo de vida, compilación y empaquetado del artefacto `.jar`. |
+Inyección de dependencias
 
----
+Gestión del ciclo de vida de beans
 
-#### 2. Persistencia y Datos
+Integración con JPA
 
-| Tecnología | Versión | Artefacto Maven | Justificación Técnica |
-| --- | --- | --- | --- |
-| **Spring Data JPA** | *Gest. por Spring Boot* | `spring-boot-starter-data-jpa` | Capa de abstracción sobre JPA. Elimina la necesidad de implementar DAOs manualmente mediante el patrón *Repository*. |
-| **Hibernate ORM** | **6.x** | `hibernate-core` | Proveedor JPA por defecto. Mapea las entidades Java a tablas relacionales y gestiona el ciclo de vida de las transacciones. |
-| **H2 Database** | *Gest. por Spring Boot* | `com.h2database:h2` | Base de datos relacional en memoria. Permite pruebas unitarias rápidas y limpias sin necesidad de infraestructura externa. |
-| **Lombok** | **1.18.x** | `org.projectlombok:lombok` | Librería de procesamiento de anotaciones. Reduce el código repetitivo (*boilerplate*) generando automáticamente Getters, Setters y Builders. |
+  
+#### Spring Data JPA
+- Versión utilizada:la incluida en Spring Boot 3.5.7.
+  (El starter spring-boot-starter-data-jpa gestiona automáticamente las versiones internas de JPA y Hibernate)
+- Motivo de uso:Ofrece la capa de persistencia basada en JPA, automatiza la generación de consultas y simplifica la interacción con la base de datos.
 
----
+#### JPA/Hibernate
+- Versión utilizada:La incluida en el starter de Spring Boot 3.5.7.
+(Hibernate 6.x se usa como implementación por defecto de JPA en Spring Boot 3)
+- Motivo de uso:Hibernate actúa como el proveedor ORM responsable de mapear las entidades Java a tablas de base de datos.
+- Asegura que las entidades sean traducidas a registros de base de datos y viceversa de forma automática.
+  
+#### Base de datos H2
+- Versión utilizada:(Incluida a través de la dependencia com.h2database:h2 en el pom)
+- Motivo de uso:Facilita las pruebas, ya que no requiere instalación y permite reconstruir las tablas en cada ejecución.Ideal para pruebas unitarias e integradas con Spring Boot.
 
-#### 3. Calidad y Entorno de Desarrollo
+#### Maven
+- Versión utilizada:3.8+
+- Motivo de uso:construcción del proyecto, gestión de dependencias.
+  
+#### JUnit 5 (Jupiter)
+- Versión utilizada:(Incluida dentro del starter spring-boot-starter-test)
+- Motivo de uso:framework para pruebas unitarias y de integración.
 
-| Herramienta | Versión | Justificación Técnica |
-| --- | --- | --- |
-| **JUnit 5 (Jupiter)** | *Gest. por Spring Boot* | Framework de testing de nueva generación. Integrado mediante `spring-boot-starter-test` para pruebas unitarias y de integración (`@DataJpaTest`). |
-| **VS Code** | **1.106.3** | Entorno de Desarrollo Integrado (IDE) ligero. Se utiliza por su integración nativa con Docker (DevContainers) y su excelente soporte para Java mediante extensiones de RedHat. |
+Se integra con Spring Boot Test, permitiendo ejecutar pruebas sobre repositorios JPA con anotaciones como:
+@DataJpaTest
+@Test
+@BeforeEach
 
----
+#### Lombok
+- Versión utilizada:1.18.x
+(Cargada mediante la dependencia org.projectlombok:lombok)
+- Motivo de uso:generar automáticamente getters, setters, constructores y builders en clases del dominio y entidades JPA lo que reduce el código repetitivo permitiendo que las clases sean más limpias y legibles.
 
-#### Nota sobre la Gestión de Dependencias
+#### VS Code
+- Versión utilizada:1.106.3
+- Motivo de uso:Herramienta de desarrollo utilizada para:
 
->Es importante destacar que, al utilizar **Maven**, la mayoría de las versiones no se declaran explícitamente en el archivo `pom.xml`, sino que son heredadas del padre (`spring-boot-starter-parent:3.5.7`). Esto asegura que todas las librerías (Hibernate, Jackson, JUnit, etc.) sean totalmente compatibles entre sí, evitando el problema conocido como *"Dependency Hell"*.
+Edición de código
 
----
+Ejecución de la aplicación
 
+Lanzamiento de pruebas
+
+Depuración
 [Volver](/README.md)

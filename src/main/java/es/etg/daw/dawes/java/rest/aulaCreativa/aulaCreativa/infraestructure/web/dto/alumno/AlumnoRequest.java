@@ -21,9 +21,14 @@ public record AlumnoRequest(
     @NotBlank(message = "{Alumno.valid.telefono.no_vacio}")
     String telefono,
 
+    @NotBlank(message = "{Alumno.valid.direccion.no_vacio}")
     String direccion,
 
+    @NotBlank(message = "{Alumno.valid.fechaNacimiento.no_vacio}")
     String fechaNacimiento
+
+
+    
 
 ) {
 
