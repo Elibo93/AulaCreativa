@@ -122,4 +122,49 @@ El uso de contenedores efímeros basados en imágenes de **Alpine Linux** garant
 
 ---
 
+#### Habilitar HTTPS (SSL/TLS)
+
+La aplicación está configurada para servir tráfico cifrado mediante HTTPS. Esto requiere la generación y configuración de un certificado SSL.
+
+##### 1. Generar el certificado
+
+Para entornos de desarrollo, se utiliza un certificado autofirmado generado con OpenSSL. Los certificados autofirmados son ideales para pruebas locales, mientras que en producción se usaría una CA de confianza.
+
+```bash
+# Generar clave y certificado con la extensión SAN para localhost
+openssl req -x509 -newkey rsa:4096 -days 365 -nodes \
+  -keyout key.pem -out cert.pem \
+  -subj "/CN=localhost" \
+  -addext "subjectAltName = DNS:localhost" \
+  -addext "basicConstraints = critical,CA:TRUE"
+
+# Empaquetar en PKCS12 para Spring Boot
+openssl pkcs12 -export -out keystore.p12 \
+  -inkey key.pem -in cert.pem \
+  -name springboot -passout pass:mi_contrasena_segura
+```
+*(Nota: Se recomienda evitar el uso de caracteres especiales como la 'ñ' en la contraseña).*
+
+##### 2. Habilitar HTTPS en Spring Boot
+
+El archivo `keystore.p12` se ubica en la carpeta `src/main/resources`. (Lo ideal en un entorno avanzado sería utilizar una solución de gestión de certificados externa).
+
+La configuración en `application.properties` para atender peticiones HTTPS es:
+
+```properties
+server.port=8443
+server.ssl.key-store=classpath:keystore.p12
+server.ssl.key-store-password=mi_contraseña_segura
+server.ssl.key-store-type=PKCS12
+server.ssl.key-alias=springboot
+```
+
+**Consideraciones a tener en cuenta:**
+* El archivo `.p12` está cifrado por contraseña, añadiendo una capa extra de protección.
+* Contiene toda la identidad del servidor de manera unificada.
+* El comando utiliza `CN=localhost`. Si se intenta acceder a la aplicación mediante una dirección IP (p. ej., `192.168.1.15`), el navegador alertará de que el nombre del certificado no coincide.
+* Tras generar el `.p12`, los archivos `key.pem` y `cert.pem` pueden eliminarse si no se requieren para otra configuración.
+
+---
+
 [Volver](/README.md)

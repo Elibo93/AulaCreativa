@@ -5,7 +5,7 @@
 
 ---
 
-## 🚀 Puesta en Marcha de la Aplicación
+## Puesta en Marcha de la Aplicación
 
 En esta sección se explica cómo arrancar la aplicación desde cero. La aplicación y su base de datos funcionan como **contenedores Docker independientes**, lo que significa que no es necesario instalar nada más allá de Docker en el equipo.
 
@@ -60,10 +60,19 @@ docker compose up -d
 Una vez que la aplicación esté en marcha, abra su **navegador web** (Chrome, Firefox, Edge, etc.) e introduzca la siguiente dirección en la barra de navegación:
 
 ```
-http://localhost:8080/web/home
+https://localhost:8443/web/home
 ```
 
-Si todo ha ido correctamente, verá la **pantalla de inicio de Artia - Aula Creativa**.
+> **¡IMPORTANTE! Mensaje de Advertencia de Privacidad**
+> Al acceder por primera vez mediante `https`, es muy probable que su navegador muestre una advertencia de seguridad indicando que **"La conexión no es privada"** o **"Riesgo potencial de seguridad"**.
+>
+> **¿Por qué ocurre esto?** Porque la aplicación utiliza un **certificado SSL autofirmado** para el entorno de desarrollo local.
+>
+> **¿Qué debe hacer?** Es seguro continuar, ya que somos nosotros quienes alojamos la aplicación:
+> * **En Chrome/Edge:** Haga clic en **"Configuración avanzada"** (o "Avanzado") y luego en el enlace inferior **"Continuar a localhost (no seguro)"**.
+> * **En Firefox:** Haga clic en **"Avanzado"** y luego en **"Aceptar el riesgo y continuar"**.
+
+Si todo ha ido correctamente, tras aceptar la excepción, verá la **pantalla de inicio de Artia - Aula Creativa**.
 
 ---
 
@@ -79,7 +88,7 @@ Esto detendrá y eliminará los contenedores de forma limpia. Los datos almacena
 
 ---
 
-## 📖 Guía de Uso
+## Guía de Uso
 
 #### 1. Introducción y Acceso
 
@@ -88,7 +97,7 @@ Este manual describe los pasos necesarios para operar la aplicación **Artia - A
 Para acceder a la plataforma, una vez que la aplicación esté en marcha ([consulte la sección anterior](#-puesta-en-marcha-de-la-aplicación)), abra su navegador e introduzca:
 
 ```
-http://localhost:8080/web/home
+https://localhost:8443/web/home
 ```
 
 Accederá directamente al **Panel de Control**, sin necesidad de inicio de sesión (pendiente de implementar).

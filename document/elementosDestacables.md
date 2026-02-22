@@ -72,4 +72,24 @@ El proyecto nace preparado para la integración continua (CI/CD):
 
 ---
 
+#### 8. Arquitectura Frontend: Thymeleaf + HTMX
+
+El frontend del proyecto se ha desarrollado buscando simplicidad, reactividad y mantenibilidad, combinando el renderizado en el servidor (**Thymeleaf**) con interacciones dinámicas sin recarga de página (**HTMX**).
+
+##### 8.1. Sistema de Fragmentos (Thymeleaf)
+
+La interfaz se construye basándose en un sistema de layouts y fragmentos. Esto permite reutilizar componentes comunes (cabecera, menú, pie de página, notificaciones) en todas las vistas:
+
+* **Layout Principal:** Un archivo base (`main-layout.html`) define la estructura general HTML de la SPA.
+* **Sustitución Dinámica:** Mediante las etiquetas `th:replace`, el controlador indica referenciando a `content` qué fragmento específico de contenido (ej. lista de alumnos, formulario) debe inyectarse en el espacio principal de la página. El nombre del fragmento incluido debe coincidir para que Thymeleaf logre incrustarlo en la plantilla base.
+
+##### 8.2. Interactividad Reactiva (HTMX)
+
+HTMX se utiliza para añadir comportamiento SPA (Single Page Application) e interacciones asíncronas fluidas, reduciendo la dependencia de frameworks de JavaScript complejos en el cliente.
+
+* **Peticiones AJAX Declarativas:** Atributos como `hx-get`, `hx-post` o `hx-delete` incrustados en elementos HTML permiten realizar peticiones al servidor directamente desde el marcado HTML originando transiciones y borrados limpios sin recargas molestas.
+* **Componentes Reactivos:** La respuesta del servidor (generalmente un fragmento HTML actualizado, un mensaje de error o una redirección con aviso) se inyecta directamente en el DOM mediante `hx-target` y `hx-swap`, dando la sensación de una app reactiva consumiendo muy pocos recursos.
+
+---
+
 [Volver](/README.md)
