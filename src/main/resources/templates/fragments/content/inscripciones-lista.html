@@ -1,90 +1,28 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="es">
-
 <head>
     <meta charset="UTF-8">
-    <title>Inscripciones | Aula Creativa</title>
-    <link rel="stylesheet" th:href="@{/css/estilos.css}">
 </head>
-
 <body>
-
-    <header class="app-header">
-        <div class="header-container">
-            <div class="header-left">
-                <a th:href="@{/web/home}" class="back-link" title="Volver">
-                    <i data-lucide="arrow-left" class="back-arrow" style="width:20px;"></i>
-                </a>
-                <img th:src="@{/images/logo-artia.png}" class="app-logo">
-                <div class="app-brand">
-                    <span class="app-name" th:text="#{app.name}">Artia</span>
-                    <span class="app-subtitle" th:text="#{app.subtitle}">Gestión</span>
-                </div>
-            </div>
-            <nav class="header-right lang-nav">
-                <!-- Dropdown Menu -->
-                <div class="dropdown-container">
-                    <div class="dropdown-trigger user-profile">
-                        <div class="avatar">A</div>
-                        <span class="user-name" th:text="#{menu.dropdown.title}">Menu</span>
-                        <i data-lucide="chevron-down" style="width:16px; height:16px;"></i>
-                    </div>
-                    <div class="dropdown-menu">
-                        <a th:href="@{/web/alumnos}" class="dropdown-item">
-                            <i data-lucide="graduation-cap"></i>
-                            <span th:text="#{menu.students.card.title}">Alumnos</span>
-                        </a>
-                        <a th:href="@{/web/profesores}" class="dropdown-item">
-                            <i data-lucide="briefcase"></i>
-                            <span th:text="#{menu.professors.card.title}">Profesores</span>
-                        </a>
-                        <a th:href="@{/web/talleres}" class="dropdown-item">
-                            <i data-lucide="palette"></i>
-                            <span th:text="#{menu.workshops.card.title}">Talleres</span>
-                        </a>
-                        <a th:href="@{/web/inscripciones}" class="dropdown-item">
-                            <i data-lucide="file-check"></i>
-                            <span th:text="#{menu.enrollments.card.title}">Inscripciones</span>
-                        </a>
-                    </div>
-                </div>
-
-                <a th:href="@{/web/inscripciones(lang=es)}" title="Español"
-                    th:classappend="${#locale.language == 'es'} ? 'active'">🇪🇸</a>
-                <a th:href="@{/web/inscripciones(lang=en)}" title="English"
-                    th:classappend="${#locale.language == 'en'} ? 'active'">🇬🇧</a>
-                <a th:href="@{/web/inscripciones(lang=ar)}" title="العربية"
-                    th:classappend="${#locale.language == 'ar'} ? 'active'">🇲🇦</a>
-                <a th:href="@{/web/inscripciones(lang=it)}" title="Italiano"
-                    th:classappend="${#locale.language == 'it'} ? 'active'">🇮🇹</a>
-            </nav>
-        </div>
-    </header>
-
-    <!-- TOAST MESSAGES -->
-    <div th:if="${successMessage}" class="toast success">
-        <i data-lucide="check-circle" style="width:20px;"></i> <span th:text="${successMessage}"></span>
-    </div>
-
-    <div th:if="${errorMessage}" class="toast error">
-        <i data-lucide="alert-circle" style="width:20px;"></i> <span th:text="${errorMessage}"></span>
-    </div>
-
-    <main>
-        <!-- Removed redundant page-header -->
+    <div th:fragment="content">
 
         <div class="table-wrapper">
             <div class="actions-bar">
                 <span class="user-name page" th:text="#{enrollment.list.title}">Inscripciones</span>
                 <div style="display:flex; gap:10px; align-items: center;">
-                    <form th:action="@{/web/inscripciones}" method="get" style="display:flex; gap:10px; margin:0;">
-                        <select name="alumnoId" class="filter-select" onchange="this.form.submit()">
+                    <form id="filterForm" th:action="@{/web/inscripciones}" method="get"
+                        style="display:flex; gap:10px; margin:0;">
+                        <select name="alumnoId" class="filter-select" hx-get th:hx-get="@{/web/inscripciones}"
+                            hx-target="#tabla-inscripciones-body" hx-select="#tabla-inscripciones-body"
+                            hx-swap="outerHTML" hx-include="#filterForm">
                             <option value="" th:text="#{enrollment.filter.student.all}">Todo Alumnos</option>
                             <option th:each="a : ${listaAlumnos}" th:value="${a.id.value}"
                                 th:text="${a.nombre} + ' ' + ${a.apellido}"
                                 th:selected="${a.id.value == selectedAlumnoId}">Alumno</option>
                         </select>
-                        <select name="tallerId" class="filter-select" onchange="this.form.submit()">
+                        <select name="tallerId" class="filter-select" hx-get th:hx-get="@{/web/inscripciones}"
+                            hx-target="#tabla-inscripciones-body" hx-select="#tabla-inscripciones-body"
+                            hx-swap="outerHTML" hx-include="#filterForm">
                             <option value="" th:text="#{enrollment.filter.workshop.all}">Todo Talleres</option>
                             <option th:each="t : ${listaTalleres}" th:value="${t.id.value}" th:text="${t.nombre}"
                                 th:selected="${t.id.value == selectedTallerId}">Taller</option>
@@ -111,11 +49,10 @@
                         <th th:text="#{enrollment.table.header.action}">Acción</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="tabla-inscripciones-body">
                     <tr th:each="i : ${inscripciones}" th:id="'row-' + ${i.id.value}"
                         th:attr="data-id=${i.id.value}, data-alumno-id=${i.alumnoId.value}, data-alumno-name=${alumnos[i.alumnoId.value].nombre + ' ' + alumnos[i.alumnoId.value].apellido}, data-taller=${i.tallerId.value}">
                         <td th:text="${i.id.value}">1</td>
-                        <!-- Usamos los mapas para mostrar nombres -->
                         <td style="font-weight:600; color:var(--text-main);"
                             th:text="${alumnos[i.alumnoId.value].nombre + ' ' + alumnos[i.alumnoId.value].apellido}">
                             Juan Pérez</td>
@@ -125,11 +62,12 @@
                         <td style="display:flex; gap:8px;">
                             <button class="btn-icon trigger-modal"><i data-lucide="edit-2"
                                     style="width:16px;"></i></button>
-                            <form th:action="@{/web/inscripciones/{id}/borrar(id=${i.id.value})}" method="post"
-                                onsubmit="return confirm('¿Eliminar inscripción?');">
-                                <button type="submit" class="btn-icon delete"><i data-lucide="trash-2"
-                                        style="width:16px;"></i></button>
-                            </form>
+                            <button class="btn-icon delete" hx-post
+                                th:hx-post="@{/web/inscripciones/{id}/borrar(id=${i.id.value})}" hx-target
+                                th:hx-target="'#row-' + ${i.id.value}" hx-swap="outerHTML swap:0.3s"
+                                hx-confirm="¿Eliminar inscripción?">
+                                <i data-lucide="trash-2" style="width:16px;"></i>
+                            </button>
                         </td>
                     </tr>
                 </tbody>
@@ -141,9 +79,8 @@
                 <p>No hay inscripciones registradas.</p>
             </div>
         </div>
-    </main>
-
-    <div id="modalOverlay" class="modal-overlay" style="display:none;"></div>
+    
+<div id="modalOverlay" class="modal-overlay" style="display:none;"></div>
     <div id="editModal" class="modal" style="display:none;">
         <h3 th:text="#{enrollment.edit.title}">Editar Inscripción</h3>
         <form id="editForm">
@@ -151,7 +88,6 @@
             <input type="hidden" id="editAlumnoId">
             <div class="form-group">
                 <label th:text="#{enrollment.form.student}">Alumno</label>
-                <!-- Mostrar nombre como texto, no editable -->
                 <input type="text" id="editAlumnoName" readonly style="background-color: #f0f0f0; cursor: not-allowed;">
             </div>
             <div class="form-group">
@@ -170,8 +106,7 @@
         </form>
     </div>
 
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script th:src="@{/js/scripts.js}"></script>
+    
     <script th:inline="javascript">
         const API_URL = /*[[@{/api/v1/inscripciones}]]*/ '/api/v1/inscripciones';
         const modal = document.getElementById('editModal');
@@ -206,7 +141,6 @@
                 alumnoId: Number(document.getElementById('editAlumnoId').value),
                 tallerId: Number(document.getElementById('editTaller').value)
             };
-            // DTO InscripcionRequest has createdAt? No, check InscripcionRequest.
 
             try {
                 const resp = await fetch(`${API_URL}/${id}`, {
@@ -221,8 +155,12 @@
             } catch (e) { console.error(e); }
             btn.textContent = 'Guardar';
         });
+
+        // Re-inicializar lucide después de HTMX swap
+        document.body.addEventListener('htmx:afterSwap', function () {
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        });
     </script>
-
+    </div>
 </body>
-
 </html>

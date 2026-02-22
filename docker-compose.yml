@@ -18,11 +18,11 @@ services:
       - "8090:8080"
 
   aula-creativa:
-    image: srromer0/aulacreativa:v2
+    image: elisabethbargallo/aulacreativa:v2
     container_name: aula-creativa-container
     restart: always
     ports:
-      - "8080:8080"
+      - "8443:8443"
     depends_on:
       - db
     environment:

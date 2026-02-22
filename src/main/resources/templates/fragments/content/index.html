@@ -1,69 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="es">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text="#{home.page.title}">Panel de Control | Artia</title>
-
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <link rel="stylesheet" th:href="@{/css/estilos.css}">
 </head>
+<body>
+    <div th:fragment="content">
 
-<body class="bg-dots">
-    <header class="app-header">
-        <div class="header-container">
-            <div class="header-left">
-                <img th:src="@{/images/logo-artia.png}" class="app-logo">
-                <div class="app-brand">
-                    <span class="app-name" th:text="#{app.name}">Artia</span>
-                    <span class="app-subtitle" th:text="#{app.subtitle}">Gestión</span>
-                </div>
-            </div>
-            <nav class="header-right lang-nav">
-
-                <!-- Dropdown Menu -->
-                <div class="dropdown-container">
-                    <div class="dropdown-trigger user-profile">
-                        <div class="avatar">A</div>
-                        <span class="user-name" th:text="#{menu.dropdown.title}">Menu</span>
-                        <i data-lucide="chevron-down" style="width:16px; height:16px;"></i>
-                    </div>
-                    <div class="dropdown-menu">
-                        <a th:href="@{/web/alumnos}" class="dropdown-item">
-                            <i data-lucide="graduation-cap"></i>
-                            <span th:text="#{menu.students.card.title}">Alumnos</span>
-                        </a>
-                        <a th:href="@{/web/profesores}" class="dropdown-item">
-                            <i data-lucide="briefcase"></i>
-                            <span th:text="#{menu.professors.card.title}">Profesores</span>
-                        </a>
-                        <a th:href="@{/web/talleres}" class="dropdown-item">
-                            <i data-lucide="palette"></i>
-                            <span th:text="#{menu.workshops.card.title}">Talleres</span>
-                        </a>
-                        <a th:href="@{/web/inscripciones}" class="dropdown-item">
-                            <i data-lucide="file-check"></i>
-                            <span th:text="#{menu.enrollments.card.title}">Inscripciones</span>
-                        </a>
-                    </div>
-                </div>
-
-                <a th:href="@{/web/home(lang=es)}" title="Español"
-                    th:classappend="${#locale.language == 'es'} ? 'active'">🇪🇸</a>
-                <a th:href="@{/web/home(lang=en)}" title="English"
-                    th:classappend="${#locale.language == 'en'} ? 'active'">🇬🇧</a>
-                <a th:href="@{/web/home(lang=ar)}" title="العربية"
-                    th:classappend="${#locale.language == 'ar'} ? 'active'">🇲🇦</a>
-                <a th:href="@{/web/home(lang=it)}" title="Italiano"
-                    th:classappend="${#locale.language == 'it'} ? 'active'">🇮🇹</a>
-            </nav>
-        </div>
-    </header>
-
-    <main>
         <section class="welcome-section">
             <h1 class="welcome-title"><span th:text="#{home.hello}">Hola,</span> <span class="text-primary">Admin</span>
                 👋
@@ -71,7 +13,7 @@
             <p class="welcome-subtitle" th:text="#{home.welcome.text}">Bienvenido al sistema de gestión académica.</p>
         </section>
 
-        <!-- Stats Overview -->
+        
         <div class="dashboard-grid">
             <div class="card">
                 <div class="card-icon icon-purple"><i data-lucide="users"></i></div>
@@ -94,10 +36,10 @@
             <h2 class="page-title" style="margin-bottom:1.5rem;" th:text="#{home.quick.actions}">Accesos Directos</h2>
         </section>
 
-        <!-- Menu Grid -->
+        
         <div class="dashboard-grid">
 
-            <!-- Card Alumnos -->
+            
             <a th:href="@{/web/alumnos}" class="card">
                 <div class="card-icon icon-blue">
                     <i data-lucide="graduation-cap"></i>
@@ -110,7 +52,7 @@
                 </div>
             </a>
 
-            <!-- Card Profesores -->
+            
             <a th:href="@{/web/profesores}" class="card">
                 <div class="card-icon icon-green">
                     <i data-lucide="briefcase"></i>
@@ -123,7 +65,7 @@
                 </div>
             </a>
 
-            <!-- Card Talleres -->
+            
             <a th:href="@{/web/talleres}" class="card">
                 <div class="card-icon icon-orange">
                     <i data-lucide="palette"></i>
@@ -136,7 +78,7 @@
                 </div>
             </a>
 
-            <!-- Card Inscripciones -->
+            
             <a th:href="@{/web/inscripciones}" class="card">
                 <div class="card-icon icon-purple">
                     <i data-lucide="file-check"></i>
@@ -151,11 +93,8 @@
 
         </div>
 
-    </main>
+    
 
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script th:src="@{/js/scripts.js}"></script>
-
+    </div>
 </body>
-
 </html>
