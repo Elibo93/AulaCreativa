@@ -6,7 +6,7 @@
 </head>
 
 <body class="bg-dots">
-    <header th:replace="~{fragments/header :: header('/web/home', false)}"></header>
+    <header th:replace="~{fragments/header :: header(${currentUri}, ${showBack})}"></header>
 
     <div th:replace="~{fragments/toast :: toast}"></div>
 
