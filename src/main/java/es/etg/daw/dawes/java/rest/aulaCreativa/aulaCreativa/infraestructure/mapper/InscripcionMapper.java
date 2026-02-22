@@ -17,37 +17,29 @@ import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.infraestructure.web.
 
 public class InscripcionMapper {
 
-    // REQUEST -> CREATE COMMAND
     public static CreateInscripcionCommand toCommand(InscripcionRequest req) {
         return new CreateInscripcionCommand(
                 new AlumnoId(req.alumnoId()),
-                new TallerId(req.tallerId())
-        );
+                new TallerId(req.tallerId()));
     }
 
-    // DOMAIN -> RESPONSE
     public static InscripcionResponse toResponse(Inscripcion inscripcion) {
         return new InscripcionResponse(
                 inscripcion.getId() != null ? inscripcion.getId().getValue() : 0,
                 inscripcion.getAlumnoId() != null ? inscripcion.getAlumnoId().getValue() : 0,
                 inscripcion.getTallerId() != null ? inscripcion.getTallerId().getValue() : 0,
-                inscripcion.getCreatedAt()
-        );
+                inscripcion.getCreatedAt());
     }
 
-    // REQUEST -> EDITE COMMAND
-    public static EditInscripcionCommand toCommand(int id, InscripcionRequest req){
-		return new EditInscripcionCommand(
+    public static EditInscripcionCommand toCommand(int id, InscripcionRequest req) {
+        return new EditInscripcionCommand(
                 new InscripcionId(id),
                 new AlumnoId(req.alumnoId()),
-                new TallerId(req.tallerId())
-                 );
-	}
+                new TallerId(req.tallerId()));
+    }
 
-    // DOMAIN -> ENTITY
     public static InscripcionEntity toEntity(Inscripcion i) {
 
-        //Defino Alumno y Taller
         AlumnoEntity alumno = new AlumnoEntity();
         alumno.setId(i.getAlumnoId().getValue());
 
@@ -63,7 +55,6 @@ public class InscripcionMapper {
                 .build();
     }
 
-    // ENTITY -> DOMAIN
     public static Inscripcion toDomain(InscripcionEntity e) {
         return Inscripcion.builder()
                 .id(e.getId() != null ? new InscripcionId(e.getId()) : null)
@@ -73,7 +64,6 @@ public class InscripcionMapper {
                 .build();
     }
 
-    // LIST ENTITY -> LIST DOMAIN
     public static List<Inscripcion> toDomain(List<InscripcionEntity> lista) {
         return lista.stream()
                 .map(InscripcionMapper::toDomain)

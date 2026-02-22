@@ -13,7 +13,6 @@ import es.etg.daw.dawes.java.rest.aulaCreativa.aulaCreativa.infraestructure.web.
 
 public class AlumnoMapper {
 
-    // REQUEST -> CREATE COMMAND
     public static CreateAlumnoCommand toCommand(AlumnoRequest req) {
         return new CreateAlumnoCommand(
                 req.dni(),
@@ -27,7 +26,6 @@ public class AlumnoMapper {
         );
     }
 
-    // REQUEST -> EDIT COMMAND
     public static EditAlumnoCommand toCommand(int id, AlumnoRequest req) {
         return new EditAlumnoCommand(
                 new AlumnoId(id),
@@ -38,7 +36,6 @@ public class AlumnoMapper {
         );
     }
 
-    // DOMAIN -> RESPONSE
     public static AlumnoResponse toResponse(Alumno alumno) {
         return new AlumnoResponse(
                 alumno.getId() != null ? alumno.getId().getValue() : 0,
@@ -52,7 +49,6 @@ public class AlumnoMapper {
                 alumno.getCreatedAt());
     }
 
-    // DOMAIN -> ENTITY
     public static AlumnoEntity toEntity(Alumno a) {
         return AlumnoEntity.builder()
                 .id(a.getId() != null ? a.getId().getValue() : null)
@@ -67,7 +63,6 @@ public class AlumnoMapper {
                 .build();
     }
 
-    // ENTITY -> DOMAIN
     public static Alumno toDomain(AlumnoEntity e) {
         return Alumno.builder()
                 .id(e.getId() != null ? new AlumnoId(e.getId()) : null)
@@ -82,7 +77,6 @@ public class AlumnoMapper {
                 .build();
     }
 
-    // LIST ENTITY -> LIST DOMAIN
     public static List<Alumno> toDomain(List<AlumnoEntity> lista) {
         return lista.stream()
                 .map(AlumnoMapper::toDomain)

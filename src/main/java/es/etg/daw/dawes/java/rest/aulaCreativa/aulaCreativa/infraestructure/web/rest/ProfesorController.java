@@ -28,11 +28,10 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("api/v1/profesores") // La url para los profesores será api/v1/profesores
+@RequestMapping("api/v1/profesores")
 @RequiredArgsConstructor
 public class ProfesorController {
 
-    // Atributos
     private final CreateProfesorService createProfesorService;
     private final FindProfesorService findProfesorService;
     private final DeleteProfesorService deleteProfesorService;
@@ -42,17 +41,16 @@ public class ProfesorController {
     public ResponseEntity<ProfesorResponse> createProfesor(@Valid @RequestBody ProfesorRequest profesorRequest) {
         CreateProfesorCommand comando = ProfesorMapper.toCommand(profesorRequest);
         Profesor profesor = createProfesorService.createProfesor(comando);
-        return ResponseEntity.status(HttpStatus.CREATED).body(ProfesorMapper.toResponse(profesor)); // Respuestagit@github.com:julparper/dawes-springboot-restful.git
+        return ResponseEntity.status(HttpStatus.CREATED).body(ProfesorMapper.toResponse(profesor));
     }
 
     @GetMapping
     public List<ProfesorResponse> allProfesors() {
 
         return findProfesorService.findAll()
-                .stream() // Convierte la lista en un flujo
-                .map(ProfesorMapper::toResponse) // Mapeamos/Convertimos cada elemento del flujo (Producto) en un objeto
-                // de Respuesta (ProductoResponse)
-                .toList(); // Lo devuelve como una lista.
+                .stream()
+                .map(ProfesorMapper::toResponse)
+                .toList();
 
     }
 
@@ -60,12 +58,12 @@ public class ProfesorController {
     public ProfesorResponse editProfesor(@PathVariable int id, @Valid @RequestBody ProfesorRequest profesorRequest) {
         EditProfesorCommand comando = ProfesorMapper.toCommand(id, profesorRequest);
         Profesor profesor = editProfesorService.update(comando);
-        return ProfesorMapper.toResponse(profesor); // Respuesta
+        return ProfesorMapper.toResponse(profesor);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteProfesor(@PathVariable int id) {
         deleteProfesorService.delete(new ProfesorId(id));
-        return ResponseEntity.noContent().build(); // Devolvemos una respuesta vacía.
+        return ResponseEntity.noContent().build();
     }
 }

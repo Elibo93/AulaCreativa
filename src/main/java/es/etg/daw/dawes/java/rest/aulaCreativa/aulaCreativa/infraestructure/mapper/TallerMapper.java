@@ -47,10 +47,8 @@ public class TallerMapper {
                 taller.getAforoMaximo());
     }
 
-    // DOMAIN -> ENTITY
     public static TallerEntity toEntity(Taller t) {
 
-        // Defino el profesor
         ProfesorEntity profesor = new ProfesorEntity();
         profesor.setId(t.getProfesor().getValue());
 
@@ -66,7 +64,6 @@ public class TallerMapper {
                 .build();
     }
 
-    // ENTITY -> DOMAIN
     public static Taller toDomain(TallerEntity e) {
         return Taller.builder()
                 .id(e.getId() != null ? new TallerId(e.getId()) : null)
@@ -79,7 +76,6 @@ public class TallerMapper {
                 .build();
     }
 
-    // LIST ENTITY -> LIST DOMAIN
     public static List<Taller> toDomain(List<TallerEntity> lista) {
         return lista.stream()
                 .map(TallerMapper::toDomain)

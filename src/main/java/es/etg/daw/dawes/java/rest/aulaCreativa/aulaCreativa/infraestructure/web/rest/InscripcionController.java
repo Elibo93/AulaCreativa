@@ -79,14 +79,12 @@ public class InscripcionController {
     @PutMapping("/{id}")
     public InscripcionResponse editInscripcion(
             @PathVariable int id,
-            @Valid@RequestBody InscripcionRequest request
-    ) {
+            @Valid @RequestBody InscripcionRequest request) {
         EditInscripcionCommand command = InscripcionMapper.toCommand(id, request);
         Inscripcion inscripcion = editService.update(command);
         return InscripcionMapper.toResponse(inscripcion);
     }
 
-    // Gestión de validaciones
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map<String, String> handleValidationErrors(MethodArgumentNotValidException ex) {

@@ -33,11 +33,10 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("api/v1/talleres") // La url para los Talleres será api/v1/talleres
+@RequestMapping("api/v1/talleres")
 @RequiredArgsConstructor
 public class TallerController {
 
-    // Atributos
     private final CreateTallerService createTallerService;
     private final FindTallerService findTallerService;
     private final EditTallerService editTallerService;
@@ -62,10 +61,9 @@ public class TallerController {
     public List<TallerResponse> allTalleres() {
 
         return findTallerService.findAll()
-                .stream() // Convierte la lista en un flujo
-                .map(TallerMapper::toResponse) // Mapeamos/Convertimos cada elemento del flujo (Producto) en un objeto
-                // de Respuesta (ProductoResponse)
-                .toList(); // Lo devuelve como una lista.
+                .stream()
+                .map(TallerMapper::toResponse)
+                .toList();
 
     }
 
@@ -74,7 +72,6 @@ public class TallerController {
         return TallerMapper.toResponse(findTallerService.findById(new TallerId(id)));
     }
 
-    // Gestión de validaciones
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map<String, String> handleValidationErrors(MethodArgumentNotValidException ex) {

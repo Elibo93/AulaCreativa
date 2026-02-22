@@ -31,7 +31,6 @@ public class ProfesorMapper {
                 profesorRequest.telefono());
     }
 
-    // DOMAIN -> ENTITY
     public static ProfesorEntity toEntity(Profesor a) {
         return ProfesorEntity.builder()
                 .id(a.getId() != null ? a.getId().getValue() : null)
@@ -44,7 +43,6 @@ public class ProfesorMapper {
                 .build();
     }
 
-    // ENTITY -> DOMAIN
     public static Profesor toDomain(ProfesorEntity e) {
         return Profesor.builder()
                 .id(e.getId() != null ? new ProfesorId(e.getId()) : null)
@@ -57,7 +55,6 @@ public class ProfesorMapper {
                 .build();
     }
 
-    // LIST ENTITY -> LIST DOMAIN
     public static List<Profesor> toDomain(List<ProfesorEntity> lista) {
         return lista.stream()
                 .map(ProfesorMapper::toDomain)

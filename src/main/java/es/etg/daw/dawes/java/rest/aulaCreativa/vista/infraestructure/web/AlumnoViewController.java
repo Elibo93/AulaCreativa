@@ -40,6 +40,7 @@ public class AlumnoViewController {
     private final DeleteAlumnoService deleteAlumnoService;
 
     private final TemplateEngine templateEngine;
+
     @GetMapping(WebRoutes.ALUMNOS_BASE)
     public String listar(Model model, @RequestParam(required = false) String successMessage) {
         model.addAttribute(ModelAttribute.ALUMNO_LIST.getName(), findAlumnoService.findAll());
@@ -49,6 +50,7 @@ public class AlumnoViewController {
         model.addAttribute(ModelAttribute.FRAGMENTO_CONTENIDO.getName(), FragmentoContenido.ALUMNO_LIST.getPath());
         return ThymTemplates.MAIN_LAYOUT.getPath();
     }
+
     @GetMapping(WebRoutes.ALUMNOS_NUEVO)
     public String formulario(Model model) {
 
@@ -57,6 +59,7 @@ public class AlumnoViewController {
         model.addAttribute(ModelAttribute.FRAGMENTO_CONTENIDO.getName(), FragmentoContenido.ALUMNO_FORM.getPath());
         return ThymTemplates.MAIN_LAYOUT.getPath();
     }
+
     @PostMapping(WebRoutes.ALUMNOS_NUEVO)
     public String crearAlumno(@RequestParam String dni,
             @RequestParam String nombre,
@@ -93,6 +96,7 @@ public class AlumnoViewController {
                 .header("Location", WebRoutes.ALUMNOS_BASE)
                 .build();
     }
+
     @GetMapping(WebRoutes.ALUMNOS_PDF)
     public void exportarPDF(HttpServletResponse response) throws Exception {
         List<Alumno> alumnos = findAlumnoService.findAll();

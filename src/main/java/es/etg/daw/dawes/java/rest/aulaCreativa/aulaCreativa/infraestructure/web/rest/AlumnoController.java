@@ -36,7 +36,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("api/v1/alumnos") // La url para los alumnos será api/v1/alumnos
+@RequestMapping("api/v1/alumnos")
 @RequiredArgsConstructor
 public class AlumnoController {
     private final CreateAlumnoService createAlumnoService;
@@ -49,7 +49,7 @@ public class AlumnoController {
             @ApiResponse(responseCode = "201", description = "Alumno creado correctamente"),
             @ApiResponse(responseCode = "400", description = "Datos introducidos inválidos")
     })
-    @PostMapping // Método Post
+    @PostMapping
     public ResponseEntity<AlumnoResponse> createAlumno(@RequestBody AlumnoRequest alumnoRequest) {
         CreateAlumnoCommand comando = AlumnoMapper.toCommand(alumnoRequest);
         Alumno alumno = createAlumnoService.createAlumno(comando);
@@ -61,14 +61,13 @@ public class AlumnoController {
             @ApiResponse(responseCode = "200", description = "Listado de alumnos generado"),
             @ApiResponse(responseCode = "404", description = "No hay alumnos en la base de datos")
     })
-    @GetMapping // Método Get
+    @GetMapping
     public List<AlumnoResponse> allAlumnos() {
 
         return findAlumnoService.findAll()
-                .stream() // Convierte la lista en un flujo
-                .map(AlumnoMapper::toResponse) // Mapeamos/Convertimos cada elemento del flujo (Alumno) en un objeto
-                // de Respuesta (AlumnoResponse)
-                .toList(); // Lo devuelve como una lista.
+                .stream()
+                .map(AlumnoMapper::toResponse)
+                .toList();
 
     }
 
@@ -83,10 +82,10 @@ public class AlumnoController {
             @ApiResponse(responseCode = "200", description = "Sin cuerpo, Alumno eliminado correctamente"),
             @ApiResponse(responseCode = "404", description = "Alumno no encontrado")
     })
-    @DeleteMapping("/{id}") // Método Delete
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteAlumno(@PathVariable int id) {
         deleteAlumnoService.delete(new AlumnoId(id));
-        return ResponseEntity.noContent().build(); // Devolvemos una respuesta vacía.
+        return ResponseEntity.noContent().build();
     }
 
     @Operation(summary = "Edita un alumno", description = "Edita los datos de un alumno dado su id")
@@ -94,15 +93,13 @@ public class AlumnoController {
             @ApiResponse(responseCode = "200", description = "Alumno editado correctamente"),
             @ApiResponse(responseCode = "400", description = "Datos introducidos inválidos")
     })
-    @PutMapping("/{id}") // Método Put
+    @PutMapping("/{id}")
     public AlumnoResponse editAlumno(@PathVariable int id, @RequestBody AlumnoRequest alumnoRequest) {
         EditAlumnoCommand comando = AlumnoMapper.toCommand(id, alumnoRequest);
         Alumno alumno = editAlumnoService.update(comando);
-        return AlumnoMapper.toResponse(alumno); // Respuesta
+        return AlumnoMapper.toResponse(alumno);
     }
 
-    // Método que captura los errores y devuelve un mapa con el campo que no cumple
-    // la validación y un mensaje de error.
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
